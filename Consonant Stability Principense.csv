@@ -1,0 +1,38 @@
+Class,Lexifier's Phoneme,Position,Creole's Phoneme,Example,Reference,Gloss
+Stops,p,Word-initial,p,[?p?n?],Maurer 2009: 232,feather
+Stops,p,word-medial,p,[sa?p?],Maurer 2009: 235,hat
+Stops,b,Word-initial,b,[?bisu],Maurer 2009: 215,animal
+Stops,b,word-medial,b,[ka?b?lu],Maurer 2009: 221,hair
+Stops,t,Word-initial,t,[?tudu],Maurer 2009: 237,all
+Stops,t,word-medial,t,[n?tu],Maurer 2009: 237,grandson
+Stops,d,Word-initial,d,[?d??i],Maurer 2009: 217,sweet
+Stops,d,word-medial,d,[?tudu],Maurer 2009: 237,all
+Stops,k,Word-initial,k,[ka?b?lu],Maurer 2009: 221,hair
+Stops,k,word-medial,k,[?s?ku],Maurer 2009: 235,dry
+Stops,g,Word-initial,g,[u?gatu],Maurer 2009: 239,cat
+Stops,g,word-medial,g,[?zogo],Maurer 2009: 243,game
+Fricatives,v,Word-initial,v,[i?v?],Maurer 2009: 221,wine
+Fricatives,v,word-medial,v,[?lava],Maurer 2009: 226,to wash
+Fricatives,f,Word-initial,f,[u?f?w],Maurer 2009: 239,iron
+Fricatives,f,word-medial,f,[mu?fada],Maurer 2009: 229,pillow
+Fricatives,s,Word-initial,s,[?suzu],Maurer 2009: 236,dirty
+Fricatives,s,word-medial,?,[?d??i],Maurer 2009: 217,sweet
+Fricatives,z,Word-initial,z,[?z?na],Maurer 2009: 243,zone
+Fricatives,z,word-medial,?,[?ka?i],Maurer 2009: 222,house
+Fricatives,?,Word-initial,s,[sa?p?],Maurer 2009: 235,key
+Fricatives,?,word-medial,s,[?bisu],Maurer 2009: 215,animal
+Fricatives,?,Word-initial,z,[?zogo],Maurer 2009: 243,game
+Fricatives,?,word-medial,z,[?suzu],Maurer 2009: 236,dirty
+Rothics,?,Word-medial,r,[?s?ra],Maurer 2009: 235,to smell
+Rothics,?,Word-final,NA,[?lava],Maurer 2009: 226,to wash
+Rothics,R,Word-initial,r,[?ra?u],Maurer 2009: 233,snivel
+Rothics,R,word-medial,NA,[u?f?w],Maurer 2009: 239,iron
+Laterals,l,Word-initial,l,[?lava],Maurer 2009: 226,to wash
+Laterals,l,word-medial,l,[ka?b?lu],Maurer 2009: 221,hair
+Laterals,l,word-final,l,[na?tali],Maurer 2009: 229,christmas
+Laterals,?,word-medial,NA,[?mj?],Maurer 2009: 229,woman
+Nasals,m,Word-initial,m,[?mj?],Maurer 2009: 229,woman
+Nasals,m,word-medial,m,[?n?mi],Maurer 2009: 230,name
+Nasals,n,Word-initial,n,[n?tu],Maurer 2009: 237,grandson
+Nasals,n,word-medial,n,[?p?n?],Maurer 2009: 232,feather
+Nasals,?,Word-medial,?,[?ra?u],Maurer 2009: 233,snivel
