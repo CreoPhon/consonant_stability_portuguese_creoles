@@ -7,4 +7,4 @@ Silva, Carlos and Steven Moran. work in progress. Consonant Stability in Portugu
 
 Each file contains:\
 . [Database](database.csv): Lexical data on consonant stability in Portuguese-based creoles\
-. Scripts: code used to measure stability in several dimensions
+. [Scripts](scripts.md): code used to measure stability in several dimensions
