@@ -1,0 +1,593 @@
+Language,Class,Position,Lexifier's Phoneme,Creole's Phoneme,Place Stability,Manner Stability,Example,Reference,Gloss
+Principense,Stops,Word-initial,p,p,1,1,[ˈpɛnɛ],Maurer 2009: 232,feather
+Principense,Stops,word-medial,p,p,1,1,[t͡ʃipa],Maurer 2009: 238,guts
+Principense,Stops,Word-initial,b,b,1,1,[bwɛga],Maurer 2009: 216,belly
+Principense,Stops,word-medial,b,b,1,1,[kaˈbɛlu],Maurer 2009: 221,hair
+Principense,Stops,Word-initial,t,t,1,1,[ˈtudu],Maurer 2009: 237,everything
+Principense,Stops,word-medial,t,t,1,1,[mata],Maurer 2009: 227,to kill
+Principense,Stops,Word-initial,d,d,1,1,[ˈdɔʃi],Maurer 2009: 217,sweet
+Principense,Stops,word-medial,d,d,1,1,[ˈtudu],Maurer 2009: 237,everything
+Principense,Stops,Word-initial,k,k,1,1,[kaˈbɛlu],Maurer 2009: 221,hair
+Principense,Stops,word-medial,k,k,1,1,[ˈsɛku],Maurer 2009: 235,dry
+Principense,Stops,Word-initial,g,g,1,1,[ˈgodo],Maurer 2009: 220,fat
+Principense,Stops,word-medial,g,g,1,1,[bwɛga],Maurer 2009: 216,belly
+Principense,Fricatives,Word-initial,v,v,1,1,[ˈvɛ],Maurer 2009: 241,old
+Principense,Fricatives,word-medial,v,v,1,1,[ˈlava],Maurer 2009: 226,to wash
+Principense,Fricatives,Word-initial,f,f,1,1,[uˈfogo],Maurer 2009: 239,fire
+Principense,Fricatives,word-medial,f,f,1,1,[muˈfada],Maurer 2009: 229,pillow
+Principense,Fricatives,Word-initial,s,s,1,1,[ˈsuzu],Maurer 2009: 236,dirty
+Principense,Fricatives,word-medial,s,s,1,1,[pasu],Maurer 2009: 221,bird
+Principense,Fricatives,Word-initial,z,z,1,1,[ˈzɔna],Maurer 2009: 243,zone
+Principense,Fricatives,word-medial,z,z,1,1,[aza],Maurer 2009: 214,wing
+Principense,Fricatives,Word-initial,t͡ʃ,s,0,0,[ˈsɛra],Maurer 2009: 235,to smell
+Principense,Fricatives,word-medial,t͡ʃ,s,0,0,[ˈbisu],Maurer 2009: 215,animal
+Principense,Fricatives,Word-initial,ʒ,z,0,1,[zũtu],Maurer 2009: 244,next to
+Principense,Fricatives,word-medial,ʒ,z,0,1,[ˈsuzu],Maurer 2009: 236,dirty
+Principense,Rothics,Word-medial,ɾ,r,1,1,[ˈsɛra],Maurer 2009: 235,to smell
+Principense,Rothics,Word-final,ɾ,∅,0,0,[ˈmjɛ],Maurer 2009: 229,woman
+Principense,Rothics,Word-initial,r,r,1,1,[urabu],Maurer 2009: 240,tail
+Principense,Rothics,word-medial,r,∅,0,0,[bwɛga],Maurer 2009: 216,belly
+Principense,Laterals,Word-initial,l,l,1,1,[ˈlava],Maurer 2009: 226,to wash
+Principense,Laterals,word-medial,l,l,1,1,[kaˈbɛlu],Maurer 2009: 221,hair
+Principense,Laterals,word-final,l,l,1,1,[usɔlu],Maurer 2009: 240,sun
+Principense,Laterals,word-medial,ʎ,∅,0,0,[ˈmjɛ],Maurer 2009: 229,woman
+Principense,Nasals,Word-initial,m,m,1,1,[ˈmjɛ],Maurer 2009: 229,woman
+Principense,Nasals,word-medial,m,m,1,1,[ˈnɔmi],Maurer 2009: 230,name
+Principense,Nasals,Word-initial,n,n,1,1,[ˈnɔmi],Maurer 2009: 230,name
+Principense,Nasals,word-medial,n,n,1,1,[ˈpɛnɛ],Maurer 2009: 232,feather
+Principense,Nasals,Word-medial,ɲ,n,0,1,[kumin],Maurer 2009: 224,road
+Santome,Stops,Word-initial,p,p,1,1,[ˈpɛna],Araújo & Hagemeijer 2013: 74,feather
+Santome,Stops,word-medial,p,p,1,1,[tlipa],Araújo & Hagemeijer 2013: 87,guts
+Santome,Stops,Word-initial,b,b,1,1,[bɛga],Araújo & Hagemeijer 2013: 28,belly
+Santome,Stops,word-medial,b,b,1,1,[kaˈbelu],Araújo & Hagemeijer 2013: 48,hair
+Santome,Stops,Word-initial,t,t,1,1,[ˈtudu],Araújo & Hagemeijer 2013: 87,everything
+Santome,Stops,word-medial,t,t,1,1,[mata],Araújo & Hagemeijer 2013: 64,to kill
+Santome,Stops,Word-initial,d,d,1,1,[ˈdɔʃi],Araújo & Hagemeijer 2013: 34,sweet
+Santome,Stops,word-medial,d,d,1,1,[ˈtudu],Araújo & Hagemeijer 2013: 87,everything
+Santome,Stops,Word-initial,k,k,1,1,[kaˈbelu],Araújo & Hagemeijer 2013: 48,hair
+Santome,Stops,word-medial,k,k,1,1,[ˈsɛku],Araújo & Hagemeijer 2013: 82,dry
+Santome,Stops,Word-initial,g,g,1,1,[ˈgodo],Araújo & Hagemeijer 2013: 134,fat
+Santome,Stops,word-medial,g,g,1,1,[bɛga],Araújo & Hagemeijer 2013: 28,belly
+Santome,Fricatives,Word-initial,v,v,1,1,[ˈvɛ],Araújo & Hagemeijer 2013: 90,old
+Santome,Fricatives,word-medial,v,b,0,0,[laˈba],Araújo & Hagemeijer 2013: 57,to wash
+Santome,Fricatives,Word-initial,f,f,1,1,[ˈfogo],Araújo & Hagemeijer 2013: 40,fire
+Santome,Fricatives,word-medial,f,f,1,1,[muˈfada],Araújo & Hagemeijer 2013: 67,pillow
+Santome,Fricatives,Word-initial,s,s,1,1,[ˈsuzu],Araújo & Hagemeijer 2013: 84,dirty
+Santome,Fricatives,word-medial,s,s,1,1,[ˈglɔsu],Araújo & Hagemeijer 2013: 44,thick
+Santome,Fricatives,Word-initial,z,z,1,1,[ˈzɔna],Araújo & Hagemeijer 2013: 97,zone
+Santome,Fricatives,word-medial,z,z,1,1,[aza],Araújo & Hagemeijer 2013: 25,wing
+Santome,Fricatives,Word-initial,t͡ʃ,s,0,0,[sɛˈla],Araújo & Hagemeijer 2013: 82,to smell
+Santome,Fricatives,word-medial,t͡ʃ,s,0,0,[ˈbisu],Araújo & Hagemeijer 2013: 29,animal
+Santome,Fricatives,Word-initial,ʒ,z,0,1,[zũtu],Araújo & Hagemeijer 2013: 98,next to
+Santome,Fricatives,word-medial,ʒ,z,0,1,[ˈsuzu],Araújo & Hagemeijer 2013: 84,dirty
+Santome,Rothics,Word-medial,ɾ,l,1,0,[sɛˈla],Araújo & Hagemeijer 2013: 82,to smell
+Santome,Rothics,Word-final,ɾ,∅,0,0,[ˈmwala],Araújo & Hagemeijer 2013: 66,woman
+Santome,Rothics,Word-initial,r,l,1,0,[labu],Araújo & Hagemeijer 2013: 57,tail
+Santome,Rothics,word-medial,r,∅,0,0,[bɛga],Araújo & Hagemeijer 2013: 28,belly
+Santome,Laterals,Word-initial,l,l,1,1,[laˈba],Araújo & Hagemeijer 2013: 57,to wash
+Santome,Laterals,word-medial,l,l,1,1,[kaˈbelu],Araújo & Hagemeijer 2013: 48,hair
+Santome,Laterals,word-final,l,l,1,1,[sɔlɔ],Araújo & Hagemeijer 2013: 83,sun
+Santome,Laterals,word-medial,ʎ,l,0,1,[ˈmwala],Araújo & Hagemeijer 2013: 66,woman
+Santome,Nasals,Word-initial,m,m,1,1,[ˈmwala],Araújo & Hagemeijer 2013: 66,woman
+Santome,Nasals,word-medial,m,m,1,1,[ˈnɔmi],Araújo & Hagemeijer 2013: 70,name
+Santome,Nasals,Word-initial,n,n,1,1,[ˈnɔmi],Araújo & Hagemeijer 2013: 70,name
+Santome,Nasals,word-medial,n,n,1,1,[ˈpɛna],Araújo & Hagemeijer 2013: 74,feather
+Santome,Nasals,Word-medial,ɲ,Ø,0,0,[kaˈmja],Araújo & Hagemeijer 2013: 48,road
+Fa d'Ambô,Stops,Word-initial,p,p,1,1,[povu],Hagemeijer Maurer & Zamora 2020: 319,people
+Fa d'Ambô,Stops,word-medial,p,p,1,1,[t͡ʃiːpa],Hagemeijer Maurer & Zamora 2020: 321,guts
+Fa d'Ambô,Stops,Word-initial,b,b,1,1,[bɛga],Hagemeijer 2019: 772,belly
+Fa d'Ambô,Stops,word-medial,b,b,1,1,[kʰabɛ],"Hagemeijer, Maurer & Zamora 2020: 313",hair
+Fa d'Ambô,Stops,Word-initial,t,t,1,1,[tudu],Hagemeijer Maurer & Zamora 2020: 321,everything
+Fa d'Ambô,Stops,word-medial,t,t,1,1,[mata],Hagemeijer Maurer & Zamora 2020: 315,to kill
+Fa d'Ambô,Stops,Word-initial,d,d,1,1,[deve],Hagemeijer 2019: 768,to owe
+Fa d'Ambô,Stops,word-medial,d,d,1,1,[ˈtudu],Hagemeijer Maurer & Zamora: 321,everything
+Fa d'Ambô,Stops,Word-initial,k,kʰ,1,0,[kʰabɛ],"Hagemeijer, Maurer & Zamora 2020: 313",hair
+Fa d'Ambô,Stops,word-medial,k,kʰ,1,0,[sakʰa],"Hagemeijer, Maurer & Zamora 2020: 319",dry
+Fa d'Ambô,Stops,Word-initial,g,g,1,1,[goːsu],Hagemeijer Maurer & Zamora 2020: 311,fat
+Fa d'Ambô,Stops,word-medial,g,g,1,1,[bɛga],Hagemeijer 2019: 772,belly
+Fa d'Ambô,Fricatives,Word-initial,v,v,1,1,[ˈvɛ],Hagemeijer 2019: 768,old
+Fa d'Ambô,Fricatives,word-medial,v,b,0,0,[laba],Hagemeijer 2019: 772,to wash
+Fa d'Ambô,Fricatives,Word-initial,f,f,1,1,[fiju],Hagemeijer Maurer & Zamora 2020: 310,cold
+Fa d'Ambô,Fricatives,word-medial,f,,,,,,
+Fa d'Ambô,Fricatives,Word-initial,s,s,1,1,[sũzu],Hagemeijer Maurer & Zamora 2020: 320,dirty
+Fa d'Ambô,Fricatives,word-medial,s,t,1,0,[paːtu],Hagemeijer Maurer & Zamora 2020: 318,bird
+Fa d'Ambô,Fricatives,Word-initial,z,,,,,,
+Fa d'Ambô,Fricatives,word-medial,z,z,1,1,[aza],Hagemeijer Maurer & Zamora 2020: 308,wing
+Fa d'Ambô,Fricatives,Word-initial,t͡ʃ,s,0,0,[sela],"Hagemeijer, Maurer & Zamora 2020: 320",to smell
+Fa d'Ambô,Fricatives,word-medial,t͡ʃ,s,0,0,[basu],Hagemeijer Maurer & Zamora 2020: 308,lower part
+Fa d'Ambô,Fricatives,Word-initial,ʒ,z,0,1,[zũta],Hagemeijer Maurer & Zamora 2020: 323,next to
+Fa d'Ambô,Fricatives,word-medial,ʒ,z,0,1,[sũzu],Hagemeijer Maurer & Zamora 2020: 320,dirty
+Fa d'Ambô,Rothics,Word-medial,ɾ,l,1,0,[sela],"Hagemeijer, Maurer & Zamora 2020: 320",to smell
+Fa d'Ambô,Rothics,Word-final,ɾ,∅,0,0,[miɛ],Hagemeijer Maurer & Zamora 2020: 316,woman
+Fa d'Ambô,Rothics,Word-initial,r,l,1,0,[labu],Hagemeijer 2019: 772,tail
+Fa d'Ambô,Rothics,word-medial,r,∅,0,0,[bɛga],Hagemeijer 2019: 772,belly
+Fa d'Ambô,Laterals,Word-initial,l,l,1,1,[laba],Hagemeijer 2019: 772,to wash
+Fa d'Ambô,Laterals,word-medial,l,Ø,0,0,[kʰabɛ],"Hagemeijer, Maurer & Zamora 2020: 313",hair
+Fa d'Ambô,Laterals,word-final,l,∅,0,0,[sɔ],"Hagemeijer, Maurer & Zamora 2020: 320",sun
+Fa d'Ambô,Laterals,word-medial,ʎ,∅,0,0,[miɛ],Hagemeijer Maurer & Zamora 2020: 316,woman
+Fa d'Ambô,Nasals,Word-initial,m,m,1,1,[miɛ],Hagemeijer Maurer & Zamora 2020: 316,woman
+Fa d'Ambô,Nasals,word-medial,m,m,1,1,[namu],Hagemeijer Maurer & Zamora 2020: 316,name
+Fa d'Ambô,Nasals,Word-initial,n,n,1,1,[namu],Hagemeijer Maurer & Zamora 2020: 316,name
+Fa d'Ambô,Nasals,word-medial,n,n,1,1,[fiˈnĩ],Granda 1986: 27,funnel
+Fa d'Ambô,Nasals,Word-medial,ɲ,Ø,0,0,[kʰama],Hagemeijer Maurer & Zamora 2020: 313,road
+Angolar,Stops,Word-initial,p,p,1,1,[pɛ̀nθà],Maurer 2013,to think
+Angolar,Stops,word-medial,p,p,1,1,[kapatazi],Araújo 2010: 17,foreman
+Angolar,Stops,Word-initial,b,b,1,1,[bɛːga],Hagemeijer 2019: 772,belly
+Angolar,Stops,word-medial,b,b,1,1,[bebe],Hagemeijer 2019: 772,to drink
+Angolar,Stops,Word-initial,t,t,1,1,[taba],Maurer 2013,wood plank
+Angolar,Stops,word-medial,t,t,1,1,[latu],Ferraz 1979: 10,mouse
+Angolar,Stops,Word-initial,d,r,1,0,[relu],Araújo 2010: 19,money
+Angolar,Stops,word-medial,d,r,1,0,[ˈvira],Hagemeijer 2019: 768,life
+Angolar,Stops,Word-initial,k,k,1,1,[kabalu],Hagemeijer 2019: 772,horse
+Angolar,Stops,word-medial,k,k,1,1,[θeku],Maurer 2013,dry
+Angolar,Stops,Word-initial,g,g,1,1,[ŋgaȷ̃a],Araújo 2010: 17,chicken
+Angolar,Stops,word-medial,g,g,1,1,[bɛːga],Hagemeijer 2019: 772,belly
+Angolar,Fricatives,Word-initial,v,b,0,0,[bi],Araújo 2010: 16,to come
+Angolar,Fricatives,word-medial,v,b,0,0,[laba],Hagemeijer 2019: 772,to wash
+Angolar,Fricatives,Word-initial,f,f,1,1,[favolo],Hagemeijer 2019: 768,favor
+Angolar,Fricatives,word-medial,f,,,,,,
+Angolar,Fricatives,Word-initial,s,θ,1,0,[θeku],Maurer 2013,dry
+Angolar,Fricatives,word-medial,s,θ,1,0,[baθua],Hagemeijer 2019: 772,broom
+Angolar,Fricatives,Word-initial,z,,,,,,
+Angolar,Fricatives,word-medial,z,ð,0,1,[aða],Maurer 2013,wing
+Angolar,Fricatives,Word-initial,t͡ʃ,θ,0,0,[θavi],Hagemeijer 2019: 773,key
+Angolar,Fricatives,word-medial,t͡ʃ,θ,0,0,[kaθo],Araújo 2010: 17,dog
+Angolar,Fricatives,Word-initial,ʒ,ð,0,1,[ðuga],Araújo 2010: 19,to throw
+Angolar,Fricatives,word-medial,ʒ,ð,0,1,[θuðu],Maurer 2013,dirty
+Angolar,Rothics,Word-medial,ɾ,∅,0,0,[baθua],Hagemeijer 2019: 772,broom
+Angolar,Rothics,Word-final,ɾ,l,1,0,[delu],Araújo 2010: 19,money
+Angolar,Rothics,Word-initial,r,l,1,0,[lemu],Maurer 2013,oar
+Angolar,Rothics,word-medial,r,∅,0,0,[bɛːga],Hagemeijer 2019: 772,belly
+Angolar,Laterals,Word-initial,l,l,1,1,[laba],Hagemeijer 2019: 772,to wash
+Angolar,Laterals,word-medial,l,l,1,1,[kabalu],Hagemeijer 2019: 772,horse
+Angolar,Laterals,word-final,l,l,1,1,[θolo],Maurer 2013,sun
+Angolar,Laterals,word-medial,ʎ,j,1,0,[fja],Araújo 2010: 17,leaf
+Angolar,Nasals,Word-initial,m,m,1,1,[masivi],Ferraz 1979: 104,young man
+Angolar,Nasals,word-medial,m,m,1,1,[ome],Maurer 2013,man
+Angolar,Nasals,Word-initial,n,n,1,1,[nɔvu],Hagemeijer 2019: 768,new
+Angolar,Nasals,word-medial,n,n,1,1,[θono],Maurer 2013,sleepiness
+Angolar,Nasals,Word-medial,ɲ,∅,0,0,[relu],Araújo 2010: 19,money
+Guinea-Bissau Kriyol,Stops,Word-initial,p,p,1,1,[pɛna],own knowledge (Chiara Truppi),feather
+Guinea-Bissau Kriyol,Stops,word-medial,p,p,1,1,[tripa],own knowledge (Chiara Truppi),guts
+Guinea-Bissau Kriyol,Stops,Word-initial,b,b,1,1,[bariga],own knowledge (Chiara Truppi),belly
+Guinea-Bissau Kriyol,Stops,word-medial,b,b,1,1,[kabelu],own knowledge (Chiara Truppi),hair
+Guinea-Bissau Kriyol,Stops,Word-initial,t,t,1,1,[tudu],own knowledge (Chiara Truppi),everything
+Guinea-Bissau Kriyol,Stops,word-medial,t,t,1,1,[mata],own knowledge (Chiara Truppi),to kill
+Guinea-Bissau Kriyol,Stops,Word-initial,d,d,1,1,[dibi],own knowledge (Chiara Truppi),to owe
+Guinea-Bissau Kriyol,Stops,word-medial,d,d,1,1,[tudu],own knowledge (Chiara Truppi),everything
+Guinea-Bissau Kriyol,Stops,Word-initial,k,k,1,1,[kabelu],own knowledge (Chiara Truppi),hair
+Guinea-Bissau Kriyol,Stops,word-medial,k,k,1,1,[seku],own knowledge (Chiara Truppi),dry
+Guinea-Bissau Kriyol,Stops,Word-initial,g,g,1,1,[gurdu],own knowledge (Chiara Truppi),fat
+Guinea-Bissau Kriyol,Stops,word-medial,g,g,1,1,[bariga],own knowledge (Chiara Truppi),belly
+Guinea-Bissau Kriyol,Fricatives,Word-initial,v,b,0,0,[bɛd͡ʒu],Hagemeijer 2019: 768,old man
+Guinea-Bissau Kriyol,Fricatives,word-medial,v,b,0,0,[laba],own knowledge (Chiara Truppi),to wash
+Guinea-Bissau Kriyol,Fricatives,Word-initial,f,f,1,1,[fabur],Hagemeijer 2019: 769,favor
+Guinea-Bissau Kriyol,Fricatives,word-medial,f,f,1,1,[afastadu],own knowledge (Chiara Truppi),far away
+Guinea-Bissau Kriyol,Fricatives,Word-initial,s,s,1,1,[susu],own knowledge (Chiara Truppi),dirty
+Guinea-Bissau Kriyol,Fricatives,word-medial,s,s,1,1,[pasu],own knowledge (Chiara Truppi),bird
+Guinea-Bissau Kriyol,Fricatives,Word-initial,z,z,1,1,[zɔna],own knowledge (Chiara Truppi),zone
+Guinea-Bissau Kriyol,Fricatives,word-medial,z,z,1,1,[aza],own knowledge (Chiara Truppi),wing
+Guinea-Bissau Kriyol,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃera],own knowledge (Chiara Truppi),to smell
+Guinea-Bissau Kriyol,Fricatives,word-medial,t͡ʃ,t͡ʃ,1,1,[bit͡ʃu],own knowledge (Chiara Truppi),animal
+Guinea-Bissau Kriyol,Fricatives,Word-initial,ʒ,d͡ʒ,1,0,[d͡ʒuntu],own knowledge (Chiara Truppi),next to
+Guinea-Bissau Kriyol,Fricatives,word-medial,ʒ,s,0,1,[susu],own knowledge (Chiara Truppi),dirty
+Guinea-Bissau Kriyol,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃera],own knowledge (Chiara Truppi),to smell
+Guinea-Bissau Kriyol,Rothics,Word-final,ɾ,r,1,1,[mind͡ʒer],own knowledge (Chiara Truppi),woman
+Guinea-Bissau Kriyol,Rothics,Word-initial,r,r,1,1,[rabu],own knowledge (Chiara Truppi),tail
+Guinea-Bissau Kriyol,Rothics,word-medial,r,r,1,1,[bariga],own knowledge (Chiara Truppi),belly
+Guinea-Bissau Kriyol,Laterals,Word-initial,l,l,1,1,[laba],own knowledge (Chiara Truppi),to wash
+Guinea-Bissau Kriyol,Laterals,word-medial,l,l,1,1,[kabelu],own knowledge (Chiara Truppi),hair
+Guinea-Bissau Kriyol,Laterals,word-final,l,l,1,1,[sɔl],own knowledge (Chiara Truppi),sun
+Guinea-Bissau Kriyol,Laterals,word-medial,ʎ,d͡ʒ,1,0,[mind͡ʒer],own knowledge (Chiara Truppi),woman
+Guinea-Bissau Kriyol,Nasals,Word-initial,m,m,1,1,[mind͡ʒer],own knowledge (Chiara Truppi),woman
+Guinea-Bissau Kriyol,Nasals,word-medial,m,m,1,1,[nomi],own knowledge (Chiara Truppi),name
+Guinea-Bissau Kriyol,Nasals,Word-initial,n,n,1,1,[nomi],own knowledge (Chiara Truppi),name
+Guinea-Bissau Kriyol,Nasals,word-medial,n,n,1,1,[pɛna],own knowledge (Chiara Truppi),feather
+Guinea-Bissau Kriyol,Nasals,Word-medial,ɲ,ɲ,1,1,[kusiɲa] : [kusɲa],own knowledge (Chiara Truppi),a little
+Cape Verdean Santiago,Stops,Word-initial,p,p,1,1,[pɛna],Baptista 2019: 268,feather
+Cape Verdean Santiago,Stops,word-medial,p,p,1,1,[tripa],Baptista 2019: 267,guts
+Cape Verdean Santiago,Stops,Word-initial,b,b,1,1,[bariga],Baptista 2019: 267,belly
+Cape Verdean Santiago,Stops,word-medial,b,b,1,1,[kabɛlu],Baptista 2019: 273,hair
+Cape Verdean Santiago,Stops,Word-initial,t,t,1,1,[tudu],Baptista 2019: 267,everything
+Cape Verdean Santiago,Stops,word-medial,t,t,1,1,[mata],Baptista 2019: 273,to kill
+Cape Verdean Santiago,Stops,Word-initial,d,d,1,1,[dɛbi],Hagemeijer 2019: 768,to owe
+Cape Verdean Santiago,Stops,word-medial,d,d,1,1,[tudu],Baptista 2019: 267,everything
+Cape Verdean Santiago,Stops,Word-initial,k,k,1,1,[kabɛlu],Baptista 2019: 273,hair
+Cape Verdean Santiago,Stops,word-medial,k,k,1,1,[sɛku],Baptista 2019: 268,dry
+Cape Verdean Santiago,Stops,Word-initial,g,g,1,1,[gɔrdu],Baptista 2019: 267,fat
+Cape Verdean Santiago,Stops,word-medial,g,g,1,1,[bariga],Baptista 2019: 267,belly
+Cape Verdean Santiago,Fricatives,Word-initial,v,b,0,0,[ˈbɛd͡ʒu],Hagemeijer 2019: 768,old man
+Cape Verdean Santiago,Fricatives,word-medial,v,b,0,0,[laba],Baptista 2019: 275,to wash
+Cape Verdean Santiago,Fricatives,Word-initial,f,f,1,1,[fɔgu],Baptista 2019: 267,fire
+Cape Verdean Santiago,Fricatives,word-medial,f,f,1,1,[afasdatu],Baptista 2019: 772,far away
+Cape Verdean Santiago,Fricatives,Word-initial,s,s,1,1,[suʃu],Baptista 2019: 268,dirty
+Cape Verdean Santiago,Fricatives,word-medial,s,s,1,1,[pasu],Baptista 2019: 267,bird
+Cape Verdean Santiago,Fricatives,Word-initial,z,z,1,1,[zɔna],Swolkien 2013,zone
+Cape Verdean Santiago,Fricatives,word-medial,z,z,1,1,[aza],Baptista 2019: 277,wing
+Cape Verdean Santiago,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃera],Baptista 2019: 275,to smell
+Cape Verdean Santiago,Fricatives,word-medial,t͡ʃ,t͡ʃ,1,1,[bit͡ʃu],Baptista 2019: 267,animal
+Cape Verdean Santiago,Fricatives,Word-initial,ʒ,d͡ʒ,1,0,d͡ʒuntu,Baptista 2019: 274,next to
+Cape Verdean Santiago,Fricatives,word-medial,ʒ,ʃ,1,1,[suʃu],Baptista 2019: 268,dirty
+Cape Verdean Santiago,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃera],Baptista 2019: 275,to smell
+Cape Verdean Santiago,Rothics,Word-final,ɾ,r,1,1,[mud͡ʒɛr],Baptista 2019: 268,woman
+Cape Verdean Santiago,Rothics,Word-initial,r,r,1,1,[rabu],Baptista 2019: 276,tail
+Cape Verdean Santiago,Rothics,word-medial,r,r,1,1,[bariga],Baptista 2019: 267,belly
+Cape Verdean Santiago,Laterals,Word-initial,l,l,1,1,[laba],Baptista 2019: 275,to wash
+Cape Verdean Santiago,Laterals,word-medial,l,l,1,1,[kabɛlu],Baptista 2019: 273,hair
+Cape Verdean Santiago,Laterals,word-final,l,l,1,1,[sɔl],Baptista 2019: 276,sun
+Cape Verdean Santiago,Laterals,word-medial,ʎ,d͡ʒ,1,0,[mud͡ʒɛr],Baptista 2019: 268,woman
+Cape Verdean Santiago,Nasals,Word-initial,m,m,1,1,[mud͡ʒɛr],Baptista 2019: 268,woman
+Cape Verdean Santiago,Nasals,word-medial,m,m,1,1,[nomi],Baptista 2019: 268,name
+Cape Verdean Santiago,Nasals,Word-initial,n,n,1,1,[nomi],Baptista 2019: 268,name
+Cape Verdean Santiago,Nasals,word-medial,n,n,1,1,[pɛna],Baptista 2019: 268,feather
+Cape Verdean Santiago,Nasals,Word-medial,ɲ,ɲ,1,1,[kusiɲa],Baptista 2019: 268,a little
+Cape Verdean Brava,Stops,Word-initial,p,p,1,1,[pɛna],Baptista 2019: 268,feather
+Cape Verdean Brava,Stops,word-medial,p,p,1,1,[tripa],Baptista 2019: 267,guts
+Cape Verdean Brava,Stops,Word-initial,b,b,1,1,[bariga],Baptista 2019: 267,belly
+Cape Verdean Brava,Stops,word-medial,b,b,1,1,[kabɛlu],Baptista 2019: 273,hair
+Cape Verdean Brava,Stops,Word-initial,t,t,1,1,[tudu],Baptista 2019: 267,everything
+Cape Verdean Brava,Stops,word-medial,t,t,1,1,[mata],Baptista 2019: 273,to kill
+Cape Verdean Brava,Stops,Word-initial,d,d,1,1,[dia],Baptista 2019: 267,day
+Cape Verdean Brava,Stops,word-medial,d,d,1,1,[tudu],Baptista 2019: 267,everything
+Cape Verdean Brava,Stops,Word-initial,k,k,1,1,[kabɛlu],Baptista 2019: 273,hair
+Cape Verdean Brava,Stops,word-medial,k,k,1,1,[sɛku],Baptista 2019: 268,dry
+Cape Verdean Brava,Stops,Word-initial,g,g,1,1,[gɔrdu],Baptista 2019: 267,fat
+Cape Verdean Brava,Stops,word-medial,g,g,1,1,[bariga],Baptista 2019: 267,belly
+Cape Verdean Brava,Fricatives,Word-initial,v,b,0,0,[bɛd͡ʒu],Baptista 2019: 278,old
+Cape Verdean Brava,Fricatives,word-medial,v,b,0,0,[laba],Baptista 2019: 275,to wash
+Cape Verdean Brava,Fricatives,Word-initial,f,f,1,1,[friu],Baptista 2019: 267,cold
+Cape Verdean Brava,Fricatives,word-medial,f,,,,,,
+Cape Verdean Brava,Fricatives,Word-initial,s,s,1,1,[suʒu],Baptista 2019: 268,dirty
+Cape Verdean Brava,Fricatives,word-medial,s,s,1,1,[pasu],Baptista 2019: 267,bird
+Cape Verdean Brava,Fricatives,Word-initial,z,,,,,,
+Cape Verdean Brava,Fricatives,word-medial,z,z,1,1,[aza],Baptista 2019: 277,wing
+Cape Verdean Brava,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃera],Baptista 2019: 275,to smell
+Cape Verdean Brava,Fricatives,word-medial,t͡ʃ,t͡ʃ,1,1,[kat͡ʃɔr],Baptista 2019: 267,dog
+Cape Verdean Brava,Fricatives,Word-initial,ʒ,ʒ,1,1,ʒuntu,Baptista 2019: 274,next to
+Cape Verdean Brava,Fricatives,word-medial,ʒ,ʒ,1,1,[suʒu],Baptista 2019: 268,dirty
+Cape Verdean Brava,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃera],Baptista 2019: 275,to smell
+Cape Verdean Brava,Rothics,Word-final,ɾ,r,1,1,[amd͡ʒɛr],Baptista 2019: 268,woman
+Cape Verdean Brava,Rothics,Word-initial,r,r,1,1,[rabu],Baptista 2019: 276,tail
+Cape Verdean Brava,Rothics,word-medial,r,r,1,1,[bariga],Baptista 2019: 267,belly
+Cape Verdean Brava,Laterals,Word-initial,l,l,1,1,[laba],Baptista 2019: 275,to wash
+Cape Verdean Brava,Laterals,word-medial,l,l,1,1,[kabɛlu],Baptista 2019: 273,hair
+Cape Verdean Brava,Laterals,word-final,l,l,1,1,[sɔl],Baptista 2019: 276,sun
+Cape Verdean Brava,Laterals,word-medial,ʎ,d͡ʒ,1,0,[amd͡ʒer],Baptista 2019: 268,woman
+Cape Verdean Brava,Nasals,Word-initial,m,m,1,1,[amd͡ʒer],Baptista 2019: 268,woman
+Cape Verdean Brava,Nasals,word-medial,m,m,1,1,[nɔmi],Baptista 2019: 268,name
+Cape Verdean Brava,Nasals,Word-initial,n,n,1,1,[nɔmi],Baptista 2019: 268,name
+Cape Verdean Brava,Nasals,word-medial,n,n,1,1,[pɛna],Baptista 2019: 268,feather
+Cape Verdean Brava,Nasals,Word-medial,ɲ,ɲ,1,1,[kuziɲa],Baptista 2019: 268,a little
+Cape Verdean Fogo,Stops,Word-initial,p,p,1,1,[pɛna],Baptista 2019: 268,feather
+Cape Verdean Fogo,Stops,word-medial,p,p,1,1,[tripa],Baptista 2019: 267,guts
+Cape Verdean Fogo,Stops,Word-initial,b,b,1,1,[baRiga],Baptista 2019: 267,belly
+Cape Verdean Fogo,Stops,word-medial,b,b,1,1,[kabɛlu],Baptista 2019: 273,hair
+Cape Verdean Fogo,Stops,Word-initial,t,t,1,1,[tudu],Baptista 2019: 267,everything
+Cape Verdean Fogo,Stops,word-medial,t,t,1,1,[mata],Baptista 2019: 273,to kill
+Cape Verdean Fogo,Stops,Word-initial,d,d,1,1,[dia],Baptista 2019: 267,day
+Cape Verdean Fogo,Stops,word-medial,d,d,1,1,[tudu],Baptista 2019: 267,everything
+Cape Verdean Fogo,Stops,Word-initial,k,k,1,1,[kabɛlu],Baptista 2019: 273,hair
+Cape Verdean Fogo,Stops,word-medial,k,k,1,1,[sɛku],Baptista 2019: 268,dry
+Cape Verdean Fogo,Stops,Word-initial,g,g,1,1,[gɔrdu],Baptista 2019: 267,fat
+Cape Verdean Fogo,Stops,word-medial,g,g,1,1,[baRiga],Baptista 2019: 267,belly
+Cape Verdean Fogo,Fricatives,Word-initial,v,b,0,0,[bɛd͡ʒu],Baptista 2019: 278,old
+Cape Verdean Fogo,Fricatives,word-medial,v,b,0,0,[laba],Baptista 2019: 275,to wash
+Cape Verdean Fogo,Fricatives,Word-initial,f,f,1,1,[friu],Baptista 2019: 267,cold
+Cape Verdean Fogo,Fricatives,word-medial,f,,,,,,
+Cape Verdean Fogo,Fricatives,Word-initial,s,s,1,1,[suʒu],Baptista 2019: 268,dirty
+Cape Verdean Fogo,Fricatives,word-medial,s,s,1,1,[pasu],Baptista 2019: 267,bird
+Cape Verdean Fogo,Fricatives,Word-initial,z,,,,,,
+Cape Verdean Fogo,Fricatives,word-medial,z,z,1,1,[aza],Baptista 2019: 277,wing
+Cape Verdean Fogo,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃera],Baptista 2019: 275,to smell
+Cape Verdean Fogo,Fricatives,word-medial,t͡ʃ,t͡ʃ,1,1,[kat͡ʃɔr],Baptista 2019: 267,dog
+Cape Verdean Fogo,Fricatives,Word-initial,ʒ,d͡ʒ,1,0,d͡ʒuntu,Baptista 2019: 274,next to
+Cape Verdean Fogo,Fricatives,word-medial,ʒ,ʒ,1,1,[suʒu],Baptista 2019: 268,dirty
+Cape Verdean Fogo,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃera],Baptista 2019: 275,to smell
+Cape Verdean Fogo,Rothics,Word-final,ɾ,r,1,1,[mier],Baptista 2019: 268,woman
+Cape Verdean Fogo,Rothics,Word-initial,r,r,1,1,[rabu],Baptista 2019: 276,tail
+Cape Verdean Fogo,Rothics,word-medial,r,ʀ,0,1,[baRiga],Baptista 2019: 267,belly
+Cape Verdean Fogo,Laterals,Word-initial,l,l,1,1,[laba],Baptista 2019: 275,to wash
+Cape Verdean Fogo,Laterals,word-medial,l,l,1,1,[kabɛlu],Baptista 2019: 273,hair
+Cape Verdean Fogo,Laterals,word-final,l,l,1,1,[sɔl],Baptista 2019: 276,sun
+Cape Verdean Fogo,Laterals,word-medial,ʎ,∅,0,0,[mier],Baptista 2019: 268,woman
+Cape Verdean Fogo,Nasals,Word-initial,m,m,1,1,[mier],Baptista 2019: 268,woman
+Cape Verdean Fogo,Nasals,word-medial,m,m,1,1,[nɔmi],Baptista 2019: 268,name
+Cape Verdean Fogo,Nasals,Word-initial,n,n,1,1,[nɔmi],Baptista 2019: 268,name
+Cape Verdean Fogo,Nasals,word-medial,n,n,1,1,[pɛna],Baptista 2019: 268,feather
+Cape Verdean Fogo,Nasals,Word-medial,ɲ,ɲ,1,1,[kuziɲa],Baptista 2019: 268,a little
+Cape Verdean Santo Antão,Stops,Word-initial,p,p,1,1,[pɛna],Baptista 2019: 268,feather
+Cape Verdean Santo Antão,Stops,word-medial,p,p,1,1,[tripa],Baptista 2019: 267,guts
+Cape Verdean Santo Antão,Stops,Word-initial,b,b,1,1,[bɛrig],Baptista 2019: 267,belly
+Cape Verdean Santo Antão,Stops,word-medial,b,b,1,1,[kɛbɛl],Baptista 2019: 273,hair
+Cape Verdean Santo Antão,Stops,Word-initial,t,t,1,1,[tud],Baptista 2019: 267,everything
+Cape Verdean Santo Antão,Stops,word-medial,t,t,1,1,[mata],Baptista 2019: 273,to kill
+Cape Verdean Santo Antão,Stops,Word-initial,d,d,1,1,[dia],Baptista 2019: 267,day
+Cape Verdean Santo Antão,Stops,word-medial,d,d,1,1,[tud],Baptista 2019: 267,everything
+Cape Verdean Santo Antão,Stops,Word-initial,k,k,1,1,[kɛbɛl],Baptista 2019: 273,hair
+Cape Verdean Santo Antão,Stops,word-medial,k,k,1,1,[sɛk],Baptista 2019: 268,dry
+Cape Verdean Santo Antão,Stops,Word-initial,g,g,1,1,[grand],Baptista 2019: 267,fat
+Cape Verdean Santo Antão,Stops,word-medial,g,g,1,1,[bɛrig],Baptista 2019: 267,belly
+Cape Verdean Santo Antão,Fricatives,Word-initial,v,v,1,1,[vɛj],Baptista 2019: 278,old
+Cape Verdean Santo Antão,Fricatives,word-medial,v,v,1,1,[lava],Baptista 2019: 275,to wash
+Cape Verdean Santo Antão,Fricatives,Word-initial,f,f,1,1,[fri],Baptista 2019: 267,cold
+Cape Verdean Santo Antão,Fricatives,word-medial,f,f,1,1,[fɔʃtɔd],Baptista 2019: 772,far away
+Cape Verdean Santo Antão,Fricatives,Word-initial,s,ʃ,0,1,[ʃuʒ],Baptista 2019: 268,dirty
+Cape Verdean Santo Antão,Fricatives,word-medial,s,s,1,1,[pɔs],Baptista 2019: 267,bird
+Cape Verdean Santo Antão,Fricatives,Word-initial,z,,,,,,
+Cape Verdean Santo Antão,Fricatives,word-medial,z,z,1,1,[aza],Baptista 2019: 277,wing
+Cape Verdean Santo Antão,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃerɛ],Baptista 2019: 275,to smell
+Cape Verdean Santo Antão,Fricatives,word-medial,t͡ʃ,t͡ʃ,1,1,[bit͡ʃ],Baptista 2019: 267,animal
+Cape Verdean Santo Antão,Fricatives,Word-initial,ʒ,ʒ,1,1,ʒunt,Baptista 2019: 274,next to
+Cape Verdean Santo Antão,Fricatives,word-medial,ʒ,ʒ,1,1,[ʃuʒ],Baptista 2019: 268,dirty
+Cape Verdean Santo Antão,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃerɛ],Baptista 2019: 275,to smell
+Cape Verdean Santo Antão,Rothics,Word-final,ɾ,∅,0,0,[mud͡ʒe],Baptista 2019: 268,woman
+Cape Verdean Santo Antão,Rothics,Word-initial,r,r,1,1,[rɔb],Baptista 2019: 276,tail
+Cape Verdean Santo Antão,Rothics,word-medial,r,r,1,1,[bɛrig],Baptista 2019: 267,belly
+Cape Verdean Santo Antão,Laterals,Word-initial,l,l,1,1,[lava],Baptista 2019: 275,to wash
+Cape Verdean Santo Antão,Laterals,word-medial,l,l,1,1,[kɛbɛl],Baptista 2019: 273,hair
+Cape Verdean Santo Antão,Laterals,word-final,l,l,1,1,[sɔl],Baptista 2019: 276,sun
+Cape Verdean Santo Antão,Laterals,word-medial,ʎ,d͡ʒ,1,0,[mud͡ʒe],Baptista 2019: 268,woman
+Cape Verdean Santo Antão,Nasals,Word-initial,m,m,1,1,[mud͡ʒe],Baptista 2019: 268,woman
+Cape Verdean Santo Antão,Nasals,word-medial,m,m,1,1,[nom],Baptista 2019: 268,name
+Cape Verdean Santo Antão,Nasals,Word-initial,n,n,1,1,[nom],Baptista 2019: 268,name
+Cape Verdean Santo Antão,Nasals,word-medial,n,n,1,1,[pɛna],Baptista 2019: 268,feather
+Cape Verdean Santo Antão,Nasals,Word-medial,ɲ,ɲ,1,1,[kziɲa],Baptista 2019: 268,a little
+Cape Verdean São Vicente,Stops,Word-initial,p,p,1,1,[pɛna],Baptista 2019: 268,feather
+Cape Verdean São Vicente,Stops,word-medial,p,p,1,1,[tripa],Baptista 2019: 267,guts
+Cape Verdean São Vicente,Stops,Word-initial,b,b,1,1,[bɛriga],Baptista 2019: 267,belly
+Cape Verdean São Vicente,Stops,word-medial,b,b,1,1,[kabɛl],Baptista 2019: 273,hair
+Cape Verdean São Vicente,Stops,Word-initial,t,t,1,1,[tud],Baptista 2019: 267,everything
+Cape Verdean São Vicente,Stops,word-medial,t,t,1,1,[mata],Baptista 2019: 273,to kill
+Cape Verdean São Vicente,Stops,Word-initial,d,d,1,1,[dia],Baptista 2019: 267,day
+Cape Verdean São Vicente,Stops,word-medial,d,d,1,1,[tud],Baptista 2019: 267,everything
+Cape Verdean São Vicente,Stops,Word-initial,k,k,1,1,[kabɛl],Baptista 2019: 273,hair
+Cape Verdean São Vicente,Stops,word-medial,k,k,1,1,[sɛk],Baptista 2019: 268,dry
+Cape Verdean São Vicente,Stops,Word-initial,g,g,1,1,[grandɛ],Baptista 2019: 267,fat
+Cape Verdean São Vicente,Stops,word-medial,g,g,1,1,[bɛriga],Baptista 2019: 267,belly
+Cape Verdean São Vicente,Fricatives,Word-initial,v,b,0,0,[bɛd͡ʒ],Baptista 2019: 278,old
+Cape Verdean São Vicente,Fricatives,word-medial,v,v,1,1,[lava],Baptista 2019: 275,to wash
+Cape Verdean São Vicente,Fricatives,Word-initial,f,f,1,1,[friu],Baptista 2019: 267,cold
+Cape Verdean São Vicente,Fricatives,word-medial,f,,,,,,
+Cape Verdean São Vicente,Fricatives,Word-initial,s,s,1,1,[suʒ],Baptista 2019: 268,dirty
+Cape Verdean São Vicente,Fricatives,word-medial,s,s,1,1,[pɔs],Baptista 2019: 267,bird
+Cape Verdean São Vicente,Fricatives,Word-initial,z,,,,,,
+Cape Verdean São Vicente,Fricatives,word-medial,z,z,1,1,[aza],Baptista 2019: 277,wing
+Cape Verdean São Vicente,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃerɛ],Baptista 2019: 275,to smell
+Cape Verdean São Vicente,Fricatives,word-medial,t͡ʃ,t͡ʃ,1,1,[bit͡ʃ],Baptista 2019: 267,animal
+Cape Verdean São Vicente,Fricatives,Word-initial,ʒ,d͡ʒ,1,0,d͡ʒunt,Baptista 2019: 274,next to
+Cape Verdean São Vicente,Fricatives,word-medial,ʒ,ʒ,1,1,[suʒ],Baptista 2019: 268,dirty
+Cape Verdean São Vicente,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃerɛ],Baptista 2019: 275,to smell
+Cape Verdean São Vicente,Rothics,Word-final,ɾ,∅,0,0,[mud͡ʒɛr],Baptista 2019: 268,woman
+Cape Verdean São Vicente,Rothics,Word-initial,r,r,1,1,[rɔb],Baptista 2019: 276,tail
+Cape Verdean São Vicente,Rothics,word-medial,r,r,1,1,[bɛriga],Baptista 2019: 267,belly
+Cape Verdean São Vicente,Laterals,Word-initial,l,l,1,1,[lava],Baptista 2019: 275,to wash
+Cape Verdean São Vicente,Laterals,word-medial,l,l,1,1,[kabɛl],Baptista 2019: 273,hair
+Cape Verdean São Vicente,Laterals,word-final,l,l,1,1,[sɔl],Baptista 2019: 276,sun
+Cape Verdean São Vicente,Laterals,word-medial,ʎ,d͡ʒ,1,0,[mud͡ʒɛr],Baptista 2019: 268,woman
+Cape Verdean São Vicente,Nasals,Word-initial,m,m,1,1,[mud͡ʒɛr],Baptista 2019: 268,woman
+Cape Verdean São Vicente,Nasals,word-medial,m,m,1,1,[nom],Baptista 2019: 268,name
+Cape Verdean São Vicente,Nasals,Word-initial,n,n,1,1,[nom],Baptista 2019: 268,name
+Cape Verdean São Vicente,Nasals,word-medial,n,n,1,1,[pɛna],Baptista 2019: 268,feather
+Cape Verdean São Vicente,Nasals,Word-medial,ɲ,ɲ,1,1,[kziɲa],Baptista 2019: 268,a little
+Korlai,Stops,Word-initial,p,p,1,1,[pɛn],Clements 2012: 39,feather
+Korlai,Stops,word-medial,p,p,1,1,[trip],Clements 2012: 40,guts
+Korlai,Stops,Word-initial,b,bʰ,1,0,[bʰarig],Clements 2012: 37,belly
+Korlai,Stops,word-medial,b,b,1,1,[kabel],Clements 2012: 40,hair
+Korlai,Stops,Word-initial,t,t,1,1,[tud],Clements 2012: 37,everything
+Korlai,Stops,word-medial,t,t,1,1,[mata],Clements 2012: 41,to kill
+Korlai,Stops,Word-initial,d,d,1,1,[di],Clements 2012: 38,day
+Korlai,Stops,word-medial,d,d,1,1,[tud],Clements 2012: 37,everything
+Korlai,Stops,Word-initial,k,k,1,1,[kabel],Clements 2012: 40,hair
+Korlai,Stops,word-medial,k,k,1,1,[sek],Clements 2012: 38,dry
+Korlai,Stops,Word-initial,g,g,1,1,[gros],Clements 2012: 45,fat
+Korlai,Stops,word-medial,g,g,1,1,[bʰarig],Clements 2012: 37,belly
+Korlai,Fricatives,Word-initial,v,ʋ,1,0,[ʋɛl],Clements 2012: 42,old
+Korlai,Fricatives,word-medial,v,ʋ,1,0,[laʋa],Clements 2012: 45,to wash
+Korlai,Fricatives,Word-initial,f,f,1,1,[fog],Clements 2012: 39,fire
+Korlai,Fricatives,word-medial,f,,,,,,
+Korlai,Fricatives,Word-initial,s,s,1,1,[sud͡z],Clements 2012: 38,dirty
+Korlai,Fricatives,word-medial,s,s,1,1,[gros],Clements 2012: 45,thick
+Korlai,Fricatives,Word-initial,z,,,,,,
+Korlai,Fricatives,word-medial,z,d͡z,1,0,[ad͡z],Clements 2012: 46,wing
+Korlai,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃer ʋi],Clements 2012: 44,to smell
+Korlai,Fricatives,word-medial,t͡ʃ,t͡ʃ,1,1,[bit͡ʃ],Clements 2012: 46,animal
+Korlai,Fricatives,Word-initial,ʒ,,,,,,
+Korlai,Fricatives,word-medial,ʒ,d͡z,0,0,[sud͡z],Clements 2012: 38,dirty
+Korlai,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃer ʋi],Clements 2012: 44,to smell
+Korlai,Rothics,Word-final,ɾ,r,1,1,[mulɛr],Clements 2012: 46,woman
+Korlai,Rothics,Word-initial,r,rʰ,1,0,[rʰab],Clements 2012: 45,tail
+Korlai,Rothics,word-medial,r,r,1,1,[bʰarig],Clements 2012: 37,belly
+Korlai,Laterals,Word-initial,l,l,1,1,[laʋa],Clements 2012: 45,to wash
+Korlai,Laterals,word-medial,l,l,1,1,[kabel],Clements 2012: 40,hair
+Korlai,Laterals,word-final,l,l,1,1,[sɔl],Clements 2012: 45,sun
+Korlai,Laterals,word-medial,ʎ,l,0,1,[mulɛr],Clements 2012: 46,woman
+Korlai,Nasals,Word-initial,m,m,1,1,[mulɛr],Clements 2012: 46,woman
+Korlai,Nasals,word-medial,m,m,1,1,[nom],Clements 2012: 41,name
+Korlai,Nasals,Word-initial,n,n,1,1,[nom],Clements 2012: 42,name
+Korlai,Nasals,word-medial,n,n,1,1,[pɛn],Clements 2012: 39,feather
+Korlai,Nasals,Word-medial,ɲ,∅,0,0,[kami],Clements 2012: 43,road
+Daman,Stops,Word-initial,p,p,1,1,[pɛn],Clements 2012: 39,feather
+Daman,Stops,word-medial,p,p,1,1,[trip],Clements 2012: 40,guts
+Daman,Stops,Word-initial,b,b,1,1,[barig],Clements 2012: 37,belly
+Daman,Stops,word-medial,b,b,1,1,[kabil],Clements 2012: 40,hair
+Daman,Stops,Word-initial,t,t,1,1,[tud],Clements 2012: 37,everything
+Daman,Stops,word-medial,t,t,1,1,[mata],Clements 2012: 41,to kill
+Daman,Stops,Word-initial,d,d,1,1,[di],Clements 2012: 38,day
+Daman,Stops,word-medial,d,d,1,1,[tud],Clements 2012: 37,everything
+Daman,Stops,Word-initial,k,k,1,1,[kabil],Clements 2012: 40,hair
+Daman,Stops,word-medial,k,k,1,1,[sek],Clements 2012: 38,dry
+Daman,Stops,Word-initial,g,g,1,1,[gros],Clements 2012: 45,fat
+Daman,Stops,word-medial,g,g,1,1,[barig],Clements 2012: 37,belly
+Daman,Fricatives,Word-initial,v,ʋ,1,0,[ʋɛʎ],Clements 2012: 42,old
+Daman,Fricatives,word-medial,v,ʋ,1,0,[laʋa],Clements 2012: 45,to wash
+Daman,Fricatives,Word-initial,f,f,1,1,[fog],Clements 2012: 39,fire
+Daman,Fricatives,word-medial,f,,,,,,
+Daman,Fricatives,Word-initial,s,s,1,1,[sud͡z],Clements 2012: 38,dirty
+Daman,Fricatives,word-medial,s,s,1,1,[gros],Clements 2012: 45,thick
+Daman,Fricatives,Word-initial,z,,,,,,
+Daman,Fricatives,word-medial,z,z,1,1,[az],Clements 2012: 46,wing
+Daman,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃer],Clements 2012: 44,to smell
+Daman,Fricatives,word-medial,t͡ʃ,t͡ʃ,1,1,[bit͡ʃ],Clements 2012: 46,animal
+Daman,Fricatives,Word-initial,ʒ,d͡z,0,0,[d͡ʒel],Clements 2012: 40,ice
+Daman,Fricatives,word-medial,ʒ,d͡z,0,0,[sud͡z],Clements 2012: 38,dirty
+Daman,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃer],Clements 2012: 44,to smell
+Daman,Rothics,Word-final,ɾ,r,1,1,[muʎer],Clements 2012: 46,woman
+Daman,Rothics,Word-initial,r,ʀ,0,1,[ʀab],Clements 2012: 45,tail
+Daman,Rothics,word-medial,r,r,1,1,[barig],Clements 2012: 37,belly
+Daman,Laterals,Word-initial,l,l,1,1,[laʋa],Clements 2012: 45,to wash
+Daman,Laterals,word-medial,l,l,1,1,[kabil],Clements 2012: 40,hair
+Daman,Laterals,word-final,l,l,1,1,[sɔl],Clements 2012: 45,sun
+Daman,Laterals,word-medial,ʎ,ʎ,1,1,[muʎer],Clements 2012: 46,woman
+Daman,Nasals,Word-initial,m,m,1,1,[muʎer],Clements 2012: 46,woman
+Daman,Nasals,word-medial,m,m,1,1,[nom],Clements 2012: 41,name
+Daman,Nasals,Word-initial,n,n,1,1,[nom],Clements 2012: 42,name
+Daman,Nasals,word-medial,n,n,1,1,[pɛn],Clements 2012: 39,feather
+Daman,Nasals,Word-medial,ɲ,ɲ,1,1,[kamiɲ],Clements 2012: 43,road
+Diu,Stops,Word-initial,p,p,1,1,[pɛn],Clements 2012: 39,feather
+Diu,Stops,word-medial,p,p,1,1,[trip],Clements 2012: 40,guts
+Diu,Stops,Word-initial,b,b,1,1,[barig],Clements 2012: 37,belly
+Diu,Stops,word-medial,b,b,1,1,[kabel],Clements 2012: 40,hair
+Diu,Stops,Word-initial,t,t,1,1,[tud],Clements 2012: 37,everything
+Diu,Stops,word-medial,t,t,1,1,[mata],Clements 2012: 41,to kill
+Diu,Stops,Word-initial,d,d,1,1,[di],Clements 2012: 38,day
+Diu,Stops,word-medial,d,d,1,1,[tud],Clements 2012: 37,everything
+Diu,Stops,Word-initial,k,k,1,1,[kabel],Clements 2012: 40,hair
+Diu,Stops,word-medial,k,k,1,1,[sek],Clements 2012: 38,dry
+Diu,Stops,Word-initial,g,g,1,1,[gros],Clements 2012: 45,fat
+Diu,Stops,word-medial,g,g,1,1,[barig],Clements 2012: 37,belly
+Diu,Fricatives,Word-initial,v,ʋ,1,0,[ʋɛj],Clements 2012: 42,old
+Diu,Fricatives,word-medial,v,ʋ,1,0,[laʋa],Clements 2012: 45,to wash
+Diu,Fricatives,Word-initial,f,f,1,1,[fog],Clements 2012: 39,fire
+Diu,Fricatives,word-medial,f,,,,,,
+Diu,Fricatives,Word-initial,s,s,1,1,[sud͡z],Clements 2012: 38,dirty
+Diu,Fricatives,word-medial,s,s,1,1,[gros],Clements 2012: 45,thick
+Diu,Fricatives,Word-initial,z,,,,,,
+Diu,Fricatives,word-medial,z,z,1,1,[az],Clements 2012: 46,wing
+Diu,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃer],Clements 2012: 44,to smell
+Diu,Fricatives,word-medial,t͡ʃ,t͡ʃ,1,1,[bit͡ʃ],Clements 2012: 46,animal
+Diu,Fricatives,Word-initial,ʒ,d͡z,0,0,[d͡zel],Clements 2012: 40,ice
+Diu,Fricatives,word-medial,ʒ,d͡z,0,0,[sud͡z],Clements 2012: 38,dirty
+Diu,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃer],Clements 2012: 44,to smell
+Diu,Rothics,Word-final,ɾ,r,1,1,[mujɛr],Clements 2012: 46,woman
+Diu,Rothics,Word-initial,r,r,1,1,[rab],Clements 2012: 45,tail
+Diu,Rothics,word-medial,r,r,1,1,[barig],Clements 2012: 37,belly
+Diu,Laterals,Word-initial,l,l,1,1,[laʋa],Clements 2012: 45,to wash
+Diu,Laterals,word-medial,l,l,1,1,[kabel],Clements 2012: 40,hair
+Diu,Laterals,word-final,l,l,1,1,[sɔl],Clements 2012: 45,sun
+Diu,Laterals,word-medial,ʎ,j,1,0,[mujɛr],Clements 2012: 46,woman
+Diu,Nasals,Word-initial,m,m,1,1,[mujɛr],Clements 2012: 46,woman
+Diu,Nasals,word-medial,m,m,1,1,[nom],Clements 2012: 41,name
+Diu,Nasals,Word-initial,n,n,1,1,[nom],Clements 2012: 42,name
+Diu,Nasals,word-medial,n,n,1,1,[pɛn],Clements 2012: 39,feather
+Diu,Nasals,Word-medial,ɲ,ŋ,0,1,[kamiŋ],Clements 2012: 43,road
+Sri Lanka,Stops,Word-initial,p,p,1,1,[pɛːna],Clements 2012: 39,feather
+Sri Lanka,Stops,word-medial,p,p,1,1,[triːpa],Clements 2012: 40,guts
+Sri Lanka,Stops,Word-initial,b,b,1,1,[bariːja],Clements 2012: 37,belly
+Sri Lanka,Stops,word-medial,b,b,1,1,[kabeːl],Clements 2012: 40,hair
+Sri Lanka,Stops,Word-initial,t,t,1,1,[tuːdu],Clements 2012: 37,everything
+Sri Lanka,Stops,word-medial,t,t,1,1,[mataː],Clements 2012: 41,to kill
+Sri Lanka,Stops,Word-initial,d,d,1,1,[diːja],Clements 2012: 38,day
+Sri Lanka,Stops,word-medial,d,d,1,1,[tudu],Clements 2012: 37,everything
+Sri Lanka,Stops,Word-initial,k,k,1,1,[kabeːl],Clements 2012: 40,hair
+Sri Lanka,Stops,word-medial,k,k,1,1,[sɛːku],Clements 2012: 38,dry
+Sri Lanka,Stops,Word-initial,g,g,1,1,[groːsu],Clements 2012: 45,fat
+Sri Lanka,Stops,word-medial,g,j,0,0,[bariːja],Clements 2012: 37,belly
+Sri Lanka,Fricatives,Word-initial,v,ʋ,1,0,[ʋɛːj],Clements 2012: 42,old
+Sri Lanka,Fricatives,word-medial,v,ʋ,1,0,[laʋaː],Clements 2012: 45,to wash
+Sri Lanka,Fricatives,Word-initial,f,f,1,1,[foːʋ],Clements 2012: 39,fire
+Sri Lanka,Fricatives,word-medial,f,,,,,,
+Sri Lanka,Fricatives,Word-initial,s,s,1,1,[suːj],Clements 2012: 38,dirty
+Sri Lanka,Fricatives,word-medial,s,s,1,1,[groːsu],Clements 2012: 45,thick
+Sri Lanka,Fricatives,Word-initial,z,,,,,,
+Sri Lanka,Fricatives,word-medial,z,s,1,1,[aːsa],Clements 2012: 46,wing
+Sri Lanka,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃeraː],Clements 2012: 44,to smell
+Sri Lanka,Fricatives,word-medial,t͡ʃ,t͡ʃ,1,1,[biːt͡ʃi],Clements 2012: 46,animal
+Sri Lanka,Fricatives,Word-initial,ʒ,,,,,,
+Sri Lanka,Fricatives,word-medial,ʒ,j,1,0,[suːj],Clements 2012: 38,dirty
+Sri Lanka,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃeraː],Clements 2012: 44,to smell
+Sri Lanka,Rothics,Word-final,ɾ,r,1,1,[mujeːra],Clements 2012: 46,woman
+Sri Lanka,Rothics,Word-initial,r,r,1,1,[raʋ],Clements 2012: 45,tail
+Sri Lanka,Rothics,word-medial,r,r,1,1,[bariːja],Clements 2012: 37,belly
+Sri Lanka,Laterals,Word-initial,l,l,1,1,[laʋaː],Clements 2012: 45,to wash
+Sri Lanka,Laterals,word-medial,l,l,1,1,[kabeːl],Clements 2012: 40,hair
+Sri Lanka,Laterals,word-final,l,l,1,1,[sɔːl],Clements 2012: 45,sun
+Sri Lanka,Laterals,word-medial,ʎ,j,1,0,[mujeːra],Clements 2012: 46,woman
+Sri Lanka,Nasals,Word-initial,m,m,1,1,[mujeːra],Clements 2012: 46,woman
+Sri Lanka,Nasals,word-medial,m,m,1,1,[nɔːmi],Clements 2012: 41,name
+Sri Lanka,Nasals,Word-initial,n,n,1,1,[nɔːmi],Clements 2012: 42,name
+Sri Lanka,Nasals,word-medial,n,n,1,1,[pɛːna],Clements 2012: 39,feather
+Sri Lanka,Nasals,Word-medial,ɲ,m,0,1,[kamiːm],Clements 2012: 43,road
+Kannur,Stops,Word-initial,p,p,1,1,[pænə],Clements 2012: 39,feather
+Kannur,Stops,word-medial,p,p,1,1,[tripə],Clements 2012: 40,guts
+Kannur,Stops,Word-initial,b,b,1,1,[barrigə],Clements 2012: 37,belly
+Kannur,Stops,word-medial,b,b,1,1,[kabeli],Clements 2012: 40,hair
+Kannur,Stops,Word-initial,t,t,1,1,[tudə],Clements 2012: 37,everything
+Kannur,Stops,word-medial,t,t,1,1,[matæ],Clements 2012: 41,to kill
+Kannur,Stops,Word-initial,d,d,1,1,[dijə],Clements 2012: 38,day
+Kannur,Stops,word-medial,d,d,1,1,[tudə],Clements 2012: 37,everything
+Kannur,Stops,Word-initial,k,k,1,1,[kabeli],Clements 2012: 40,hair
+Kannur,Stops,word-medial,k,k,1,1,[sækɔ],Clements 2012: 38,dry
+Kannur,Stops,Word-initial,g,g,1,1,[grosə],Clements 2012: 45,fat
+Kannur,Stops,word-medial,g,g,1,1,[barrigə],Clements 2012: 37,belly
+Kannur,Fricatives,Word-initial,v,ʋ,1,0,[ʋæli],Clements 2012: 42,old
+Kannur,Fricatives,word-medial,v,ʋ,1,0,[ləʋə],Clements 2012: 45,to wash
+Kannur,Fricatives,Word-initial,f,f,1,1,[fogə],Clements 2012: 39,fire
+Kannur,Fricatives,word-medial,f,,,,,,
+Kannur,Fricatives,Word-initial,s,s,1,1,[sud͡zi],Clements 2012: 38,dirty
+Kannur,Fricatives,word-medial,s,s,1,1,[grosə],Clements 2012: 45,thick
+Kannur,Fricatives,Word-initial,z,,,,,,
+Kannur,Fricatives,word-medial,z,z,1,1,[azə],Clements 2012: 46,wing
+Kannur,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃerə],Clements 2012: 44,to smell
+Kannur,Fricatives,word-medial,t͡ʃ,,,,,,
+Kannur,Fricatives,Word-initial,ʒ,,,,,,
+Kannur,Fricatives,word-medial,ʒ,d͡z,0,0,[sud͡zi],Clements 2012: 38,dirty
+Kannur,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃerə],Clements 2012: 44,to smell
+Kannur,Rothics,Word-final,ɾ,r,1,1,[muʎɛrɔ],Clements 2012: 46,woman
+Kannur,Rothics,Word-initial,r,r,1,1,[rabə],Clements 2012: 45,tail
+Kannur,Rothics,word-medial,r,ʀ,0,1,[baRigə],Clements 2012: 37,belly
+Kannur,Laterals,Word-initial,l,l,1,1,[ləʋə],Clements 2012: 45,to wash
+Kannur,Laterals,word-medial,l,l,1,1,[kabeli],Clements 2012: 40,hair
+Kannur,Laterals,word-final,l,l,1,1,[sɔl],Clements 2012: 45,sun
+Kannur,Laterals,word-medial,ʎ,ʎ,1,1,[muʎɛrɔ],Clements 2012: 46,woman
+Kannur,Nasals,Word-initial,m,m,1,1,[muʎɛrɔ],Clements 2012: 46,woman
+Kannur,Nasals,word-medial,m,m,1,1,[nɔmi],Clements 2012: 41,name
+Kannur,Nasals,Word-initial,n,n,1,1,[nɔmi],Clements 2012: 42,name
+Kannur,Nasals,word-medial,n,n,1,1,[pænə],Clements 2012: 39,feather
+Kannur,Nasals,Word-medial,ɲ,ɲ,1,1,[kamiɲə],Clements 2012: 43,road
+Papiá Kristang,Stops,Word-initial,p,p,1,1,[pɛna],Baxter & Silva 2004: 71,feather
+Papiá Kristang,Stops,word-medial,p,p,1,1,[tripa],Baxter & Silva 2004: 119,guts
+Papiá Kristang,Stops,Word-initial,b,b,1,1,[bariga],Baxter & Silva 2004: 12,belly
+Papiá Kristang,Stops,word-medial,b,b,1,1,[kabelu],Baxter & Silva 2004: 42,hair
+Papiá Kristang,Stops,Word-initial,t,t,1,1,[tudu],Baxter & Silva 2004: 89,everything
+Papiá Kristang,Stops,word-medial,t,t,1,1,[mata],Baxter & Silva 2004: 60,to kill
+Papiá Kristang,Stops,Word-initial,d,d,1,1,[dia],Baxter & Silva 2004: 25,day
+Papiá Kristang,Stops,word-medial,d,d,1,1,[tudu],Baxter & Silva 2004: 89,everything
+Papiá Kristang,Stops,Word-initial,k,k,1,1,[kabelu],Baxter & Silva 2004: 42,hair
+Papiá Kristang,Stops,word-medial,k,k,1,1,[seku],Baxter & Silva 2004: 80,dry
+Papiá Kristang,Stops,Word-initial,g,g,1,1,[grosu],Baxter & Silva 2004: 38,thick
+Papiá Kristang,Stops,word-medial,g,g,1,1,[bariga],Baxter & Silva 2004: 12,belly
+Papiá Kristang,Fricatives,Word-initial,v,b,0,0,[bɛlu],Baxter & Silva 2004: 13,old
+Papiá Kristang,Fricatives,word-medial,v,b,0,0,[laba],Baxter & Silva 2004: 54,to wash
+Papiá Kristang,Fricatives,Word-initial,f,f,1,1,[fogu],Baxter & Silva 2004: 32,fire
+Papiá Kristang,Fricatives,word-medial,f,f,1,1,[alfada],Baxter & Silva 2004: 130,pillow
+Papiá Kristang,Fricatives,Word-initial,s,s,1,1,[suzu],Baxter & Silva 2004: 85,dirty
+Papiá Kristang,Fricatives,word-medial,s,s,1,1,[grosu],Baxter & Silva 2004: 38,thick
+Papiá Kristang,Fricatives,Word-initial,z,,,,,,
+Papiá Kristang,Fricatives,word-medial,z,z,1,1,[aza],Baxter & Silva 2004: 10,wing
+Papiá Kristang,Fricatives,Word-initial,t͡ʃ,t͡ʃ,1,1,[t͡ʃera],Baxter & Silva 2004: 21,to smell
+Papiá Kristang,Fricatives,word-medial,t͡ʃ,t͡ʃ,1,1,[bit͡ʃu],Baxter & Silva 2004: 15,animal
+Papiá Kristang,Fricatives,Word-initial,ʒ,d͡ʒ,1,0,[d͡ʒũtu],Baxter & Silva 2004: 42,next to
+Papiá Kristang,Fricatives,word-medial,ʒ,z,0,1,[suzu],Baxter & Silva 2004: 85,dirty
+Papiá Kristang,Rothics,Word-medial,ɾ,r,1,1,[t͡ʃera],Baxter & Silva 2004: 21,to smell
+Papiá Kristang,Rothics,Word-final,ɾ,Ø,0,0,[mulɛ],Baxter & Silva 2004: 62,woman
+Papiá Kristang,Rothics,Word-initial,r,r,1,1,[rabu],Baxter & Silva 2004: 76,tail
+Papiá Kristang,Rothics,word-medial,r,r,1,1,[bariga],Baxter & Silva 2004: 12,belly
+Papiá Kristang,Laterals,Word-initial,l,l,1,1,[laba],Baxter & Silva 2004: 54,to wash
+Papiá Kristang,Laterals,word-medial,l,l,1,1,[kabelu],Baxter & Silva 2004: 42,hair
+Papiá Kristang,Laterals,word-final,l,l,1,1,[sɔl],Baxter & Silva 2004: 83,sun
+Papiá Kristang,Laterals,word-medial,ʎ,l,0,1,[mulɛ],Baxter & Silva 2004: 62,woman
+Papiá Kristang,Nasals,Word-initial,m,m,1,1,[mulɛ],Baxter & Silva 2004: 62,woman
+Papiá Kristang,Nasals,word-medial,m,m,1,1,[nɔmi],Baxter & Silva 2004: 65,name
+Papiá Kristang,Nasals,Word-initial,n,n,1,1,[nɔmi],Baxter & Silva 2004: 66,name
+Papiá Kristang,Nasals,word-medial,n,n,1,1,[pɛna],Baxter & Silva 2004: 71,feather
+Papiá Kristang,Nasals,Word-medial,ɲ,ɲ,1,1,[kamiɲu],Baxter & Silva 2004: 44,road
