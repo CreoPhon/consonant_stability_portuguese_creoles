@@ -2,7 +2,7 @@
 
 ## Packages required
 
-library(tidyverse) 
+library(tidyverse)
 library(dplyr)
 
 ## Preparing the data
@@ -27,3 +27,6 @@ region <- c("GG", "UG", "UG", "UG", "UG", "UG", "NI", "NI", "GG", "UG", "SI", "N
 final_results_region <- cbind(final_results, region)
 
 ggplot(final_results_region) + geom_bar(aes(x = m, y = reorder(language, m), fill = region), stat = "identity", show.legend = FALSE)
+
+
+# Which segments are the most stable?
