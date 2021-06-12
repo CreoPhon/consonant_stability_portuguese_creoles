@@ -1,10 +1,8 @@
 # Consonant-Stability-Creoles
 
-Materials for "Consonant Stability in Portuguese-based creoles".
+Supplementary materials for "Consonant Stability in Portuguese-based creoles". Silva, Carlos and Steven Moran. Work in progress.
 
+This folder contains:
 
-Silva, Carlos and Steven Moran. work in progress. Consonant Stability in Portuguese-based creoles. *Linguistic Typology*. 
-
-Each file contains:\
-. [Database](database.csv): Lexical data on consonant stability in Portuguese-based creoles\
-. [Scripts](scripts.md): code used to measure stability in several dimensions
+* [Database](database.csv): Lexical data on consonant stability in Portuguese-based creoles
+* [Scripts](scripts.md): code used to measure stability in several dimensions
