@@ -5,4 +5,4 @@ Supplementary materials for "Consonant Stability in Portuguese-based creoles". S
 This folder contains:
 
 * [Database](database.csv): Lexical data on consonant stability in Portuguese-based creoles
-* [Scripts](scripts.md): code used to measure stability in several dimensions
+* [Scripts](scripts.md): Code used to measure stability in several dimensions
