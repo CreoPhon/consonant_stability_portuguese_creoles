@@ -112,6 +112,6 @@ Plot the results
 
 ```r
 ggplot(consonant_stability, aes(y=mmanner, x=mplace, label = lexifier_phoneme, color=class)) + 
-  geom_point(position= "dodge", stat="identity") + geom_text(aes(label=lexifier_phoneme), hjust=3, vjust=0)
+  geom_point(position= "dodge") + geom_text(aes(label=lexifier_phoneme), hjust=3, vjust=0)
 ```
 ![](scripts_files/figure-gfm/stability_by_consonant.png)<!-- -->
