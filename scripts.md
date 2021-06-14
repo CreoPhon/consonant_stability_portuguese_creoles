@@ -115,3 +115,16 @@ ggplot(consonant_stability, aes(y=mmanner, x=mplace, label = lexifier_phoneme, c
   geom_point(position= "dodge") + geom_text(aes(label=lexifier_phoneme), hjust=3, vjust=0)
 ```
 ![](scripts_files/figure-gfm/stability_by_consonant.png)<!-- -->
+
+Alternative view for listed global results
+
+```r
+consonant_global_stability <- mutate(consonant_stability_class, mglobal = (mmanner + mplace)/2)
+
+ggplot(consonant_global_stability) + geom_bar(aes(x = mglobal, y = reorder(lexifier_phoneme, mglobal), fill = class), stat = "identity", show.legend = TRUE)
+```
+![](scripts_files/figure-gfm/stability_by_consonant_list.png)<!-- -->
+
+Does word position influence stability?
+====
+
