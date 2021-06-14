@@ -72,3 +72,46 @@ ggplot(final_results_region) + geom_bar(aes(x = m, y = reorder(language, m), fil
 ![](scripts_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 Which segments are the most stable?
+================
+
+Packages required.
+```r
+library(tidyverse)
+```
+
+Load data.
+
+```r
+database <- read_csv('database.csv')
+```
+
+Prepare data.
+```r
+data_by_phoneme <- database %>% select(lexifier_phoneme, place_stability, manner_stability)
+
+data_by_phoneme$place_stability = as.numeric(data_by_phoneme$place_stability)
+
+data_by_phoneme$manner_stability = as.numeric(data_by_phoneme$manner_stability)
+```
+
+Calculate stability of place and manner for each phoneme.
+
+```r
+place_results <- data_by_phoneme %>% group_by(lexifier_phoneme) %>% summarize(mplace = mean(place_stability, na.rm = TRUE))
+
+manner_results <- data_by_phoneme %>% group_by(lexifier_phoneme) %>% summarize(mmanner = mean(manner_stability, na.rm = TRUE))
+
+consonant_stability <- left_join(place_results, manner_results, by = "lexifier_phoneme")
+
+class <- c("nasal", "rothic", "lateral", "fric", "stop", "stop", "fric", "stop", "stop", "lateral", "nasal", "nasal", "stop", "rothic", "fric", "stop", "affricate", "fric", "fric")
+
+consonant_stability_class <- cbind(consonant_stability, class)
+```
+
+Plot the results
+
+```r
+ggplot(consonant_stability, aes(y=mmanner, x=mplace, label = lexifier_phoneme, color=class)) + 
+  geom_point(position= "dodge", stat="identity") + geom_text(aes(label=lexifier_phoneme), hjust=3, vjust=0)
+```
+
