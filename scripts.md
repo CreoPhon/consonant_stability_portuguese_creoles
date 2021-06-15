@@ -158,3 +158,12 @@ position_stability <- mutate(data_by_position, global_stability = (place_stabili
 position_results <- position_stability %>% group_by(position, lexifier_phoneme) %>% summarize(m = mean(global_stability, na.rm = TRUE))
 ```
 
+Plot the results.
+
+```r
+position_results$position <- factor(position_results$position, levels = c('word-initial', 'word-medial', 'word-final'))
+
+ggplot(position_results, aes(x= lexifier_phoneme, y=m, fill=position)) + 
+  geom_col(position = position_dodge2(width= 0.9, preserve = "single"))
+```
+![](scripts_files/figure-gfm/stability_by_position.png)<!-- -->
