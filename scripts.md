@@ -128,3 +128,33 @@ ggplot(consonant_global_stability) + geom_bar(aes(x = mglobal, y = reorder(lexif
 Does word position influence stability?
 ====
 
+Packages required.
+
+```r
+library(tidyverse)
+```
+
+Load data.
+
+```r
+database <- read_csv('database.csv')
+```
+
+Prepare data.
+
+```r
+data_by_position <- database %>% select(position, lexifier_phoneme, place_stability, manner_stability) %>% mutate(position = tolower(position))
+
+data_by_position$place_stability = as.numeric(data_by_position$place_stability)
+
+data_by_position$manner_stability = as.numeric(data_by_position$manner_stability)
+```
+
+Calculate stability for each segment according to its position.
+
+```r
+position_stability <- mutate(data_by_position, global_stability = (place_stability + manner_stability)/2)
+
+position_results <- position_stability %>% group_by(position, lexifier_phoneme) %>% summarize(m = mean(global_stability, na.rm = TRUE))
+```
+
