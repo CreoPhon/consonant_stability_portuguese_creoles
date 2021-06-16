@@ -158,7 +158,7 @@ position_stability <- mutate(data_by_position, global_stability = (place_stabili
 position_results <- position_stability %>% group_by(position, lexifier_phoneme) %>% summarize(m = mean(global_stability, na.rm = TRUE))
 ```
 
-Plot the results.
+Plot the results for all segments.
 
 ```r
 position_results$position <- factor(position_results$position, levels = c('word-initial', 'word-medial', 'word-final'))
@@ -167,3 +167,19 @@ ggplot(position_results, aes(x= lexifier_phoneme, y=m, fill=position)) +
   geom_col(position = position_dodge2(width= 0.9, preserve = "single"))
 ```
 ![](scripts_files/figure-gfm/stability_by_position.png)<!-- -->
+
+Plot the results for segments that show differences
+
+```r
+position_results1 <- position_results %>% pivot_wider(names_from = position, values_from = m)
+
+different_position <- subset(position_results1, position_results1$`word-initial` != position_results1$`word-medial` | position_results1$`word-final` != position_results1$`word-medial`)
+
+different_position_results <- different_position %>% pivot_longer(c(`word-initial`, `word-medial`, `word-final`), names_to = "position", values_to = "m")
+
+different_position_results$position <- factor(different_position_results$position, levels = c('word-initial', 'word-medial', 'word-final'))
+
+ggplot(different_position_results, aes(x= lexifier_phoneme, y=m, fill=position)) + 
+  geom_col(position = position_dodge2(width= 0.9, preserve = "single"))
+```
+![](scripts_files/figure-gfm/stability_by_positiondifference.png)<!-- -->
