@@ -1,9 +1,15 @@
 Which creoles are the most stable?
 ================
 Carlos Silva and Steven Moran
-(12 June, 2021)
+(19 June, 2021)
 
-Packages required.
+-   [Which segments are the most
+    stable?](#which-segments-are-the-most-stable)
+-   [Does word position influence
+    stability?](#does-word-position-influence-stability)
+-   [References](#references)
+
+We use the `tidyverse` package in this report (Wickham et al. 2019).
 
 ``` r
 library(tidyverse)
@@ -71,22 +77,11 @@ ggplot(final_results_region) + geom_bar(aes(x = m, y = reorder(language, m), fil
 
 ![](scripts_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
-Which segments are the most stable?
-================
+# Which segments are the most stable?
 
-Packages required.
-```r
-library(tidyverse)
-```
+Prepare the data.
 
-Load data.
-
-```r
-database <- read_csv('database.csv')
-```
-
-Prepare data.
-```r
+``` r
 data_by_phoneme <- database %>% select(lexifier_phoneme, place_stability, manner_stability)
 
 data_by_phoneme$place_stability = as.numeric(data_by_phoneme$place_stability)
@@ -96,7 +91,7 @@ data_by_phoneme$manner_stability = as.numeric(data_by_phoneme$manner_stability)
 
 Calculate stability of place and manner for each phoneme.
 
-```r
+``` r
 place_results <- data_by_phoneme %>% group_by(lexifier_phoneme) %>% summarize(mplace = mean(place_stability, na.rm = TRUE))
 
 manner_results <- data_by_phoneme %>% group_by(lexifier_phoneme) %>% summarize(mmanner = mean(manner_stability, na.rm = TRUE))
@@ -108,41 +103,32 @@ class <- c("nasal", "rothic", "lateral", "fric", "stop", "stop", "fric", "stop",
 consonant_stability_class <- cbind(consonant_stability, class)
 ```
 
-Plot the results
+Plot the results.
 
-```r
+``` r
 ggplot(consonant_stability, aes(y=mmanner, x=mplace, label = lexifier_phoneme, color=class)) + 
   geom_point(position= "dodge") + geom_text(aes(label=lexifier_phoneme), hjust=3, vjust=0)
 ```
-![](scripts_files/figure-gfm/stability_by_consonant.png)<!-- -->
 
-Alternative view for listed global results
+    ## Warning: Width not defined. Set with `position_dodge(width = ?)`
 
-```r
+![](scripts_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+Alternative view for listed global results.
+
+``` r
 consonant_global_stability <- mutate(consonant_stability_class, mglobal = (mmanner + mplace)/2)
 
 ggplot(consonant_global_stability) + geom_bar(aes(x = mglobal, y = reorder(lexifier_phoneme, mglobal), fill = class), stat = "identity", show.legend = TRUE)
 ```
-![](scripts_files/figure-gfm/stability_by_consonant_list.png)<!-- -->
 
-Does word position influence stability?
-====
+![](scripts_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
-Packages required.
+# Does word position influence stability?
 
-```r
-library(tidyverse)
-```
+Prepare the data.
 
-Load data.
-
-```r
-database <- read_csv('database.csv')
-```
-
-Prepare data.
-
-```r
+``` r
 data_by_position <- database %>% select(position, lexifier_phoneme, place_stability, manner_stability) %>% mutate(position = tolower(position))
 
 data_by_position$place_stability = as.numeric(data_by_position$place_stability)
@@ -152,25 +138,28 @@ data_by_position$manner_stability = as.numeric(data_by_position$manner_stability
 
 Calculate stability for each segment according to its position.
 
-```r
+``` r
 position_stability <- mutate(data_by_position, global_stability = (place_stability + manner_stability)/2)
 
 position_results <- position_stability %>% group_by(position, lexifier_phoneme) %>% summarize(m = mean(global_stability, na.rm = TRUE))
 ```
 
+    ## `summarise()` has grouped output by 'position'. You can override using the `.groups` argument.
+
 Plot the results for all segments.
 
-```r
+``` r
 position_results$position <- factor(position_results$position, levels = c('word-initial', 'word-medial', 'word-final'))
 
 ggplot(position_results, aes(x= lexifier_phoneme, y=m, fill=position)) + 
   geom_col(position = position_dodge2(width= 0.9, preserve = "single"))
 ```
-![](scripts_files/figure-gfm/stability_by_position.png)<!-- -->
 
-Plot the results for segments that show differences
+![](scripts_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
-```r
+Plot the results for segments that show differences.
+
+``` r
 position_results1 <- position_results %>% pivot_wider(names_from = position, values_from = m)
 
 different_position <- subset(position_results1, position_results1$`word-initial` != position_results1$`word-medial` | position_results1$`word-final` != position_results1$`word-medial`)
@@ -182,4 +171,22 @@ different_position_results$position <- factor(different_position_results$positio
 ggplot(different_position_results, aes(x= lexifier_phoneme, y=m, fill=position)) + 
   geom_col(position = position_dodge2(width= 0.9, preserve = "single"))
 ```
-![](scripts_files/figure-gfm/stability_by_positiondifference.png)<!-- -->
+
+    ## Warning: Removed 8 rows containing missing values (geom_col).
+
+![](scripts_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+# References
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-tidyverse" class="csl-entry">
+
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy
+D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019.
+“Welcome to the <span class="nocase">tidyverse</span>.” *Journal of Open
+Source Software* 4 (43): 1686. <https://doi.org/10.21105/joss.01686>.
+
+</div>
+
+</div>
