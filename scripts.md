@@ -1,7 +1,7 @@
 Which creoles are the most stable?
 ================
 Carlos Silva and Steven Moran
-(19 June, 2021)
+(13 July, 2021)
 
 -   [Which segments are the most
     stable?](#which-segments-are-the-most-stable)
