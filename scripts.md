@@ -1,7 +1,7 @@
 Which creoles are the most stable?
 ================
 Carlos Silva and Steven Moran
-(13 July, 2021)
+(15 julho, 2021)
 
 -   [Which segments are the most
     stable?](#which-segments-are-the-most-stable)
@@ -15,14 +15,14 @@ We use the `tidyverse` package in this report (Wickham et al. 2019).
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+    ## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
 
-    ## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
-    ## ✓ tibble  3.1.2     ✓ dplyr   1.0.6
-    ## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-    ## ✓ readr   1.4.0     ✓ forcats 0.5.1
+    ## v ggplot2 3.3.3     v purrr   0.3.4
+    ## v tibble  3.1.0     v dplyr   1.0.5
+    ## v tidyr   1.1.3     v stringr 1.4.0
+    ## v readr   1.4.0     v forcats 0.5.1
 
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -33,7 +33,7 @@ database <- read_csv('database.csv')
 ```
 
     ## 
-    ## ── Column specification ────────────────────────────────────────────────────────
+    ## -- Column specification --------------------------------------------------------
     ## cols(
     ##   language = col_character(),
     ##   class = col_character(),
