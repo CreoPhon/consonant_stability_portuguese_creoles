@@ -1,6 +1,6 @@
 # Consonant-Stability-Creoles
 
-Supplementary materials for "Consonant Stability in Portuguese-based creoles". Silva, Carlos and Steven Moran. Work in progress.
+Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress.
 
 This folder contains:
 
