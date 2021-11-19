@@ -4,7 +4,7 @@ author: "Carlos Silva and Steven Moran"
 date: "(`r format(Sys.time(), '%d %B, %Y')`)"
 output:
   github_document:
-  toc: true
+    toc: true
 bibliography: 'bibliography.bib'
 ---
   

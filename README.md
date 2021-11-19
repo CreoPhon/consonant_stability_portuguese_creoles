@@ -4,6 +4,12 @@ creoles
 Carlos Silva and Steven Moran
 (19 November, 2021)
 
+-   [Overview](#overview)
+-   [Creole stability](#creole-stability)
+-   [Segment stability](#segment-stability)
+-   [Word position](#word-position)
+-   [References](#references)
+
 # Overview
 
 Supplementary materials for [Consonant Stability in Portuguese-based
