@@ -74,7 +74,9 @@ final_results_region <- cbind(final_results, region)
 
 ggplot(final_results_region) + 
   geom_bar(aes(x = m, y = reorder(language, m), fill = region), 
-           stat = "identity", show.legend = FALSE)
+           stat = "identity", show.legend = FALSE) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank())
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
@@ -88,9 +90,7 @@ First we prepare the data.
 
 ``` r
 data_by_phoneme <- database %>% select(lexifier_phoneme, place_stability, manner_stability)
-
 data_by_phoneme$place_stability = as.numeric(data_by_phoneme$place_stability)
-
 data_by_phoneme$manner_stability = as.numeric(data_by_phoneme$manner_stability)
 ```
 
@@ -103,7 +103,7 @@ manner_results <- data_by_phoneme %>% group_by(lexifier_phoneme) %>% summarize(m
 
 consonant_stability <- left_join(place_results, manner_results, by = "lexifier_phoneme")
 
-class <- c("nasal", "rothic", "lateral", "fric", "stop", "stop", "fric", "stop", "stop", "lateral", "nasal", "nasal", "stop", "rothic", "fric", "stop", "affricate", "fric", "fric")
+class <- c("nasal", "rhotic", "lateral", "fricative", "stop", "stop", "fricative", "stop", "stop", "lateral", "nasal", "nasal", "stop", "rhotic", "fricative", "stop", "affricate", "fricative", "fricative")
 
 consonant_stability_class <- cbind(consonant_stability, class)
 ```
@@ -111,8 +111,12 @@ consonant_stability_class <- cbind(consonant_stability, class)
 Next, we plot the results.
 
 ``` r
-ggplot(consonant_stability, aes(y=mmanner, x=mplace, label = lexifier_phoneme, color=class)) + 
-  geom_point(position= "dodge") + geom_text(aes(label=lexifier_phoneme), hjust=3, vjust=0)
+# TODO: fix the class "dots"
+ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = lexifier_phoneme, color=class)) +
+  geom_point(position= "dodge") + 
+  geom_text(aes(label=lexifier_phoneme), hjust=3, vjust=0) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank())
 ```
 
     ## Warning: Width not defined. Set with `position_dodge(width = ?)`
@@ -122,9 +126,12 @@ ggplot(consonant_stability, aes(y=mmanner, x=mplace, label = lexifier_phoneme, c
 Here is an alternative view for the global results.
 
 ``` r
+# TODO: add x-axis text, legend text, change color?
 consonant_global_stability <- mutate(consonant_stability_class, mglobal = (mmanner + mplace)/2)
 
-ggplot(consonant_global_stability) + geom_bar(aes(x = mglobal, y = reorder(lexifier_phoneme, mglobal), fill = class), stat = "identity", show.legend = TRUE)
+ggplot(consonant_global_stability) + geom_bar(aes(x = mglobal, y = reorder(lexifier_phoneme, mglobal), fill = class), stat = "identity", show.legend = TRUE) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank())
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
@@ -157,10 +164,13 @@ position_results <- position_stability %>% group_by(position, lexifier_phoneme) 
 And plot the results for all segments.
 
 ``` r
+# TODO: flip horizontally, change colors
 position_results$position <- factor(position_results$position, levels = c('word-initial', 'word-medial', 'word-final'))
 
 ggplot(position_results, aes(x= lexifier_phoneme, y=m, fill=position)) + 
-  geom_col(position = position_dodge2(width= 0.9, preserve = "single"))
+  geom_col(position = position_dodge2(width= 0.9, preserve = "single")) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank())
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
@@ -168,6 +178,7 @@ ggplot(position_results, aes(x= lexifier_phoneme, y=m, fill=position)) +
 Plot the results for segments that show differences.
 
 ``` r
+# TODO: update what we show, flip horizontally, change colors
 position_results1 <- position_results %>% pivot_wider(names_from = position, values_from = m)
 
 different_position <- subset(position_results1, position_results1$`word-initial` != position_results1$`word-medial` | position_results1$`word-final` != position_results1$`word-medial`)
