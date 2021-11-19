@@ -129,7 +129,10 @@ Here is an alternative view for the global results.
 # TODO: add x-axis text, legend text, change color?
 consonant_global_stability <- mutate(consonant_stability_class, mglobal = (mmanner + mplace)/2)
 
-ggplot(consonant_global_stability) + geom_bar(aes(x = mglobal, y = reorder(lexifier_phoneme, mglobal), fill = class), stat = "identity", show.legend = TRUE) +
+ggplot(consonant_global_stability) + 
+  geom_bar(aes(x = mglobal, 
+               y = reorder(lexifier_phoneme, mglobal), 
+               fill = class), stat = "identity", show.legend = TRUE) +
   theme(axis.title.x = element_blank(),
         axis.title.y = element_blank())
 ```
@@ -145,9 +148,9 @@ First, data prepartion.
 ``` r
 data_by_position <- database %>% select(position, lexifier_phoneme, place_stability, manner_stability) %>% mutate(position = tolower(position))
 
-data_by_position$place_stability = as.numeric(data_by_position$place_stability)
+data_by_position$place_stability <- as.numeric(data_by_position$place_stability)
 
-data_by_position$manner_stability = as.numeric(data_by_position$manner_stability)
+data_by_position$manner_stability <- as.numeric(data_by_position$manner_stability)
 ```
 
 Next, calculate stability for each segment according to its word
@@ -164,11 +167,11 @@ position_results <- position_stability %>% group_by(position, lexifier_phoneme) 
 And plot the results for all segments.
 
 ``` r
-# TODO: flip horizontally, change colors
+# TODO: flip horizontally, change colors, match stabilty x phoneme axes with above
 position_results$position <- factor(position_results$position, levels = c('word-initial', 'word-medial', 'word-final'))
 
-ggplot(position_results, aes(x= lexifier_phoneme, y=m, fill=position)) + 
-  geom_col(position = position_dodge2(width= 0.9, preserve = "single")) +
+ggplot(position_results, aes(x = lexifier_phoneme, y = m, fill = position)) + 
+  geom_col(position = position_dodge2(width = 0.9, preserve = "single")) +
   theme(axis.title.x = element_blank(),
         axis.title.y = element_blank())
 ```
@@ -187,8 +190,9 @@ different_position_results <- different_position %>% pivot_longer(c(`word-initia
 
 different_position_results$position <- factor(different_position_results$position, levels = c('word-initial', 'word-medial', 'word-final'))
 
-ggplot(different_position_results, aes(x= lexifier_phoneme, y=m, fill=position)) + 
-  geom_col(position = position_dodge2(width= 0.9, preserve = "single"))
+ggplot(different_position_results, 
+       aes(x = lexifier_phoneme, y = m, fill = position)) + 
+  geom_col(position = position_dodge2(width = 0.9, preserve = "single"))
 ```
 
     ## Warning: Removed 8 rows containing missing values (geom_col).
