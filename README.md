@@ -81,6 +81,46 @@ ggplot(final_results_region) +
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
+We have the overall stability values. What are these in relation to the
+duration of contact?
+
+We can get the length of contact from CreoPhonPT.
+
+``` r
+cp <- read_csv('https://raw.githubusercontent.com/silva-carlos/CreoPhonPt/main/stability_creoles_dataset.csv?token=AAIGDLRKFSWZ7BZNBBDGF73BTC5CA')
+```
+
+    ## Warning: Missing column names filled in: 'X17' [17]
+
+``` r
+tmp <- cp %>% select(Language, `End of influence`, `First major settlement`) %>% distinct()
+tmp$duration <- tmp$`End of influence` - tmp$`First major settlement`
+
+tmp <- left_join(tmp, final_results_region, by=c("Language"="language"))
+
+ggplot(tmp, aes(x=duration, y=m)) +
+  geom_point()
+```
+
+    ## Warning: Removed 8 rows containing missing values (geom_point).
+
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+There does not seem to be a relationship between duration and overall
+stability.
+
+``` r
+ggplot(tmp, aes(x=duration, y=m)) +
+  geom_point() +
+  geom_text(label=tmp$Language)
+```
+
+    ## Warning: Removed 8 rows containing missing values (geom_point).
+
+    ## Warning: Removed 8 rows containing missing values (geom_text).
+
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
 # Segment stability
 
 Which segments are the most stable across creoles in the language
@@ -121,7 +161,7 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = lexifier_phonem
 
     ## Warning: Width not defined. Set with `position_dodge(width = ?)`
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 Here is an alternative view for the global results.
 
@@ -135,7 +175,7 @@ ggplot(consonant_global_stability) +
   labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 # Word position
 
@@ -173,7 +213,7 @@ ggplot(position_results, aes(x = lexifier_phoneme, y = m, fill = position)) +
         axis.title.y = element_blank())
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -188,7 +228,7 @@ ggplot(position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 Plot the results for segments that show differences.
 
@@ -209,7 +249,7 @@ ggplot(different_position_results,
 
     ## Warning: Removed 8 rows containing missing values (geom_col).
 
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- --> Flip
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- --> Flip
 horizontally.
 
 ``` r
@@ -226,7 +266,7 @@ ggplot(different_position_results) +
 
     ## Warning: Removed 8 rows containing missing values (geom_bar).
 
-![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 # References
 
