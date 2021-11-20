@@ -2,7 +2,7 @@ Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
 Carlos Silva and Steven Moran
-(19 November, 2021)
+(20 November, 2021)
 
 -   [Overview](#overview)
 -   [Creole stability](#creole-stability)
@@ -75,8 +75,8 @@ final_results_region <- cbind(final_results, region)
 ggplot(final_results_region) + 
   geom_bar(aes(x = m, y = reorder(language, m), fill = region), 
            stat = "identity", show.legend = FALSE) +
-  theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank())
+  theme(axis.title.y = element_blank()) +
+  labs(x = "Stability score")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
@@ -126,15 +126,13 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = lexifier_phonem
 Here is an alternative view for the global results.
 
 ``` r
-# TODO: add x-axis text, legend text, change color?
 consonant_global_stability <- mutate(consonant_stability_class, mglobal = (mmanner + mplace)/2)
 
 ggplot(consonant_global_stability) + 
   geom_bar(aes(x = mglobal, 
-               y = reorder(lexifier_phoneme, mglobal), 
+               y = reorder(lexifier_phoneme, mglobal),
                fill = class), stat = "identity", show.legend = TRUE) +
-  theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank())
+  labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
@@ -167,7 +165,6 @@ position_results <- position_stability %>% group_by(position, lexifier_phoneme) 
 And plot the results for all segments.
 
 ``` r
-# TODO: flip horizontally, change colors, match stabilty x phoneme axes with above
 position_results$position <- factor(position_results$position, levels = c('word-initial', 'word-medial', 'word-final'))
 
 ggplot(position_results, aes(x = lexifier_phoneme, y = m, fill = position)) + 
@@ -177,6 +174,21 @@ ggplot(position_results, aes(x = lexifier_phoneme, y = m, fill = position)) +
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+Flip horizontally.
+
+``` r
+ggplot(position_results) + 
+  geom_bar(aes(x = m,
+               y = reorder(lexifier_phoneme, m),
+               fill = position), 
+           stat = "identity", 
+           show.legend = TRUE,
+           position = "dodge2") +
+  labs(x = "Stability score", y = "Phoneme", fill = "Position")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 Plot the results for segments that show differences.
 
@@ -197,7 +209,24 @@ ggplot(different_position_results,
 
     ## Warning: Removed 8 rows containing missing values (geom_col).
 
-![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- --> Flip
+horizontally.
+
+``` r
+# TODO: reorder doesn't work here
+ggplot(different_position_results) + 
+  geom_bar(aes(x = m,
+               y = reorder(lexifier_phoneme, m),
+               fill = position), 
+           stat = "identity", 
+           show.legend = TRUE,
+           position = "dodge2") +
+  labs(x = "Stability score", y = "Phoneme", fill = "Position")
+```
+
+    ## Warning: Removed 8 rows containing missing values (geom_bar).
+
+![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 # References
 
