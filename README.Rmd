@@ -216,5 +216,4 @@ ggplot(different_position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Position")
 ```
 
-
 # References
