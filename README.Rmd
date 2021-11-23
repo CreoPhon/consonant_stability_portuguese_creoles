@@ -70,20 +70,26 @@ We have the overall stability values. What are these in relation to the duration
 We can get the length of contact from CreoPhonPT.
 
 ```{r, message=FALSE}
-cp <- read_csv('https://raw.githubusercontent.com/silva-carlos/CreoPhonPt/main/stability_creoles_dataset.csv?token=AAIGDLRKFSWZ7BZNBBDGF73BTC5CA')
+cp <- read_csv('https://raw.githubusercontent.com/silva-carlos/CreoPhonPt/main/stability_creoles_dataset.csv?token=AAIGDLXLDIORFDAC64GJ4V3BTTHNW')
 
 tmp <- cp %>% select(Language, `End of influence`, `First major settlement`) %>% distinct()
 tmp$duration <- tmp$`End of influence` - tmp$`First major settlement`
 
 tmp <- left_join(tmp, final_results_region, by=c("Language"="language"))
-
-ggplot(tmp, aes(x=duration, y=m)) +
-  geom_point()
 ```
 
-There does not seem to be a relationship between duration and overall stability.
+Duration in years.
 
 ```{r}
+tmp %>% select(Language, duration, `First major settlement`, `End of influence`) %>% arrange(desc(duration)) %>% kable()
+```
+
+There does not seem to be a relationship between overall duration and overall stability.
+
+```{r}
+ggplot(tmp, aes(x=duration, y=m)) +
+  geom_point()
+
 ggplot(tmp, aes(x=duration, y=m)) +
   geom_point() +
   geom_text(label=tmp$Language)

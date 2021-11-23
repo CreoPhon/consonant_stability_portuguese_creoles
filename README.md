@@ -2,7 +2,7 @@ Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
 Carlos Silva and Steven Moran
-(20 November, 2021)
+(23 November, 2021)
 
 -   [Overview](#overview)
 -   [Creole stability](#creole-stability)
@@ -87,7 +87,7 @@ duration of contact?
 We can get the length of contact from CreoPhonPT.
 
 ``` r
-cp <- read_csv('https://raw.githubusercontent.com/silva-carlos/CreoPhonPt/main/stability_creoles_dataset.csv?token=AAIGDLRKFSWZ7BZNBBDGF73BTC5CA')
+cp <- read_csv('https://raw.githubusercontent.com/silva-carlos/CreoPhonPt/main/stability_creoles_dataset.csv?token=AAIGDLXLDIORFDAC64GJ4V3BTTHNW')
 ```
 
     ## Warning: Missing column names filled in: 'X17' [17]
@@ -97,17 +97,52 @@ tmp <- cp %>% select(Language, `End of influence`, `First major settlement`) %>%
 tmp$duration <- tmp$`End of influence` - tmp$`First major settlement`
 
 tmp <- left_join(tmp, final_results_region, by=c("Language"="language"))
+```
 
+Duration in years.
+
+``` r
+tmp %>% select(Language, duration, `First major settlement`, `End of influence`) %>% arrange(desc(duration)) %>% kable()
+```
+
+| Language                 | duration | First major settlement | End of influence |
+|:-------------------------|---------:|-----------------------:|-----------------:|
+| Cape Verdean Santiago    |      515 |                   1460 |             1975 |
+| Cape Verdean Fogo        |      515 |                   1460 |             1975 |
+| Cape Verdean Santo Antão |      513 |                   1462 |             1975 |
+| Santome                  |      482 |                   1493 |             1975 |
+| Principense              |      476 |                   1499 |             1975 |
+| Patua Macau              |      429 |                   1570 |             1999 |
+| Fa d’Ambô                |      425 |                   1543 |             1968 |
+| Cape Verdean Brava       |      402 |                   1573 |             1975 |
+| Papiamentu               |      360 |                   1650 |             2010 |
+| Cavite Chabacano         |      239 |                   1659 |             1898 |
+| Ternate Chabacano        |      227 |                   1671 |             1898 |
+| Daman                    |      200 |                   1540 |             1740 |
+| Diu                      |      200 |                   1540 |             1740 |
+| Zamboanga Chabacano      |      179 |                   1719 |             1898 |
+| Kannur                   |      158 |                   1505 |             1663 |
+| Sri Lanka                |      153 |                   1505 |             1658 |
+| Cape Verdean São Vicente |      137 |                   1838 |             1975 |
+| Papiá Kristang           |      130 |                   1511 |             1641 |
+| Korlai                   |      120 |                   1520 |             1640 |
+| Media Lengua             |       96 |                   1925 |             2021 |
+| Palenquero               |       50 |                   1650 |             1700 |
+| Angolar                  |       37 |                   1493 |             1530 |
+| Guinea-Bissau Kriyol     |       37 |                   1493 |             1530 |
+| Timor creole             |       NA |                     NA |               NA |
+
+There does not seem to be a relationship between overall duration and
+overall stability.
+
+``` r
 ggplot(tmp, aes(x=duration, y=m)) +
   geom_point()
 ```
 
     ## Warning: Removed 8 rows containing missing values (geom_point).
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
-
-There does not seem to be a relationship between duration and overall
-stability.
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 ggplot(tmp, aes(x=duration, y=m)) +
@@ -119,7 +154,7 @@ ggplot(tmp, aes(x=duration, y=m)) +
 
     ## Warning: Removed 8 rows containing missing values (geom_text).
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-2.png)<!-- -->
 
 # Segment stability
 
@@ -161,7 +196,7 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = lexifier_phonem
 
     ## Warning: Width not defined. Set with `position_dodge(width = ?)`
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 Here is an alternative view for the global results.
 
@@ -175,7 +210,7 @@ ggplot(consonant_global_stability) +
   labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 # Word position
 
@@ -213,7 +248,7 @@ ggplot(position_results, aes(x = lexifier_phoneme, y = m, fill = position)) +
         axis.title.y = element_blank())
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -228,7 +263,7 @@ ggplot(position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 Plot the results for segments that show differences.
 
@@ -249,7 +284,7 @@ ggplot(different_position_results,
 
     ## Warning: Removed 8 rows containing missing values (geom_col).
 
-![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- --> Flip
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- --> Flip
 horizontally.
 
 ``` r
@@ -266,7 +301,7 @@ ggplot(different_position_results) +
 
     ## Warning: Removed 8 rows containing missing values (geom_bar).
 
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 # References
 
