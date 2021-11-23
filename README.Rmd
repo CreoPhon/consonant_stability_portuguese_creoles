@@ -81,16 +81,17 @@ tmp <- left_join(tmp, final_results_region, by=c("Language"="language"))
 Duration in years.
 
 ```{r}
-tmp %>% select(Language, duration, `First major settlement`, `End of influence`) %>% arrange(desc(duration)) %>% kable()
+tmp <- tmp %>% rename(MeanStability = m)
+tmp %>% select(Language, duration, `First major settlement`, `End of influence`, MeanStability) %>% arrange(desc(duration)) %>% kable()
 ```
 
 There does not seem to be a relationship between overall duration and overall stability.
 
 ```{r}
-ggplot(tmp, aes(x=duration, y=m)) +
+ggplot(tmp, aes(x=duration, y=MeanStability)) +
   geom_point()
 
-ggplot(tmp, aes(x=duration, y=m)) +
+ggplot(tmp, aes(x=duration, y=MeanStability)) +
   geom_point() +
   geom_text(label=tmp$Language)
 ```

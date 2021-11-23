@@ -102,41 +102,42 @@ tmp <- left_join(tmp, final_results_region, by=c("Language"="language"))
 Duration in years.
 
 ``` r
-tmp %>% select(Language, duration, `First major settlement`, `End of influence`) %>% arrange(desc(duration)) %>% kable()
+tmp <- tmp %>% rename(MeanStability = m)
+tmp %>% select(Language, duration, `First major settlement`, `End of influence`, MeanStability) %>% arrange(desc(duration)) %>% kable()
 ```
 
-| Language                 | duration | First major settlement | End of influence |
-|:-------------------------|---------:|-----------------------:|-----------------:|
-| Cape Verdean Santiago    |      515 |                   1460 |             1975 |
-| Cape Verdean Fogo        |      515 |                   1460 |             1975 |
-| Cape Verdean Santo Antão |      513 |                   1462 |             1975 |
-| Santome                  |      482 |                   1493 |             1975 |
-| Principense              |      476 |                   1499 |             1975 |
-| Patua Macau              |      429 |                   1570 |             1999 |
-| Fa d’Ambô                |      425 |                   1543 |             1968 |
-| Cape Verdean Brava       |      402 |                   1573 |             1975 |
-| Papiamentu               |      360 |                   1650 |             2010 |
-| Cavite Chabacano         |      239 |                   1659 |             1898 |
-| Ternate Chabacano        |      227 |                   1671 |             1898 |
-| Daman                    |      200 |                   1540 |             1740 |
-| Diu                      |      200 |                   1540 |             1740 |
-| Zamboanga Chabacano      |      179 |                   1719 |             1898 |
-| Kannur                   |      158 |                   1505 |             1663 |
-| Sri Lanka                |      153 |                   1505 |             1658 |
-| Cape Verdean São Vicente |      137 |                   1838 |             1975 |
-| Papiá Kristang           |      130 |                   1511 |             1641 |
-| Korlai                   |      120 |                   1520 |             1640 |
-| Media Lengua             |       96 |                   1925 |             2021 |
-| Palenquero               |       50 |                   1650 |             1700 |
-| Angolar                  |       37 |                   1493 |             1530 |
-| Guinea-Bissau Kriyol     |       37 |                   1493 |             1530 |
-| Timor creole             |       NA |                     NA |               NA |
+| Language                 | duration | First major settlement | End of influence | MeanStability |
+|:-------------------------|---------:|-----------------------:|-----------------:|--------------:|
+| Cape Verdean Santiago    |      515 |                   1460 |             1975 |     0.9189189 |
+| Cape Verdean Fogo        |      515 |                   1460 |             1975 |     0.8857143 |
+| Cape Verdean Santo Antão |      513 |                   1462 |             1975 |     0.9444444 |
+| Santome                  |      482 |                   1493 |             1975 |     0.7702703 |
+| Principense              |      476 |                   1499 |             1975 |     0.8243243 |
+| Patua Macau              |      429 |                   1570 |             1999 |            NA |
+| Fa d’Ambô                |      425 |                   1543 |             1968 |     0.6428571 |
+| Cape Verdean Brava       |      402 |                   1573 |             1975 |     0.9285714 |
+| Papiamentu               |      360 |                   1650 |             2010 |            NA |
+| Cavite Chabacano         |      239 |                   1659 |             1898 |            NA |
+| Ternate Chabacano        |      227 |                   1671 |             1898 |            NA |
+| Daman                    |      200 |                   1540 |             1740 |     0.9000000 |
+| Diu                      |      200 |                   1540 |             1740 |     0.8857143 |
+| Zamboanga Chabacano      |      179 |                   1719 |             1898 |            NA |
+| Kannur                   |      158 |                   1505 |             1663 |     0.9242424 |
+| Sri Lanka                |      153 |                   1505 |             1658 |     0.8970588 |
+| Cape Verdean São Vicente |      137 |                   1838 |             1975 |     0.9142857 |
+| Papiá Kristang           |      130 |                   1511 |             1641 |     0.8750000 |
+| Korlai                   |      120 |                   1520 |             1640 |     0.8529412 |
+| Media Lengua             |       96 |                   1925 |             2021 |            NA |
+| Palenquero               |       50 |                   1650 |             1700 |            NA |
+| Angolar                  |       37 |                   1493 |             1530 |     0.6571429 |
+| Guinea-Bissau Kriyol     |       37 |                   1493 |             1530 |     0.9054054 |
+| Timor creole             |       NA |                     NA |               NA |            NA |
 
 There does not seem to be a relationship between overall duration and
 overall stability.
 
 ``` r
-ggplot(tmp, aes(x=duration, y=m)) +
+ggplot(tmp, aes(x=duration, y=MeanStability)) +
   geom_point()
 ```
 
@@ -145,7 +146,7 @@ ggplot(tmp, aes(x=duration, y=m)) +
 ![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
-ggplot(tmp, aes(x=duration, y=m)) +
+ggplot(tmp, aes(x=duration, y=MeanStability)) +
   geom_point() +
   geom_text(label=tmp$Language)
 ```
