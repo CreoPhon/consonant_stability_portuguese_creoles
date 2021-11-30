@@ -22,7 +22,7 @@ library(knitr)
 First load the dataset.
 
 ```{r, message=FALSE}
-database <- read_csv('database.csv')
+database <- read_csv('https://raw.githubusercontent.com/silva-carlos/CreoPhonPt/main/Creoles.csv?token=ATUPEZPYMCM37VFPSL66OELBUYOXK')
 ```
 
 The data look like this.
@@ -38,28 +38,24 @@ Which creoles in the sample are more or less stable overall?
 First, we prepare the data for analysis.
 
 ```{r}
-creole_stability <- database %>% select(language, place_stability, manner_stability)
-creole_stability$place_stability = as.numeric(creole_stability$place_stability)
-creole_stability$manner_stability = as.numeric(creole_stability$manner_stability)
+CreoleStability <- database %>% select(Language, Area, PlaceStability, MannerStability)
+CreoleStability$PlaceStability = as.numeric(CreoleStability$PlaceStability)
+CreoleStability$MannerStability = as.numeric(CreoleStability$MannerStability)
 ```
 
 Next, we calculate the stability measure for each creole.
 
 ```{r}
-global_creole_stability <- mutate(creole_stability, global_stability = (place_stability + manner_stability)/2)
+GlobalCreoleStability <- mutate(CreoleStability, GlobalStability = (PlaceStability + MannerStability)/2)
 
-final_results <- global_creole_stability %>% group_by(language) %>% summarize(m = mean(global_stability, na.rm = TRUE))
+final_results <- GlobalCreoleStability %>% group_by(Language, Area) %>% summarize(m = mean(GlobalStability, na.rm = TRUE))
 ```
 
 Lastly, we plot the results.
 
 ```{r}
-region <- c("GG", "UG", "UG", "UG", "UG", "UG", "NI", "NI", "GG", "UG", "SI", "NI", "SA", "GG", "GG", "SI")
-
-final_results_region <- cbind(final_results, region)
-
-ggplot(final_results_region) + 
-  geom_bar(aes(x = m, y = reorder(language, m), fill = region), 
+ggplot(final_results) + 
+  geom_bar(aes(x = m, y = reorder(Language, m), fill = Area), 
            stat = "identity", show.legend = FALSE) +
   theme(axis.title.y = element_blank()) +
   labs(x = "Stability score")
@@ -70,19 +66,20 @@ We have the overall stability values. What are these in relation to the duration
 We can get the length of contact from CreoPhonPT.
 
 ```{r, message=FALSE}
-cp <- read_csv('https://raw.githubusercontent.com/silva-carlos/CreoPhonPt/main/stability_creoles_dataset.csv?token=AAIGDLXLDIORFDAC64GJ4V3BTTHNW')
+cp <- database
 
-tmp <- cp %>% select(Language, `End of influence`, `First major settlement`) %>% distinct()
-tmp$duration <- tmp$`End of influence` - tmp$`First major settlement`
+tmp <- cp %>% select(Language, `EndOfInfluence`, `FirstMajorSettlement`) %>% distinct()
+tmp$duration <- tmp$`EndOfInfluence` - tmp$`FirstMajorSettlement`
 
-tmp <- left_join(tmp, final_results_region, by=c("Language"="language"))
+tmp <- left_join(tmp, final_results, by=c("Language"))
 ```
 
 Duration in years.
 
 ```{r}
 tmp <- tmp %>% rename(MeanStability = m)
-tmp %>% select(Language, duration, `First major settlement`, `End of influence`, MeanStability) %>% arrange(desc(duration)) %>% kable()
+tmp %>% select(Language, duration, `FirstMajorSettlement`, `EndOfInfluence`, MeanStability) %>% arrange(desc(duration)) %>% kable()
+
 ```
 
 There does not seem to be a relationship between overall duration and overall stability.
@@ -97,6 +94,7 @@ ggplot(tmp, aes(x=duration, y=MeanStability)) +
 ```
 
 
+
 # Segment stability
 
 Which segments are the most stable across creoles in the language sample?
@@ -104,19 +102,19 @@ Which segments are the most stable across creoles in the language sample?
 First we prepare the data.
 
 ```{r}
-data_by_phoneme <- database %>% select(lexifier_phoneme, place_stability, manner_stability)
-data_by_phoneme$place_stability = as.numeric(data_by_phoneme$place_stability)
-data_by_phoneme$manner_stability = as.numeric(data_by_phoneme$manner_stability)
+data_by_phoneme <- database %>% select(LexifierPhoneme, PlaceStability, MannerStability)
+data_by_phoneme$PlaceStability = as.numeric(data_by_phoneme$PlaceStability)
+data_by_phoneme$MannerStability = as.numeric(data_by_phoneme$MannerStability)
 ```
 
 Then we calculate stability of place and manner for each phoneme.
 
 ```{r}
-place_results <- data_by_phoneme %>% group_by(lexifier_phoneme) %>% summarize(mplace = mean(place_stability, na.rm = TRUE))
+place_results <- data_by_phoneme %>% group_by(LexifierPhoneme) %>% summarize(mplace = mean(PlaceStability, na.rm = TRUE))
 
-manner_results <- data_by_phoneme %>% group_by(lexifier_phoneme) %>% summarize(mmanner = mean(manner_stability, na.rm = TRUE))
+manner_results <- data_by_phoneme %>% group_by(LexifierPhoneme) %>% summarize(mmanner = mean(MannerStability, na.rm = TRUE))
 
-consonant_stability <- left_join(place_results, manner_results, by = "lexifier_phoneme")
+consonant_stability <- left_join(place_results, manner_results, by = "LexifierPhoneme")
 
 class <- c("nasal", "rhotic", "lateral", "fricative", "stop", "stop", "fricative", "stop", "stop", "lateral", "nasal", "nasal", "stop", "rhotic", "fricative", "stop", "affricate", "fricative", "fricative")
 
@@ -127,12 +125,13 @@ Next, we plot the results.
 
 ```{r}
 # TODO: fix the class "dots"
-ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = lexifier_phoneme, color=class)) +
+ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme, color=class)) +
   geom_point(position= "dodge") + 
-  geom_text(aes(label=lexifier_phoneme), hjust=3, vjust=0) +
+  geom_text(aes(label=LexifierPhoneme), hjust=3, vjust=0) +
   theme(axis.title.x = element_blank(),
         axis.title.y = element_blank())
 ```
+
 
 Here is an alternative view for the global results.
 
@@ -141,11 +140,10 @@ consonant_global_stability <- mutate(consonant_stability_class, mglobal = (mmann
 
 ggplot(consonant_global_stability) + 
   geom_bar(aes(x = mglobal, 
-               y = reorder(lexifier_phoneme, mglobal),
+               y = reorder(LexifierPhoneme, mglobal),
                fill = class), stat = "identity", show.legend = TRUE) +
   labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
-
 
 # Word position
 
@@ -154,27 +152,27 @@ Next we ask, does word position influence stability?
 First, data prepartion.
 
 ```{r}
-data_by_position <- database %>% select(position, lexifier_phoneme, place_stability, manner_stability) %>% mutate(position = tolower(position))
+data_by_position <- database %>% select(Position, LexifierPhoneme, PlaceStability, MannerStability) %>% mutate(Position = tolower(Position))
 
-data_by_position$place_stability <- as.numeric(data_by_position$place_stability)
+data_by_position$PlaceStability <- as.numeric(data_by_position$PlaceStability)
 
-data_by_position$manner_stability <- as.numeric(data_by_position$manner_stability)
+data_by_position$MannerStability <- as.numeric(data_by_position$MannerStability)
 ```
 
 Next, calculate stability for each segment according to its word position.
 
 ```{r}
-position_stability <- mutate(data_by_position, global_stability = (place_stability + manner_stability)/2)
+position_stability <- mutate(data_by_position, GlobalStability = (PlaceStability + MannerStability)/2)
 
-position_results <- position_stability %>% group_by(position, lexifier_phoneme) %>% summarize(m = mean(global_stability, na.rm = TRUE))
+position_results <- position_stability %>% group_by(LexifierPhoneme, Position) %>% summarize(m = mean(GlobalStability, na.rm = TRUE))
 ```
 
 And plot the results for all segments.
 
 ```{r}
-position_results$position <- factor(position_results$position, levels = c('word-initial', 'word-medial', 'word-final'))
+position_results$Position <- factor(position_results$Position, levels = c('word-initial', 'word-medial', 'word-final'))
 
-ggplot(position_results, aes(x = lexifier_phoneme, y = m, fill = position)) + 
+ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) + 
   geom_col(position = position_dodge2(width = 0.9, preserve = "single")) +
   theme(axis.title.x = element_blank(),
         axis.title.y = element_blank())
@@ -185,8 +183,8 @@ Flip horizontally.
 ```{r}
 ggplot(position_results) + 
   geom_bar(aes(x = m,
-               y = reorder(lexifier_phoneme, m),
-               fill = position), 
+               y = reorder(LexifierPhoneme, m),
+               fill = Position), 
            stat = "identity", 
            show.legend = TRUE,
            position = "dodge2") +
@@ -197,26 +195,27 @@ Plot the results for segments that show differences.
 
 ```{r}
 # TODO: update what we show, flip horizontally, change colors
-position_results1 <- position_results %>% pivot_wider(names_from = position, values_from = m)
+position_results1 <- position_results %>% pivot_wider(names_from = Position, values_from = m)
 
 different_position <- subset(position_results1, position_results1$`word-initial` != position_results1$`word-medial` | position_results1$`word-final` != position_results1$`word-medial`)
 
-different_position_results <- different_position %>% pivot_longer(c(`word-initial`, `word-medial`, `word-final`), names_to = "position", values_to = "m")
+different_position_results <- different_position %>% pivot_longer(c(`word-initial`, `word-medial`, `word-final`), names_to = "Position", values_to = "m")
 
-different_position_results$position <- factor(different_position_results$position, levels = c('word-initial', 'word-medial', 'word-final'))
+different_position_results$Position <- factor(different_position_results$Position, levels = c('word-initial', 'word-medial', 'word-final'))
 
 ggplot(different_position_results, 
-       aes(x = lexifier_phoneme, y = m, fill = position)) + 
+       aes(x = LexifierPhoneme, y = m, fill = Position)) + 
   geom_col(position = position_dodge2(width = 0.9, preserve = "single"))
 ```
+
 Flip horizontally.
 
 ```{r}
 # TODO: reorder doesn't work here
 ggplot(different_position_results) + 
   geom_bar(aes(x = m,
-               y = reorder(lexifier_phoneme, m),
-               fill = position), 
+               y = reorder(LexifierPhoneme, m),
+               fill = Position), 
            stat = "identity", 
            show.legend = TRUE,
            position = "dodge2") +
