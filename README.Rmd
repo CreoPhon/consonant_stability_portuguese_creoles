@@ -22,7 +22,7 @@ library(knitr)
 First load the dataset.
 
 ```{r, message=FALSE}
-database <- read_csv('https://raw.githubusercontent.com/silva-carlos/CreoPhonPt/main/Creoles.csv?token=ATUPEZPYMCM37VFPSL66OELBUYOXK')
+database <- read_csv('https://raw.githubusercontent.com/CreoPhon/CreoPhonPt/main/Creoles.csv?token=AAIGDLU6EGPIBXYP3ITSDGDBVCSA6')
 ```
 
 The data look like this.
@@ -79,7 +79,6 @@ Duration in years.
 ```{r}
 tmp <- tmp %>% rename(MeanStability = m)
 tmp %>% select(Language, duration, `FirstMajorSettlement`, `EndOfInfluence`, MeanStability) %>% arrange(desc(duration)) %>% kable()
-
 ```
 
 There does not seem to be a relationship between overall duration and overall stability.
@@ -92,7 +91,52 @@ ggplot(tmp, aes(x=duration, y=MeanStability)) +
   geom_point() +
   geom_text(label=tmp$Language)
 ```
+```{r}
+msd <- lm(MeanStability ~ duration, data=tmp)
+summary(msd)
+```
 
+However, there does seem to be two groups of languages -- ones that belong to "long duration" (>= 400 years) and those that belonw to "short duration" (<= 200 years) (Nicholas Lester, pc).
+
+We can try to split the data and rerun the models, but we note that there are very few data points.
+
+```{r}
+tmp <- tmp %>% mutate(duration_group = ifelse(duration <= 200, 'short', 'long'))
+tmp_short <- tmp %>% filter(duration <= 200)
+tmp_long <- tmp %>% filter(duration > 200)
+```
+
+```{r}
+ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
+  geom_point()
+
+ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
+  geom_point() +
+  geom_text(label=tmp_short$Language)
+```
+
+```{r}
+ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
+  geom_point()
+
+ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
+  geom_point() +
+  geom_text(label=tmp_long$Language)
+```
+Or perhaps a single model with an interaction term MeanSim ~ duration, group * duration.
+
+```{r}
+msd <- lm(MeanStability ~ duration + duration_group * duration, data=tmp)
+summary(msd)
+
+ggplot(tmp, aes(x = duration, y = MeanStability, color = duration_group)) +
+  geom_smooth(method = "lm") +
+  geom_point()
+```
+
+Nicholas Lester notes: The variability in the two groups is very different. The direction of the effect is interesting: shorter durations yield more stability more consistently. Over time, the variability in mean stability increases. Time is "destabillizing the pattern of stability".
+
+And we can also increase the number of observations by running the analysis at the segment level, rather than on mean stability. Here we use the format from the GlobalCreoleStability object for modeling that is created below.
 
 
 # Segment stability
