@@ -1,6 +1,6 @@
 ---
 title: "Supplementary materials for: Consonant stability in Portuguese-based creoles"
-author: "Carlos Silva and Steven Moran"
+author: "Steven Moran and Carlos Silva"
 date: "(`r format(Sys.time(), '%d %B, %Y')`)"
 output:
   github_document:
@@ -19,10 +19,12 @@ library(tidyverse)
 library(knitr)
 ```
 
-First load the dataset.
+Load the dataset.
 
 ```{r, message=FALSE}
-database <- read_csv('https://raw.githubusercontent.com/CreoPhon/CreoPhonPt/main/Creoles.csv?token=AAIGDLU6EGPIBXYP3ITSDGDBVCSA6')
+# Token keep resetting...
+# database <- read_csv('https://raw.githubusercontent.com/CreoPhon/CreoPhonPt/main/Creoles.csv?token=AAIGDLUMP3R6LQG6Y6GJA6TBVDYJQ')
+database <- read_csv('database.csv')
 ```
 
 The data look like this.
@@ -31,68 +33,74 @@ The data look like this.
 database %>% head() %>% kable()
 ```
 
+Let's extend the database with some variables. Duration of contact.
+
+```{r}
+database$duration <- database$`EndOfInfluence` - database$`FirstMajorSettlement`
+```
+
+Next, a variable of global stability.
+
+```{r}
+database <- mutate(database, GlobalStability = (PlaceStability + MannerStability)/2)
+# table(database$Language, database$GlobalStability)
+```
+
+Categorical variable for duration.
+
+```{r}
+database <- database %>% mutate(duration_group = ifelse(duration <= 200, 'short', 'long'))
+```
+
+Categorical variable for changes in manner and/or place. Stability in the database is '1' (no change) and '0' change.
+
+```{r}
+database <- database %>% mutate(categorical_stability = ifelse(PlaceStability == 1 & MannerStability == 1, 'no manner/no place', NA))
+
+database <- database %>% mutate(categorical_stability = ifelse(PlaceStability == 1 & MannerStability == 0, 'manner/no place', categorical_stability))
+
+database <- database %>% mutate(categorical_stability = ifelse(PlaceStability == 0 & MannerStability == 1, 'no manner/place', categorical_stability))
+
+database <- database %>% mutate(categorical_stability = ifelse(PlaceStability == 0 & MannerStability == 0, 'manner/place', categorical_stability))
+
+table(database$categorical_stability)
+```
+
+
 # Creole stability
 
 Which creoles in the sample are more or less stable overall?
 
-First, we prepare the data for analysis.
-
-```{r}
-CreoleStability <- database %>% select(Language, Area, PlaceStability, MannerStability)
-CreoleStability$PlaceStability = as.numeric(CreoleStability$PlaceStability)
-CreoleStability$MannerStability = as.numeric(CreoleStability$MannerStability)
+```{r, message=FALSE}
+creole_stability <- database %>% group_by(Language, Area, duration, duration_group) %>% summarize(MeanStability = mean(GlobalStability, na.rm = TRUE))
 ```
 
-Next, we calculate the stability measure for each creole.
+Plot it.
 
 ```{r}
-GlobalCreoleStability <- mutate(CreoleStability, GlobalStability = (PlaceStability + MannerStability)/2)
-
-final_results <- GlobalCreoleStability %>% group_by(Language, Area) %>% summarize(m = mean(GlobalStability, na.rm = TRUE))
-```
-
-Lastly, we plot the results.
-
-```{r}
-ggplot(final_results) + 
-  geom_bar(aes(x = m, y = reorder(Language, m), fill = Area), 
-           stat = "identity", show.legend = FALSE) +
+ggplot(creole_stability) + 
+  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), fill = Area), 
+           stat = "identity", show.legend = TRUE) +
   theme(axis.title.y = element_blank()) +
   labs(x = "Stability score")
 ```
 
 We have the overall stability values. What are these in relation to the duration of contact?
 
-We can get the length of contact from CreoPhonPT.
-
-```{r, message=FALSE}
-cp <- database
-
-tmp <- cp %>% select(Language, `EndOfInfluence`, `FirstMajorSettlement`) %>% distinct()
-tmp$duration <- tmp$`EndOfInfluence` - tmp$`FirstMajorSettlement`
-
-tmp <- left_join(tmp, final_results, by=c("Language"))
-```
-
-Duration in years.
-
-```{r}
-tmp <- tmp %>% rename(MeanStability = m)
-tmp %>% select(Language, duration, `FirstMajorSettlement`, `EndOfInfluence`, MeanStability) %>% arrange(desc(duration)) %>% kable()
-```
-
 There does not seem to be a relationship between overall duration and overall stability.
 
 ```{r}
-ggplot(tmp, aes(x=duration, y=MeanStability)) +
+ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_point()
 
-ggplot(tmp, aes(x=duration, y=MeanStability)) +
+ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_point() +
-  geom_text(label=tmp$Language)
+  geom_text(label=creole_stability$Language)
 ```
+Results from the simple regression.
+
 ```{r}
-msd <- lm(MeanStability ~ duration, data=tmp)
+msd <- lm(MeanStability ~ duration, data=creole_stability)
 summary(msd)
 ```
 
@@ -101,9 +109,8 @@ However, there does seem to be two groups of languages -- ones that belong to "l
 We can try to split the data and rerun the models, but we note that there are very few data points.
 
 ```{r}
-tmp <- tmp %>% mutate(duration_group = ifelse(duration <= 200, 'short', 'long'))
-tmp_short <- tmp %>% filter(duration <= 200)
-tmp_long <- tmp %>% filter(duration > 200)
+tmp_short <- creole_stability %>% filter(duration <= 200)
+tmp_long <- creole_stability %>% filter(duration > 200)
 ```
 
 ```{r}
@@ -126,37 +133,28 @@ ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
 Or perhaps a single model with an interaction term MeanSim ~ duration, group * duration.
 
 ```{r}
-msd <- lm(MeanStability ~ duration + duration_group * duration, data=tmp)
+msd <- lm(MeanStability ~ duration + duration_group * duration, data=creole_stability)
 summary(msd)
 
-ggplot(tmp, aes(x = duration, y = MeanStability, color = duration_group)) +
+ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
   geom_smooth(method = "lm") +
   geom_point()
 ```
 
 Nicholas Lester notes: The variability in the two groups is very different. The direction of the effect is interesting: shorter durations yield more stability more consistently. Over time, the variability in mean stability increases. Time is "destabillizing the pattern of stability".
 
-And we can also increase the number of observations by running the analysis at the segment level, rather than on mean stability. Here we use the format from the GlobalCreoleStability object for modeling that is created below.
+And we can also increase the number of observations by running the analysis at the segment level, rather than on mean stability.
 
 
 # Segment stability
 
 Which segments are the most stable across creoles in the language sample?
 
-First we prepare the data.
+We calculate stability of place and manner for each phoneme.
 
 ```{r}
-data_by_phoneme <- database %>% select(LexifierPhoneme, PlaceStability, MannerStability)
-data_by_phoneme$PlaceStability = as.numeric(data_by_phoneme$PlaceStability)
-data_by_phoneme$MannerStability = as.numeric(data_by_phoneme$MannerStability)
-```
-
-Then we calculate stability of place and manner for each phoneme.
-
-```{r}
-place_results <- data_by_phoneme %>% group_by(LexifierPhoneme) %>% summarize(mplace = mean(PlaceStability, na.rm = TRUE))
-
-manner_results <- data_by_phoneme %>% group_by(LexifierPhoneme) %>% summarize(mmanner = mean(MannerStability, na.rm = TRUE))
+place_results <- database %>% group_by(LexifierPhoneme) %>% summarize(mplace = mean(PlaceStability, na.rm = TRUE))
+manner_results <- database %>% group_by(LexifierPhoneme) %>% summarize(mmanner = mean(MannerStability, na.rm = TRUE))
 
 consonant_stability <- left_join(place_results, manner_results, by = "LexifierPhoneme")
 
@@ -176,7 +174,6 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme
         axis.title.y = element_blank())
 ```
 
-
 Here is an alternative view for the global results.
 
 ```{r}
@@ -188,6 +185,21 @@ ggplot(consonant_global_stability) +
                fill = class), stat = "identity", show.legend = TRUE) +
   labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
+
+Calculate the stability of the segments.
+
+```{r}
+# qplot(x = duration, y = MeanStability, data = consonant_global_stability, color = duration_group) +
+#  geom_smooth(method = "lm") 
+```
+
+And we can also increase the number of observations in duration regression by running the analysis at the segment level, rather than on mean stability.
+
+```{r}
+# lm(categorical_stability ~ duration + (1|Lexifier) + (1|CreolePhoneme) + (1|Language), data=database)
+```
+
+
 
 # Word position
 
@@ -267,3 +279,4 @@ ggplot(different_position_results) +
 ```
 
 # References
+
