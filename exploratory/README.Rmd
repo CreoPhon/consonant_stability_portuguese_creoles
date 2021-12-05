@@ -1,0 +1,90 @@
+---
+title: "sample_analysis"
+author: "Nicholas A. Lester"
+date: "9/21/2021"
+output:
+  github_document:
+  pandoc_args: --webtex
+---
+
+
+Some ideas for analysis for Carlos (if he hasn't done them already).
+```{r clear_mem}
+rm(list=ls(all=T))
+```
+  
+Load libraries
+```{r load_libs}
+library(dplyr)
+```
+  
+Load data
+```{r load_data}
+# Carlos' table with PHOIBLE
+df = read.table("./consonant_stability_ptspcreoles_database - All.tsv", sep="\t", header=T, comment.char="", quote="", encoding="UTF-8")
+
+# PHOIBLE
+load("./feature_table.Rdata")
+```
+  
+Compare sounds in df
+```{r compare_sounds}
+# Jaccard index
+jaccard = function(x, y){
+    a = sum(x==1 & y==1)
+    b = sum(x==0 & y==1)
+    c = sum(x==1 & y==0)
+    jacc.ind = a/(a + b + c)
+    return(jacc.ind)
+}
+
+sorenson.dice = function(x, y){
+    j = jaccard(x, y)
+    s.d = 2*j/(1+j)
+    return(s.d)
+}
+
+jacc.diffs = vector()
+sd.diffs = vector()
+for(i in 1:nrow(df)){
+    curr.lex.pho = df$Lexifier.s.Phoneme[i]
+    curr.lex.vec = pho[pho$Phoneme==curr.lex.pho,][,-38]
+    curr.cre.pho = df$Creole.s.Phoneme[i]
+    curr.cre.vec = pho[pho$Phoneme==curr.cre.pho,][,-38]
+    if(nrow(curr.lex.vec)==1 & nrow(curr.cre.vec)==1){
+        curr.jacc.diff = jaccard(curr.lex.vec, curr.cre.vec)
+        curr.sd.diff = sorenson.dice(curr.lex.vec, curr.cre.vec)
+        jacc.diffs = c(jacc.diffs, curr.jacc.diff)
+        sd.diffs = c(sd.diffs, curr.sd.diff)
+    }
+}
+
+phones = unique(pho$Phoneme)
+df = df[df$Creole.s.Phoneme %in% phones &
+        df$Lexifier.s.Phoneme %in% phones,]
+
+df = df %>% 
+     bind_cols(., Jacc = jacc.diffs, SoDi = sd.diffs)
+```
+  
+Try some modeling
+```{r mod}
+library(lmerTest)
+library(effects)
+
+df$Conditions.of.contact = as.factor(df$Conditions.of.contact)
+
+mod.jacc = glmer(Conditions.of.contact ~ Jacc + (1|Language) + (1|Lexifier), data=df, family = "binomial", glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)))
+
+summary(mod.jacc)
+plot(allEffects(mod.jacc), rescale.axis=F)
+
+mod.dice = glmer(Conditions.of.contact ~ SoDi + (1|Language) + (1|Lexifier), data=df, family = "binomial", nAGQ=0)
+
+anova(mod.jacc)
+plot(allEffects(mod.dice), rescale.axis=F)
+
+library(rpart); library(rpart.plot)
+class.model = rpart(Conditions.of.contact ~ SoDi, data=df)
+rpart.plot(class.model)
+```
