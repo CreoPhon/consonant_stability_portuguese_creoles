@@ -1,6 +1,6 @@
 ---
 title: "Supplementary materials for: Consonant stability in Portuguese-based creoles"
-author: "Steven Moran and Carlos Silva"
+author: "Steven Moran and Carlos Silva and Nicholas A. Lester"
 date: "(`r format(Sys.time(), '%d %B, %Y')`)"
 output:
   github_document:
@@ -97,6 +97,7 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_point() +
   geom_text(label=creole_stability$Language)
 ```
+
 Results from the simple regression.
 
 ```{r}
@@ -104,7 +105,7 @@ msd <- lm(MeanStability ~ duration, data=creole_stability)
 summary(msd)
 ```
 
-However, there does seem to be two groups of languages -- ones that belong to "long duration" (>= 400 years) and those that belonw to "short duration" (<= 200 years) (Nicholas Lester, pc).
+However, there does seem to be two groups of languages -- ones that belong to "long duration" (>= 400 years) and those that below to "short duration" (<= 200 years).
 
 We can try to split the data and rerun the models, but we note that there are very few data points.
 
@@ -130,6 +131,7 @@ ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
   geom_point() +
   geom_text(label=tmp_long$Language)
 ```
+
 Or perhaps a single model with an interaction term MeanSim ~ duration, group * duration.
 
 ```{r}
@@ -141,9 +143,45 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_g
   geom_point()
 ```
 
-Nicholas Lester notes: The variability in the two groups is very different. The direction of the effect is interesting: shorter durations yield more stability more consistently. Over time, the variability in mean stability increases. Time is "destabillizing the pattern of stability".
+The variability in the two groups is very different. The direction of the effect is interesting: shorter durations yield more stability more consistently. Over time, the variability in mean stability increases. Time is "destabillizing the pattern of stability".
 
 And we can also increase the number of observations by running the analysis at the segment level, rather than on mean stability.
+
+Exploratory stuff with GAMs.
+
+```{r}
+library(mgcv)
+# Factorize duration_group
+creole_stability$duration_group = as.factor(creole_stability$duration_group)
+
+# Model with an interaction between duration_group and duration
+# (with maximum of cubic-spline fit)
+msd.gam <- gam(MeanStability ~ duration_group + s(duration, k=3) + s(duration, by=duration_group, k=3), data=creole_stability)
+
+summary(msd.gam)
+
+plot(msd.gam, all.terms=T, shade=T, pages=1)
+
+qqnorm(resid(msd.gam)); qqline(resid(msd.gam))
+
+msd.gam.trimmed <- gam(MeanStability ~ duration_group + s(duration, k=3) + s(duration, by=duration_group, k=3), data=creole_stability %>% filter(MeanStability>0.7))
+
+summary(msd.gam.trimmed)
+
+plot(msd.gam.trimmed, sel=1, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", residuals=T, main="Main effect of duration", cex=5, pch=".", col='dodgerblue'); abline(h=0, lty=2, col="red")
+
+plot(msd.gam.trimmed, sel=2, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", main="Long-term influence", col='dodgerblue'); abline(h=0, lty=2, col="red")
+
+plot(msd.gam.trimmed, sel=3, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", main="Short-term influence", col='dodgerblue'); abline(h=0, lty=2, col="red")
+
+# (dotted lines indicate error)
+plot(msd.gam.trimmed, all.terms=T, sel=4, ylab="Effect on mean stability", xlab="Duration group", main="Main effect of duration group")
+
+# checking out the model performance
+qqnorm(resid(msd.gam.trimmed)); qqline(resid(msd.gam.trimmed)) # meh
+```
+
+Removing the two creoles with the lowest scores produces significant effects. Doesn't seem very reliable, especially given the small sample size. Also, the pattern is strange; a negative trend of duration for long-term influence and a positive one for short-term influence? Also note that the model detected a mean difference between duration groups, with the short group having (slightly) lower mean stability. This appears to be the case but -- again -- so few observations. 
 
 
 # Segment stability
@@ -196,9 +234,45 @@ Calculate the stability of the segments.
 And we can also increase the number of observations in duration regression by running the analysis at the segment level, rather than on mean stability.
 
 ```{r}
-# lm(categorical_stability ~ duration + (1|Lexifier) + (1|CreolePhoneme) + (1|Language), data=database)
+library(lmerTest)
+
+# Factorizing
+mod.db = database %>%
+              as.data.frame() %>%
+              mutate(categorical_stability = as.factor(categorical_stability),
+              Lexifier = as.factor(Lexifier),
+              CreolePhoneme = as.factor(CreolePhoneme),
+              Language = as.factor(Language))
+
+# Remove singletons/doubletons
+#goodies = names(table(mod.db$CreolePhoneme)>2)
+
+#mod.db = mod.db %>%
+#         filter(CreolePhoneme %in% goodies)
 ```
 
+Hugely skewed in favor of no manner/place (10X as frequent as the next most frequent level; this could cause problems for the models).
+
+```{r}
+table(mod.db$categorical_stability)
+
+# Place stability
+cat.mod.place = glmer(PlaceStability ~ log(duration) + (1|CreolePhoneme), data=mod.db, family="binomial")
+
+summary(cat.mod.place)
+
+# Manner stability
+cat.mod.manner = glmer(MannerStability ~ log(duration) + (1|CreolePhoneme), data=mod.db, family="binomial")
+
+summary(cat.mod.manner)
+
+# Duration group
+cat.mod.group = glmer(as.factor(duration_group) ~ PlaceStability + MannerStability + (1|CreolePhoneme), data=mod.db, family="binomial", nAGQ=0)
+
+summary(cat.mod.group)
+```
+
+Some indication that place stability is more often associated with shorter periods of influence.
 
 
 # Word position
@@ -277,6 +351,7 @@ ggplot(different_position_results) +
            position = "dodge2") +
   labs(x = "Stability score", y = "Phoneme", fill = "Position")
 ```
+
 
 # References
 
