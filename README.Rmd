@@ -364,6 +364,10 @@ Test whether there's a relation between type of contact situation and overall me
 ```{r}
 m <- lm(MeanStability ~ ContactConditions, data=creole_stability)
 summary(m)
+
+ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, color = ContactConditions)) +
+  geom_smooth(method = "lm") +
+  geom_violin()
 ```
 
 ```{r}

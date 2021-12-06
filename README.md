@@ -744,6 +744,16 @@ summary(m)
     ## F-statistic: 1.723 on 1 and 16 DF,  p-value: 0.2079
 
 ``` r
+ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, color = ContactConditions)) +
+  geom_smooth(method = "lm") +
+  geom_violin()
+```
+
+    ## `geom_smooth()` using formula 'y ~ x'
+
+![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+
+``` r
 m <- lm(MeanStability ~ duration + ContactConditions * duration, data=creole_stability)
 summary(m)
 ```
