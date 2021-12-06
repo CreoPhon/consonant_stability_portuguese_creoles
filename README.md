@@ -28,8 +28,9 @@ library(knitr)
 Load the dataset.
 
 ``` r
-# Token keep resetting...
-# database <- read_csv('https://raw.githubusercontent.com/CreoPhon/CreoPhonPt/main/Creoles.csv?token=AAIGDLUMP3R6LQG6Y6GJA6TBVDYJQ')
+# Because the private token keeps resetting...
+# database <- read_csv('https://raw.githubusercontent.com/CreoPhon/CreoPhonPt/main/Creoles.csv?token=AAIGDLS6YB3YSYW7QJWERXDBVYPOE')
+# write_csv(database, 'database.csv')
 database <- read_csv('database.csv')
 ```
 
@@ -39,14 +40,14 @@ The data look like this.
 database %>% head() %>% kable()
 ```
 
-| Language    | Area           | Lexifier   | FirstMajorSettlement | EndOfInfluence | ContactConditions | LanguageContact | Class | Position     | LexifierPhoneme | CreolePhoneme | PlaceStability | MannerStability | Word        | Gloss      | Source            |
-|:------------|:---------------|:-----------|---------------------:|---------------:|:------------------|:----------------|:------|:-------------|:----------------|:--------------|---------------:|----------------:|:------------|:-----------|:------------------|
-| Principense | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | p               | p             |              1 |               1 | \[ˈpɛnɛ\]   | feather    | Maurer2009\[232\] |
-| Principense | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | p               | p             |              1 |               1 | \[t̠ʃipa\]   | guts       | Maurer2009\[238\] |
-| Principense | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | b               | b             |              1 |               1 | \[bwɛga\]   | belly      | Maurer2009\[216\] |
-| Principense | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | b               | b             |              1 |               1 | \[kaˈbɛlu\] | hair       | Maurer2009\[221\] |
-| Principense | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | t               | t             |              1 |               1 | \[ˈtudu\]   | everything | Maurer2009\[237\] |
-| Principense | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | t               | t             |              1 |               1 | \[mata\]    | to kill    | Maurer2009\[227\] |
+| Language    | Macroarea | Area           | Lexifier   | FirstMajorSettlement | EndOfInfluence | ContactConditions | LanguageContact | Class | Position     | LexifierPhoneme | CreolePhoneme | PlaceStability | MannerStability | Word        | Gloss      | Source            |
+|:------------|:----------|:---------------|:-----------|---------------------:|---------------:|:------------------|:----------------|:------|:-------------|:----------------|:--------------|---------------:|----------------:|:------------|:-----------|:------------------|
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | p               | p             |              1 |               1 | \[ˈpɛnɛ\]   | feather    | Maurer2009\[232\] |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | p               | p             |              1 |               1 | \[t̠ʃipa\]   | guts       | Maurer2009\[238\] |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | b               | b             |              1 |               1 | \[bwɛga\]   | belly      | Maurer2009\[216\] |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | b               | b             |              1 |               1 | \[kaˈbɛlu\] | hair       | Maurer2009\[221\] |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | t               | t             |              1 |               1 | \[ˈtudu\]   | everything | Maurer2009\[237\] |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | t               | t             |              1 |               1 | \[mata\]    | to kill    | Maurer2009\[227\] |
 
 Let’s extend the database with some variables. Duration of contact.
 
@@ -94,7 +95,7 @@ Which creoles in the sample are more or less stable overall?
 creole_stability <- database %>% group_by(Language, Area, duration, duration_group, ContactConditions) %>% summarize(MeanStability = mean(GlobalStability, na.rm = TRUE))
 ```
 
-Plot it.
+Plot it by area.
 
 ``` r
 ggplot(creole_stability) + 
@@ -105,6 +106,28 @@ ggplot(creole_stability) +
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+``` r
+table(creole_stability$Area)
+```
+
+    ## 
+    ##   Eastern Asia Gulf of Guinea Northern India Southeast Asia Southern India 
+    ##              1              4              3              2              2 
+    ##   Upper Guinea 
+    ##              6
+
+Plot it by conditions of contact.
+
+``` r
+ggplot(creole_stability) + 
+  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), fill = ContactConditions), 
+           stat = "identity", show.legend = TRUE) +
+  theme(axis.title.y = element_blank()) +
+  labs(x = "Stability score")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- --> \# Duration
 
 We have the overall stability values. What are these in relation to the
 duration of contact?
@@ -117,7 +140,7 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
 ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
@@ -125,7 +148,7 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_text(label=creole_stability$Language)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
 
 Results from the simple regression.
 
@@ -170,7 +193,7 @@ ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
   geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ``` r
 ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
@@ -178,14 +201,14 @@ ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
   geom_text(label=tmp_short$Language)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
 
 ``` r
 ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
   geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 ``` r
 ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
@@ -193,7 +216,7 @@ ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
   geom_text(label=tmp_long$Language)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->
 
 Or perhaps a single model with an interaction term MeanSim \~ duration,
 group \* duration.
@@ -231,12 +254,16 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_g
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 The variability in the two groups is very different. The direction of
 the effect is interesting: shorter durations yield more stability more
 consistently. Over time, the variability in mean stability increases.
 Time is “destabillizing the pattern of stability.”
+
+But it looks like you might have something tastier on your hands. The
+creoles appear to be bouncing back toward the lexifier over time (based
+on the duration findings; but perhaps I misunderstand).
 
 And we can also increase the number of observations by running the
 analysis at the segment level, rather than on mean stability.
@@ -300,13 +327,13 @@ summary(msd.gam)
 plot(msd.gam, all.terms=T, shade=T, pages=1)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ``` r
 qqnorm(resid(msd.gam)); qqline(resid(msd.gam))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
 
 ``` r
 msd.gam.trimmed <- gam(MeanStability ~ duration_group + s(duration, k=3) + s(duration, by=duration_group, k=3), data=creole_stability %>% filter(MeanStability>0.7))
@@ -345,33 +372,33 @@ summary(msd.gam.trimmed)
 plot(msd.gam.trimmed, sel=1, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", residuals=T, main="Main effect of duration", cex=5, pch=".", col='dodgerblue'); abline(h=0, lty=2, col="red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-3.png)<!-- -->
 
 ``` r
 plot(msd.gam.trimmed, sel=2, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", main="Long-term influence", col='dodgerblue'); abline(h=0, lty=2, col="red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-4.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-4.png)<!-- -->
 
 ``` r
 plot(msd.gam.trimmed, sel=3, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", main="Short-term influence", col='dodgerblue'); abline(h=0, lty=2, col="red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-5.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-5.png)<!-- -->
 
 ``` r
 # (dotted lines indicate error)
 plot(msd.gam.trimmed, all.terms=T, sel=4, ylab="Effect on mean stability", xlab="Duration group", main="Main effect of duration group")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-6.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-6.png)<!-- -->
 
 ``` r
 # checking out the model performance
 qqnorm(resid(msd.gam.trimmed)); qqline(resid(msd.gam.trimmed)) # meh
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-7.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-7.png)<!-- -->
 
 Removing the two creoles with the lowest scores produces significant
 effects. Doesn’t seem very reliable, especially given the small sample
@@ -412,7 +439,7 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme
 
     ## Warning: Width not defined. Set with `position_dodge(width = ?)`
 
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 Here is an alternative view for the global results.
 
@@ -426,7 +453,7 @@ ggplot(consonant_global_stability) +
   labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 Calculate the stability of the segments.
 
@@ -495,7 +522,7 @@ plot(mod.db$categorical_stability, mod.db$duration, notch=T)
     ## Warning in bxp(list(stats = structure(c(37, 120, 158, 425, 515, 37, 130, : some
     ## notches went outside hinges ('box'): maybe set notch=FALSE
 
-![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 Hugely skewed in favor of no manner/place (10X as frequent as the next
 most frequent level; this could cause problems for the models).
@@ -622,6 +649,10 @@ summary(cat.mod.group)
 Some indication that place stability is more often associated with
 shorter periods of influence.
 
+Numerically, the manner/place category has 50% of its observations in
+the longest durations from the sample. At the same time, no manner/no
+place is associated with the shortest durations.
+
 # Word position
 
 Next we ask, does word position influence stability?
@@ -658,7 +689,7 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
         axis.title.y = element_blank())
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -673,7 +704,7 @@ ggplot(position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 Plot the results for segments that show differences.
 
@@ -694,7 +725,7 @@ ggplot(different_position_results,
 
     ## Warning: Removed 8 rows containing missing values (geom_col).
 
-![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -712,9 +743,15 @@ ggplot(different_position_results) +
 
     ## Warning: Removed 8 rows containing missing values (geom_bar).
 
-![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 # Conditions of contact
+
+The finding that “slavery has a negative impact on stability” was mainly
+observational and also literature-based (e.g. Faraclas et al. 2007;
+Carvalho & Lucchesi 2016; Upper Guinea light creoles = slavery but with
+lighter contact conditions vs Gulf of Guinea hard creole = slavery and
+harder contact conditions).
 
 Test whether there’s a relation between type of contact situation and
 overall mean stability.
@@ -751,7 +788,7 @@ ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, color = C
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 ``` r
 m <- lm(MeanStability ~ duration + ContactConditions * duration, data=creole_stability)
@@ -788,7 +825,7 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactCon
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](README_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 # References
 

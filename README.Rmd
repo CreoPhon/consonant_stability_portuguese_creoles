@@ -22,8 +22,9 @@ library(knitr)
 Load the dataset.
 
 ```{r, message=FALSE}
-# Token keep resetting...
-# database <- read_csv('https://raw.githubusercontent.com/CreoPhon/CreoPhonPt/main/Creoles.csv?token=AAIGDLUMP3R6LQG6Y6GJA6TBVDYJQ')
+# Because the private token keeps resetting...
+# database <- read_csv('https://raw.githubusercontent.com/CreoPhon/CreoPhonPt/main/Creoles.csv?token=AAIGDLS6YB3YSYW7QJWERXDBVYPOE')
+# write_csv(database, 'database.csv')
 database <- read_csv('database.csv')
 ```
 
@@ -75,7 +76,7 @@ Which creoles in the sample are more or less stable overall?
 creole_stability <- database %>% group_by(Language, Area, duration, duration_group, ContactConditions) %>% summarize(MeanStability = mean(GlobalStability, na.rm = TRUE))
 ```
 
-Plot it.
+Plot it by area.
 
 ```{r}
 ggplot(creole_stability) + 
@@ -84,6 +85,22 @@ ggplot(creole_stability) +
   theme(axis.title.y = element_blank()) +
   labs(x = "Stability score")
 ```
+
+```{r}
+table(creole_stability$Area)
+```
+
+
+Plot it by conditions of contact.
+
+```{r}
+ggplot(creole_stability) + 
+  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), fill = ContactConditions), 
+           stat = "identity", show.legend = TRUE) +
+  theme(axis.title.y = element_blank()) +
+  labs(x = "Stability score")
+```
+# Duration
 
 We have the overall stability values. What are these in relation to the duration of contact?
 
@@ -144,6 +161,8 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_g
 ```
 
 The variability in the two groups is very different. The direction of the effect is interesting: shorter durations yield more stability more consistently. Over time, the variability in mean stability increases. Time is "destabillizing the pattern of stability".
+
+But it looks like you might have something tastier on your hands. The creoles appear to be bouncing back toward the lexifier over time (based on the duration findings; but perhaps I misunderstand).
 
 And we can also increase the number of observations by running the analysis at the segment level, rather than on mean stability.
 
@@ -278,6 +297,8 @@ summary(cat.mod.group)
 
 Some indication that place stability is more often associated with shorter periods of influence.
 
+Numerically, the manner/place category has 50% of its observations in the longest durations from the sample. At the same time, no manner/no place is associated with the shortest durations. 
+
 
 # Word position
 
@@ -358,6 +379,8 @@ ggplot(different_position_results) +
 
 
 # Conditions of contact
+
+The finding that "slavery has a negative impact on stability" was mainly observational and also literature-based (e.g. Faraclas et al. 2007; Carvalho & Lucchesi 2016; Upper Guinea light creoles = slavery but with lighter contact conditions vs Gulf of Guinea hard creole = slavery and harder contact conditions).
 
 Test whether there's a relation between type of contact situation and overall mean stability.
 
