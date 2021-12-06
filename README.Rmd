@@ -72,7 +72,7 @@ table(database$categorical_stability)
 Which creoles in the sample are more or less stable overall?
 
 ```{r, message=FALSE}
-creole_stability <- database %>% group_by(Language, Area, duration, duration_group) %>% summarize(MeanStability = mean(GlobalStability, na.rm = TRUE))
+creole_stability <- database %>% group_by(Language, Area, duration, duration_group, ContactConditions) %>% summarize(MeanStability = mean(GlobalStability, na.rm = TRUE))
 ```
 
 Plot it.
@@ -251,6 +251,10 @@ mod.db = database %>%
 #         filter(CreolePhoneme %in% goodies)
 ```
 
+```{r}
+plot(mod.db$categorical_stability, mod.db$duration, notch=T)
+```
+
 Hugely skewed in favor of no manner/place (10X as frequent as the next most frequent level; this could cause problems for the models).
 
 ```{r}
@@ -350,6 +354,25 @@ ggplot(different_position_results) +
            show.legend = TRUE,
            position = "dodge2") +
   labs(x = "Stability score", y = "Phoneme", fill = "Position")
+```
+
+
+# Conditions of contact
+
+Test whether there's a relation between type of contact situation and overall mean stability.
+
+```{r}
+m <- lm(MeanStability ~ ContactConditions, data=creole_stability)
+summary(m)
+```
+
+```{r}
+m <- lm(MeanStability ~ duration + ContactConditions * duration, data=creole_stability)
+summary(m)
+
+ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactConditions)) +
+  geom_smooth(method = "lm") +
+  geom_point()
 ```
 
 

@@ -2,12 +2,13 @@ Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
 Steven Moran and Carlos Silva and Nicholas A. Lester
-(05 December, 2021)
+(06 December, 2021)
 
 -   [Overview](#overview)
 -   [Creole stability](#creole-stability)
 -   [Segment stability](#segment-stability)
 -   [Word position](#word-position)
+-   [Conditions of contact](#conditions-of-contact)
 -   [References](#references)
 
 # Overview
@@ -90,7 +91,7 @@ table(database$categorical_stability)
 Which creoles in the sample are more or less stable overall?
 
 ``` r
-creole_stability <- database %>% group_by(Language, Area, duration, duration_group) %>% summarize(MeanStability = mean(GlobalStability, na.rm = TRUE))
+creole_stability <- database %>% group_by(Language, Area, duration, duration_group, ContactConditions) %>% summarize(MeanStability = mean(GlobalStability, na.rm = TRUE))
 ```
 
 Plot it.
@@ -487,6 +488,15 @@ mod.db = database %>%
 #         filter(CreolePhoneme %in% goodies)
 ```
 
+``` r
+plot(mod.db$categorical_stability, mod.db$duration, notch=T)
+```
+
+    ## Warning in bxp(list(stats = structure(c(37, 120, 158, 425, 515, 37, 130, : some
+    ## notches went outside hinges ('box'): maybe set notch=FALSE
+
+![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+
 Hugely skewed in favor of no manner/place (10X as frequent as the next
 most frequent level; this could cause problems for the models).
 
@@ -648,7 +658,7 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
         axis.title.y = element_blank())
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -663,7 +673,7 @@ ggplot(position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 Plot the results for segments that show differences.
 
@@ -684,7 +694,7 @@ ggplot(different_position_results,
 
     ## Warning: Removed 8 rows containing missing values (geom_col).
 
-![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -702,7 +712,73 @@ ggplot(different_position_results) +
 
     ## Warning: Removed 8 rows containing missing values (geom_bar).
 
-![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+
+# Conditions of contact
+
+Test whether there’s a relation between type of contact situation and
+overall mean stability.
+
+``` r
+m <- lm(MeanStability ~ ContactConditions, data=creole_stability)
+summary(m)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = MeanStability ~ ContactConditions, data = creole_stability)
+    ## 
+    ## Residuals:
+    ##       Min        1Q    Median        3Q       Max 
+    ## -0.196336 -0.016876  0.007455  0.061289  0.105251 
+    ## 
+    ## Coefficients:
+    ##                          Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)               0.89255    0.03030  29.459 2.28e-15 ***
+    ## ContactConditionsSlavery -0.05335    0.04065  -1.313    0.208    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.08569 on 16 degrees of freedom
+    ## Multiple R-squared:  0.0972, Adjusted R-squared:  0.04078 
+    ## F-statistic: 1.723 on 1 and 16 DF,  p-value: 0.2079
+
+``` r
+m <- lm(MeanStability ~ duration + ContactConditions * duration, data=creole_stability)
+summary(m)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = MeanStability ~ duration + ContactConditions * duration, 
+    ##     data = creole_stability)
+    ## 
+    ## Residuals:
+    ##       Min        1Q    Median        3Q       Max 
+    ## -0.203607 -0.023472  0.007634  0.056201  0.098616 
+    ## 
+    ## Coefficients:
+    ##                                     Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)                        8.758e-01  7.531e-02  11.629  1.4e-08 ***
+    ## duration                           8.459e-05  3.455e-04   0.245    0.810    
+    ## ContactConditionsSlavery          -7.282e-02  9.625e-02  -0.757    0.462    
+    ## duration:ContactConditionsSlavery  1.766e-05  3.763e-04   0.047    0.963    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.08992 on 14 degrees of freedom
+    ## Multiple R-squared:  0.1302, Adjusted R-squared:  -0.05624 
+    ## F-statistic: 0.6983 on 3 and 14 DF,  p-value: 0.5685
+
+``` r
+ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactConditions)) +
+  geom_smooth(method = "lm") +
+  geom_point()
+```
+
+    ## `geom_smooth()` using formula 'y ~ x'
+
+![](README_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 # References
 
