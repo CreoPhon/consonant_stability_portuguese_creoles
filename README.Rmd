@@ -100,6 +100,7 @@ ggplot(creole_stability) +
   theme(axis.title.y = element_blank()) +
   labs(x = "Stability score")
 ```
+
 # Duration
 
 We have the overall stability values. What are these in relation to the duration of contact?
@@ -201,6 +202,54 @@ qqnorm(resid(msd.gam.trimmed)); qqline(resid(msd.gam.trimmed)) # meh
 ```
 
 Removing the two creoles with the lowest scores produces significant effects. Doesn't seem very reliable, especially given the small sample size. Also, the pattern is strange; a negative trend of duration for long-term influence and a positive one for short-term influence? Also note that the model detected a mean difference between duration groups, with the short group having (slightly) lower mean stability. This appears to be the case but -- again -- so few observations. 
+
+## Duration efects on the segment level
+
+Does duration affect the stability values of specific segments or segment classes?
+
+
+
+```{r}
+ggplot(database, aes(duration, MannerStability, colour=duration_group)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") +
+  facet_wrap(~Class)
+```
+
+```{r}
+ggplot(database, aes(duration, GlobalStability, colour=duration_group)) + 
+  geom_point() + 
+  geom_smooth() +
+  facet_wrap(~Class)
+```
+
+
+
+
+
+
+```{r}
+ggplot(database, aes(duration, PlaceStability, colour=duration_group)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") +
+  facet_wrap(~LexifierPhoneme)
+```
+
+```{r}
+ggplot(database, aes(duration, MannerStability, colour=duration_group)) + 
+  geom_point() + 
+  geom_smooth() +
+  facet_wrap(~LexifierPhoneme)
+```
+
+```{r}
+ggplot(database, aes(duration, GlobalStability, colour=duration_group)) + 
+  geom_point() + 
+  geom_smooth() +
+  facet_wrap(~LexifierPhoneme)
+```
+
+
 
 
 # Segment stability
@@ -304,7 +353,7 @@ Numerically, the manner/place category has 50% of its observations in the longes
 
 Next we ask, does word position influence stability?
 
-First, data prepartion.
+First, data preparation.
 
 ```{r}
 data_by_position <- database %>% select(Position, LexifierPhoneme, PlaceStability, MannerStability) %>% mutate(Position = tolower(Position))
