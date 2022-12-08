@@ -12,11 +12,12 @@ bibliography: 'bibliography.bib'
   
 Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress.
 
-In this report, we use R [@R] and the following packages [@tidyverse;@knitr].
+In this report, we use R [@R] and the following packages [@tidyverse;@knitr;@ggrepel].
 
 ```{r, message=FALSE}
 library(tidyverse)
 library(knitr)
+library(ggrepel)
 ```
 
 Load the dataset.
@@ -114,6 +115,10 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
 ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_point() +
   geom_text(label=creole_stability$Language)
+
+ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
+  geom_point() +
+  geom_text_repel(aes(label = creole_stability$Language))
 ```
 
 Results from the simple regression.
@@ -139,6 +144,10 @@ ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
 ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
   geom_point() +
   geom_text(label=tmp_short$Language)
+
+ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
+  geom_point() +
+  geom_text_repel(aes(label = tmp_short$Language))
 ```
 
 ```{r}
@@ -148,7 +157,12 @@ ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
 ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
   geom_point() +
   geom_text(label=tmp_long$Language)
+
+ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
+  geom_point() +
+  geom_text_repel(aes(label = tmp_long$Language))
 ```
+
 
 Or perhaps a single model with an interaction term MeanSim ~ duration, group * duration.
 

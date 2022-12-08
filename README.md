@@ -2,17 +2,21 @@ Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
 Steven Moran and Carlos Silva and Nicholas A. Lester
-(13 janeiro, 2022)
+(08 December, 2022)
 
--   [Overview](#overview)
--   [Creole stability](#creole-stability)
--   [Duration](#duration)
-    -   [Duration efects on the segment
-        level](#duration-efects-on-the-segment-level)
--   [Segment stability](#segment-stability)
--   [Word position](#word-position)
--   [Conditions of contact](#conditions-of-contact)
--   [References](#references)
+-   <a href="#overview" id="toc-overview">Overview</a>
+-   <a href="#creole-stability" id="toc-creole-stability">Creole
+    stability</a>
+-   <a href="#duration" id="toc-duration">Duration</a>
+    -   <a href="#duration-efects-on-the-segment-level"
+        id="toc-duration-efects-on-the-segment-level">Duration efects on the
+        segment level</a>
+-   <a href="#segment-stability" id="toc-segment-stability">Segment
+    stability</a>
+-   <a href="#word-position" id="toc-word-position">Word position</a>
+-   <a href="#conditions-of-contact"
+    id="toc-conditions-of-contact">Conditions of contact</a>
+-   <a href="#references" id="toc-references">References</a>
 
 # Overview
 
@@ -21,11 +25,12 @@ creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc).
 Silva, Carlos and Steven Moran. Work in progress.
 
 In this report, we use R (R Core Team 2021) and the following packages
-(Wickham et al. 2019; Xie 2021).
+(Wickham et al. 2019; Xie 2021; Slowikowski 2022).
 
 ``` r
 library(tidyverse)
 library(knitr)
+library(ggrepel)
 ```
 
 Load the dataset.
@@ -43,14 +48,14 @@ The data look like this.
 database %>% head() %>% kable()
 ```
 
-| Language    | Macroarea | Area           | Lexifier   | FirstMajorSettlement | EndOfInfluence | ContactConditions | LanguageContact | Class | Position     | LexifierPhoneme | CreolePhoneme | PlaceStability | MannerStability | Word                                 | Gloss      | Source            |
-|:------------|:----------|:---------------|:-----------|---------------------:|---------------:|:------------------|:----------------|:------|:-------------|:----------------|:--------------|---------------:|----------------:|:-------------------------------------|:-----------|:------------------|
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | p               | p             |              1 |               1 | \[’p&lt;U+025B&gt;n&lt;U+025B&gt;\]  | feather    | Maurer2009\[232\] |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | p               | p             |              1 |               1 | \[t&lt;U+0320&gt;&lt;U+0283&gt;ipa\] | guts       | Maurer2009\[238\] |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | b               | b             |              1 |               1 | \[bw&lt;U+025B&gt;ga\]               | belly      | Maurer2009\[216\] |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | b               | b             |              1 |               1 | \[ka’b&lt;U+025B&gt;lu\]             | hair       | Maurer2009\[221\] |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | t               | t             |              1 |               1 | \[’tudu\]                            | everything | Maurer2009\[237\] |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | t               | t             |              1 |               1 | \[mata\]                             | to kill    | Maurer2009\[227\] |
+| Language    | Macroarea | Area           | Lexifier   | FirstMajorSettlement | EndOfInfluence | ContactConditions | LanguageContact | Class | Position     | LexifierPhoneme | CreolePhoneme | PlaceStability | MannerStability | Word        | Gloss      | Source            |
+|:------------|:----------|:---------------|:-----------|---------------------:|---------------:|:------------------|:----------------|:------|:-------------|:----------------|:--------------|---------------:|----------------:|:------------|:-----------|:------------------|
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | p               | p             |              1 |               1 | \[ˈpɛnɛ\]   | feather    | Maurer2009\[232\] |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | p               | p             |              1 |               1 | \[t̠ʃipa\]   | guts       | Maurer2009\[238\] |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | b               | b             |              1 |               1 | \[bwɛga\]   | belly      | Maurer2009\[216\] |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | b               | b             |              1 |               1 | \[kaˈbɛlu\] | hair       | Maurer2009\[221\] |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | t               | t             |              1 |               1 | \[ˈtudu\]   | everything | Maurer2009\[237\] |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | t               | t             |              1 |               1 | \[mata\]    | to kill    | Maurer2009\[227\] |
 
 Let’s extend the database with some variables. Duration of contact.
 
@@ -155,6 +160,14 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
 
 ![](README_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
 
+``` r
+ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
+  geom_point() +
+  geom_text_repel(aes(label = creole_stability$Language))
+```
+
+![](README_files/figure-gfm/unnamed-chunk-12-3.png)<!-- -->
+
 Results from the simple regression.
 
 ``` r
@@ -182,8 +195,8 @@ summary(msd)
     ## F-statistic: 0.007862 on 1 and 16 DF,  p-value: 0.9304
 
 However, there does seem to be two groups of languages – ones that
-belong to “long duration” (&gt;= 400 years) and those that below to
-“short duration” (&lt;= 200 years).
+belong to “long duration” (\>= 400 years) and those that below to “short
+duration” (\<= 200 years).
 
 We can try to split the data and rerun the models, but we note that
 there are very few data points.
@@ -209,6 +222,14 @@ ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
 ![](README_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
 
 ``` r
+ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
+  geom_point() +
+  geom_text_repel(aes(label = tmp_short$Language))
+```
+
+![](README_files/figure-gfm/unnamed-chunk-15-3.png)<!-- -->
+
+``` r
 ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
   geom_point()
 ```
@@ -222,6 +243,14 @@ ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->
+
+``` r
+ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
+  geom_point() +
+  geom_text_repel(aes(label = tmp_long$Language))
+```
+
+![](README_files/figure-gfm/unnamed-chunk-16-3.png)<!-- -->
 
 Or perhaps a single model with an interaction term MeanSim \~ duration,
 group \* duration.
@@ -264,7 +293,7 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_g
 The variability in the two groups is very different. The direction of
 the effect is interesting: shorter durations yield more stability more
 consistently. Over time, the variability in mean stability increases.
-Time is “destabillizing the pattern of stability.”
+Time is “destabillizing the pattern of stability”.
 
 But it looks like you might have something tastier on your hands. The
 creoles appear to be bouncing back toward the lexifier over time (based
@@ -288,7 +317,7 @@ library(mgcv)
     ## 
     ##     collapse
 
-    ## This is mgcv 1.8-34. For overview type 'help("mgcv-package")'.
+    ## This is mgcv 1.8-40. For overview type 'help("mgcv-package")'.
 
 ``` r
 # Factorize duration_group
@@ -604,7 +633,7 @@ mod.db = database %>%
 plot(mod.db$categorical_stability, mod.db$duration, notch=T)
 ```
 
-    ## Warning in bxp(list(stats = structure(c(37, 120, 158, 425, 515, 37, 130, : some
+    ## Warning in (function (z, notch = FALSE, width = NULL, varwidth = FALSE, : some
     ## notches went outside hinges ('box'): maybe set notch=FALSE
 
 ![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
@@ -647,7 +676,7 @@ summary(cat.mod.place)
     ## 
     ## Fixed effects:
     ##               Estimate Std. Error z value Pr(>|z|)  
-    ## (Intercept)     5.3041     2.5425   2.086    0.037 *
+    ## (Intercept)     5.3041     2.5433   2.086    0.037 *
     ## log(duration)  -0.1279     0.2215  -0.577    0.564  
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -683,8 +712,8 @@ summary(cat.mod.manner)
     ## 
     ## Fixed effects:
     ##               Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept)   10.11364    2.42844   4.165 3.12e-05 ***
-    ## log(duration)  0.08086    0.22972   0.352    0.725    
+    ## (Intercept)   10.11364    2.42778   4.166  3.1e-05 ***
+    ## log(duration)  0.08086    0.22973   0.352    0.725    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
@@ -695,7 +724,11 @@ summary(cat.mod.manner)
 ``` r
 # Duration group
 cat.mod.group = glmer(as.factor(duration_group) ~ PlaceStability + MannerStability + (1|CreolePhoneme), data=mod.db, family="binomial", nAGQ=0)
+```
 
+    ## boundary (singular) fit: see help('isSingular')
+
+``` r
 summary(cat.mod.group)
 ```
 
@@ -730,6 +763,8 @@ summary(cat.mod.group)
     ##             (Intr) PlcStb
     ## PlaceStblty -0.521       
     ## MannrStblty -0.339 -0.580
+    ## optimizer (bobyqa) convergence code: 0 (OK)
+    ## boundary (singular) fit: see help('isSingular')
 
 Some indication that place stability is more often associated with
 shorter periods of influence.
@@ -761,7 +796,8 @@ position_stability <- mutate(data_by_position, GlobalStability = (PlaceStability
 position_results <- position_stability %>% group_by(LexifierPhoneme, Position) %>% summarize(m = mean(GlobalStability, na.rm = TRUE))
 ```
 
-    ## `summarise()` has grouped output by 'LexifierPhoneme'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'LexifierPhoneme'. You can override using
+    ## the `.groups` argument.
 
 And plot the results for all segments.
 
@@ -921,6 +957,14 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactCon
 R Core Team. 2021. *R: A Language and Environment for Statistical
 Computing*. Vienna, Austria: R Foundation for Statistical Computing.
 <https://www.R-project.org/>.
+
+</div>
+
+<div id="ref-ggrepel" class="csl-entry">
+
+Slowikowski, Kamil. 2022. *Ggrepel: Automatically Position
+Non-Overlapping Text Labels with ’Ggplot2’*.
+<https://CRAN.R-project.org/package=ggrepel>.
 
 </div>
 
