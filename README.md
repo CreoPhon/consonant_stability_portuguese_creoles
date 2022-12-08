@@ -31,6 +31,8 @@ In this report, we use R (R Core Team 2021) and the following packages
 library(tidyverse)
 library(knitr)
 library(ggrepel)
+
+theme_set(theme_bw())
 ```
 
 Load the dataset.
@@ -543,7 +545,6 @@ consonant_stability_class <- cbind(consonant_stability, class)
 Next, we plot the results.
 
 ``` r
-# TODO: fix the class "dots"
 ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme, color=class)) +
   geom_point(position= "dodge") + 
   geom_text(aes(label=LexifierPhoneme), hjust=3, vjust=0) +
@@ -554,6 +555,16 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme
     ## Warning: Width not defined. Set with `position_dodge(width = ?)`
 
 ![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+
+``` r
+ggplot(consonant_stability, aes(y = mmanner, x = mplace, fill=class)) +
+  geom_point(position= "dodge", aes(color=class)) + 
+  geom_text_repel(aes(label = LexifierPhoneme))
+```
+
+    ## Warning: Width not defined. Set with `position_dodge(width = ?)`
+
+![](README_files/figure-gfm/unnamed-chunk-25-2.png)<!-- -->
 
 Here is an alternative view for the global results.
 
@@ -902,7 +913,7 @@ summary(m)
     ## F-statistic: 1.723 on 1 and 16 DF,  p-value: 0.2079
 
 ``` r
-ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, color = ContactConditions)) +
+ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, fill = ContactConditions)) +
   geom_smooth(method = "lm") +
   geom_violin()
 ```
