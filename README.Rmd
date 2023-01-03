@@ -119,7 +119,7 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   ylab("Mean stability")
 ```
 
-```{r, duration_mean_stability}
+```{r, duration_groups_scatter}
 ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_point() +
   geom_text_repel(aes(label = creole_stability$Language)) +
@@ -483,7 +483,9 @@ Test whether there's a relation between type of contact situation and overall me
 ```{r}
 m <- lm(MeanStability ~ ContactConditions, data=creole_stability)
 summary(m)
+```
 
+```{r, conditions_violin}
 ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, fill = ContactConditions)) +
   geom_smooth(method = "lm") +
   geom_violin()  +
@@ -495,7 +497,9 @@ ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, fill = Co
 ```{r}
 m <- lm(MeanStability ~ duration + ContactConditions * duration, data=creole_stability)
 summary(m)
+```
 
+```{r, duration_groups_geom}
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactConditions)) +
   geom_smooth(method = "lm") +
   geom_point() +

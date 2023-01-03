@@ -164,7 +164,7 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   ylab("Mean stability")
 ```
 
-![](README_files/figure-gfm/duration_mean_stability-1.png)<!-- -->
+![](README_files/figure-gfm/duration_groups_scatter-1.png)<!-- -->
 
 Results from the simple regression.
 
@@ -925,7 +925,7 @@ ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, fill = Co
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
+![](README_files/figure-gfm/conditions_violin-1.png)<!-- -->
 
 ``` r
 m <- lm(MeanStability ~ duration + ContactConditions * duration, data=creole_stability)
@@ -965,7 +965,7 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactCon
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](README_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
+![](README_files/figure-gfm/duration_groups_geom-1.png)<!-- -->
 
 # References
 
