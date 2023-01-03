@@ -5,12 +5,15 @@ date: "(`r format(Sys.time(), '%d %B, %Y')`)"
 output:
   github_document:
     toc: true
-  pdf_document:
-    toc: true
 bibliography: 'bibliography.bib'
 ---
 
-<!-- author: "Steven Moran, Carlos Silva and Nicholas A. Lester" -->
+<!-- author: "Steven Moran, Carlos Silva and Nicholas A. Lester" 
+
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+-->
 
 # Overview
   

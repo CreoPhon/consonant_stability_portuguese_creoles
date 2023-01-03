@@ -17,7 +17,12 @@ creoles
     id="toc-conditions-of-contact">Conditions of contact</a>
 -   <a href="#references" id="toc-references">References</a>
 
-<!-- author: "Steven Moran, Carlos Silva and Nicholas A. Lester" -->
+<!-- author: "Steven Moran, Carlos Silva and Nicholas A. Lester" 
+
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+-->
 
 # Overview
 
