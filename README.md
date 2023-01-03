@@ -1,16 +1,15 @@
 Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
-Steven Moran, Carlos Silva and Nicholas A. Lester
 (03 January, 2023)
 
 -   <a href="#overview" id="toc-overview">Overview</a>
 -   <a href="#creole-stability" id="toc-creole-stability">Creole
     stability</a>
 -   <a href="#duration" id="toc-duration">Duration</a>
-    -   <a href="#duration-efects-on-the-segment-level"
-        id="toc-duration-efects-on-the-segment-level">Duration efects on the
-        segment level</a>
+-   <a href="#duration-effects-on-the-segment-level"
+    id="toc-duration-effects-on-the-segment-level">Duration effects on the
+    segment level</a>
 -   <a href="#segment-stability" id="toc-segment-stability">Segment
     stability</a>
 -   <a href="#word-position" id="toc-word-position">Word position</a>
@@ -18,13 +17,16 @@ Steven Moran, Carlos Silva and Nicholas A. Lester
     id="toc-conditions-of-contact">Conditions of contact</a>
 -   <a href="#references" id="toc-references">References</a>
 
+<!-- author: "Steven Moran, Carlos Silva and Nicholas A. Lester" -->
+
 # Overview
 
 <!-- Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress. -->
 
 Supplementary materials for, “Consonant Stability in Portuguese-based
-creoles”. In this report, we provide code in R (R Core Team 2021) and we
-use these R libraries (Wickham et al. 2019; Xie 2021; Slowikowski 2022):
+creoles”. In this report, we provide code in R (RStudio Team 2020) and
+we use these R libraries (Wickham et al. 2019; Xie 2021; Slowikowski
+2022):
 
 ``` r
 library(tidyverse)
@@ -147,7 +149,9 @@ overall stability.
 
 ``` r
 ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
-  geom_point()
+  geom_point() +
+  xlab("Duration (years)") +
+  ylab("Mean stability")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
@@ -155,7 +159,9 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
 ``` r
 ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_point() +
-  geom_text_repel(aes(label = creole_stability$Language))
+  geom_text_repel(aes(label = creole_stability$Language)) +
+  xlab("Duration (years)") +
+  ylab("Mean stability")
 ```
 
 ![](README_files/figure-gfm/duration_mean_stability-1.png)<!-- -->
@@ -200,7 +206,9 @@ tmp_long <- creole_stability %>% filter(duration > 200)
 
 ``` r
 ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
-  geom_point()
+  geom_point() +
+  xlab("Duration (years)") +
+  ylab("Mean stability")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
@@ -208,22 +216,18 @@ ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
 ``` r
 ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
   geom_point() +
-  geom_text(label=tmp_short$Language)
+  geom_text_repel(aes(label = tmp_short$Language)) +
+  xlab("Duration (years)") +
+  ylab("Mean stability")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
 
 ``` r
-ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
-  geom_point() +
-  geom_text_repel(aes(label = tmp_short$Language))
-```
-
-![](README_files/figure-gfm/unnamed-chunk-14-3.png)<!-- -->
-
-``` r
 ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
-  geom_point()
+  geom_point() +
+  xlab("Duration (years)") +
+  ylab("Mean stability")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
@@ -231,18 +235,12 @@ ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
 ``` r
 ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
   geom_point() +
-  geom_text(label=tmp_long$Language)
+  geom_text_repel(aes(label = tmp_long$Language)) +
+  xlab("Duration (years)") +
+  ylab("Mean stability")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
-
-``` r
-ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
-  geom_point() +
-  geom_text_repel(aes(label = tmp_long$Language))
-```
-
-![](README_files/figure-gfm/unnamed-chunk-15-3.png)<!-- -->
 
 Or perhaps a single model with an interaction term MeanSim \~ duration,
 group \* duration.
@@ -275,12 +273,15 @@ summary(msd)
 ``` r
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
   geom_smooth(method = "lm") +
-  geom_point()
+  geom_point() +
+  xlab("Duration (years)") +
+  ylab("Mean stability") +
+  labs(color = "Duration group")
 ```
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](README_files/figure-gfm/duration_groups-1.png)<!-- -->
 
 The variability in the two groups is very different. The direction of
 the effect is interesting: shorter durations yield more stability more
@@ -434,7 +435,7 @@ note that the model detected a mean difference between duration groups,
 with the short group having (slightly) lower mean stability. This
 appears to be the case but – again – so few observations.
 
-## Duration efects on the segment level
+# Duration effects on the segment level
 
 Does duration affect the stability values of specific segments or
 segment classes?
@@ -443,7 +444,10 @@ segment classes?
 ggplot(database, aes(duration, MannerStability, colour=duration_group)) + 
   geom_point() + 
   geom_smooth(method = "lm") +
-  facet_wrap(~Class)
+  facet_wrap(~Class) +
+  xlab("Duration (years)") +
+  ylab("Manner stability") +
+  labs(color="Duration")
 ```
 
     ## `geom_smooth()` using formula 'y ~ x'
@@ -458,7 +462,10 @@ ggplot(database, aes(duration, MannerStability, colour=duration_group)) +
 ggplot(database, aes(duration, GlobalStability, colour=duration_group)) + 
   geom_point() + 
   geom_smooth() +
-  facet_wrap(~Class)
+  facet_wrap(~Class) +
+  xlab("Duration (years)") +
+  ylab("Global stability") +
+  labs(color="Duration")
 ```
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
@@ -473,7 +480,10 @@ ggplot(database, aes(duration, GlobalStability, colour=duration_group)) +
 ggplot(database, aes(duration, PlaceStability, colour=duration_group)) + 
   geom_point() + 
   geom_smooth(method = "lm") +
-  facet_wrap(~LexifierPhoneme)
+  facet_wrap(~LexifierPhoneme)  +
+  xlab("Duration (years)") +
+  ylab("Place stability") +
+  labs(color="Duration")
 ```
 
     ## `geom_smooth()` using formula 'y ~ x'
@@ -488,7 +498,10 @@ ggplot(database, aes(duration, PlaceStability, colour=duration_group)) +
 ggplot(database, aes(duration, MannerStability, colour=duration_group)) + 
   geom_point() + 
   geom_smooth() +
-  facet_wrap(~LexifierPhoneme)
+  facet_wrap(~LexifierPhoneme) +
+  xlab("Duration (years)") +
+  ylab("Mean stability") +
+  labs(color="Duration")
 ```
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
@@ -503,7 +516,10 @@ ggplot(database, aes(duration, MannerStability, colour=duration_group)) +
 ggplot(database, aes(duration, GlobalStability, colour=duration_group)) + 
   geom_point() + 
   geom_smooth() +
-  facet_wrap(~LexifierPhoneme)
+  facet_wrap(~LexifierPhoneme) +
+  xlab("Duration (years)") +
+  ylab("Global stability") +
+  labs(color="Duration")
 ```
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
@@ -534,27 +550,22 @@ consonant_stability_class <- cbind(consonant_stability, class)
 
 Next, we plot the results.
 
-``` r
-ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme, color=class)) +
-  geom_point(position= "dodge") + 
-  geom_text(aes(label=LexifierPhoneme), hjust=3, vjust=0) +
-  theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank())
-```
-
     ## Warning: Width not defined. Set with `position_dodge(width = ?)`
 
 ![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 ``` r
-ggplot(consonant_stability, aes(y = mmanner, x = mplace, fill=class)) +
+ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
   geom_point(position= "dodge", aes(color=class)) + 
-  geom_text_repel(aes(label = LexifierPhoneme))
+  geom_text_repel(aes(label = LexifierPhoneme)) +
+  xlab("Mean stability (place of articulation)") +
+  ylab("Mean (manner of articulation)") +
+  labs(color="Segment class")
 ```
 
     ## Warning: Width not defined. Set with `position_dodge(width = ?)`
 
-![](README_files/figure-gfm/unnamed-chunk-24-2.png)<!-- -->
+![](README_files/figure-gfm/stability_by_consonant-1.png)<!-- -->
 
 Here is an alternative view for the global results.
 
@@ -771,8 +782,8 @@ Some indication that place stability is more often associated with
 shorter periods of influence.
 
 Numerically, the manner/place category has 50% of its observations in
-the longest durations from the sample. At the same time, no manner/no
-place is associated with the shortest durations.
+the longest duration from the sample. At the same time, no manner/no
+place is associated with the shortest duration.
 
 # Word position
 
@@ -808,7 +819,8 @@ position_results$Position <- factor(position_results$Position, levels = c('word-
 ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) + 
   geom_col(position = position_dodge2(width = 0.9, preserve = "single")) +
   theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank())
+        axis.title.y = element_blank()) +
+  labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
@@ -823,7 +835,7 @@ ggplot(position_results) +
            stat = "identity", 
            show.legend = TRUE,
            position = "dodge2") +
-  labs(x = "Stability score", y = "Phoneme", fill = "Position")
+  labs(x = "Stability score", y = "Phoneme", fill = "Word position")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
@@ -831,7 +843,6 @@ ggplot(position_results) +
 Plot the results for segments that show differences.
 
 ``` r
-# TODO: update what we show, flip horizontally, change colors
 position_results1 <- position_results %>% pivot_wider(names_from = Position, values_from = m)
 
 different_position <- subset(position_results1, position_results1$`word-initial` != position_results1$`word-medial` | position_results1$`word-final` != position_results1$`word-medial`)
@@ -842,7 +853,8 @@ different_position_results$Position <- factor(different_position_results$Positio
 
 ggplot(different_position_results, 
        aes(x = LexifierPhoneme, y = m, fill = Position)) + 
-  geom_col(position = position_dodge2(width = 0.9, preserve = "single"))
+  geom_col(position = position_dodge2(width = 0.9, preserve = "single")) +
+  labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
     ## Warning: Removed 8 rows containing missing values (geom_col).
@@ -860,7 +872,7 @@ ggplot(different_position_results) +
            stat = "identity", 
            show.legend = TRUE,
            position = "dodge2") +
-  labs(x = "Stability score", y = "Phoneme", fill = "Position")
+  labs(x = "Stability score", y = "Phoneme", fill = "Word position")
 ```
 
     ## Warning: Removed 8 rows containing missing values (geom_bar).
@@ -870,10 +882,10 @@ ggplot(different_position_results) +
 # Conditions of contact
 
 The finding that “slavery has a negative impact on stability” was mainly
-observational and also literature-based (e.g. Faraclas et al. 2007;
-Carvalho & Lucchesi 2016; Upper Guinea light creoles = slavery but with
-lighter contact conditions vs Gulf of Guinea hard creole = slavery and
-harder contact conditions).
+observational and also literature-based (e.g. Faraclas et al. (2007);
+Carvalho and Lucchesi (2016); Upper Guinea light creoles = slavery but
+with lighter contact conditions versus Gulf of Guinea hard creole =
+slavery and harder contact conditions).
 
 Test whether there’s a relation between type of contact situation and
 overall mean stability.
@@ -905,7 +917,10 @@ summary(m)
 ``` r
 ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, fill = ContactConditions)) +
   geom_smooth(method = "lm") +
-  geom_violin()
+  geom_violin()  +
+  xlab("Contact condition") +
+  ylab("Mean stability") +
+  guides(fill="none")
 ```
 
     ## `geom_smooth()` using formula 'y ~ x'
@@ -942,7 +957,10 @@ summary(m)
 ``` r
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactConditions)) +
   geom_smooth(method = "lm") +
-  geom_point()
+  geom_point() +
+  xlab("Duration (years)") +
+  ylab("Mean stability") +
+  labs(color="Contact conditions")
 ```
 
     ## `geom_smooth()` using formula 'y ~ x'
@@ -953,11 +971,29 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactCon
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 
+<div id="ref-CarvalhoLucchesi16" class="csl-entry">
+
+Carvalho, Ana Maria, and Dante Lucchesi. 2016. “Portuguese in Contact.”
+In *The Handbook of Portuguese Linguistics*, 41–55. Wiley Blackwell.
+<https://doi.org/10.1002/9781118791844.ch3>.
+
+</div>
+
+<div id="ref-Faraclasetal07" class="csl-entry">
+
+Faraclas, Nicholas, Don Walicek, Mervyn Alleyne, Wilfredo Geigel, and
+Luis Ortiz. 2007. “The Complexity That Really Matters: The Role of
+Political Economy in Creole Genesis.” In *Deconstructing Creole: New
+Horizons in Language Creation*, edited by U. Ansaldo, S. J. Matthews,
+and L. Lim, 227–64. John Benjamins.
+<https://doi.org/10.1075/tsl.73.12far>.
+
+</div>
+
 <div id="ref-R" class="csl-entry">
 
-R Core Team. 2021. *R: A Language and Environment for Statistical
-Computing*. Vienna, Austria: R Foundation for Statistical Computing.
-<https://www.R-project.org/>.
+RStudio Team. 2020. *RStudio: Integrated Development Environment for r*.
+Boston, MA: RStudio, PBC. <http://www.rstudio.com/>.
 
 </div>
 
