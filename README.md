@@ -1,8 +1,8 @@
 Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
-Steven Moran and Carlos Silva and Nicholas A. Lester
-(08 December, 2022)
+Steven Moran, Carlos Silva and Nicholas A. Lester
+(03 January, 2023)
 
 -   <a href="#overview" id="toc-overview">Overview</a>
 -   <a href="#creole-stability" id="toc-creole-stability">Creole
@@ -20,22 +20,25 @@ Steven Moran and Carlos Silva and Nicholas A. Lester
 
 # Overview
 
-Supplementary materials for [Consonant Stability in Portuguese-based
-creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc).
-Silva, Carlos and Steven Moran. Work in progress.
+<!-- Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress. -->
 
-In this report, we use R (R Core Team 2021) and the following packages
-(Wickham et al. 2019; Xie 2021; Slowikowski 2022).
+Supplementary materials for:
+
+> > > Consonant Stability in Portuguese-based creoles.
+
+In this report, we provide code in R (R Core Team 2021) and we use these
+R libraries (Wickham et al. 2019; Xie 2021; Slowikowski 2022):
 
 ``` r
 library(tidyverse)
 library(knitr)
 library(ggrepel)
 
+# Set the theme for all figures
 theme_set(theme_bw())
 ```
 
-Load the dataset.
+Load the data set.
 
 ``` r
 # Because the private token keeps resetting...
@@ -115,7 +118,7 @@ ggplot(creole_stability) +
   labs(x = "Stability score")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/creole_stability_by_area-1.png)<!-- -->
 
 ``` r
 table(creole_stability$Area)
@@ -137,7 +140,7 @@ ggplot(creole_stability) +
   labs(x = "Stability score")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 # Duration
 
@@ -152,7 +155,7 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ``` r
 ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
@@ -160,7 +163,7 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_text(label=creole_stability$Language)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->
 
 ``` r
 ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
@@ -168,7 +171,7 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_text_repel(aes(label = creole_stability$Language))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-3.png)<!-- -->
 
 Results from the simple regression.
 
@@ -213,7 +216,7 @@ ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
   geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ``` r
 ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
@@ -221,7 +224,7 @@ ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
   geom_text(label=tmp_short$Language)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
 
 ``` r
 ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
@@ -229,14 +232,14 @@ ggplot(tmp_short, aes(x=duration, y=MeanStability)) +
   geom_text_repel(aes(label = tmp_short$Language))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-15-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-14-3.png)<!-- -->
 
 ``` r
 ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
   geom_point()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ``` r
 ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
@@ -244,7 +247,7 @@ ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
   geom_text(label=tmp_long$Language)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
 
 ``` r
 ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
@@ -252,7 +255,7 @@ ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
   geom_text_repel(aes(label = tmp_long$Language))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-15-3.png)<!-- -->
 
 Or perhaps a single model with an interaction term MeanSim \~ duration,
 group \* duration.
@@ -290,7 +293,7 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_g
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 The variability in the two groups is very different. The direction of
 the effect is interesting: shorter durations yield more stability more
@@ -363,13 +366,13 @@ summary(msd.gam)
 plot(msd.gam, all.terms=T, shade=T, pages=1)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ``` r
 qqnorm(resid(msd.gam)); qqline(resid(msd.gam))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-2.png)<!-- -->
 
 ``` r
 msd.gam.trimmed <- gam(MeanStability ~ duration_group + s(duration, k=3) + s(duration, by=duration_group, k=3), data=creole_stability %>% filter(MeanStability>0.7))
@@ -408,33 +411,33 @@ summary(msd.gam.trimmed)
 plot(msd.gam.trimmed, sel=1, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", residuals=T, main="Main effect of duration", cex=5, pch=".", col='dodgerblue'); abline(h=0, lty=2, col="red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-3.png)<!-- -->
 
 ``` r
 plot(msd.gam.trimmed, sel=2, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", main="Long-term influence", col='dodgerblue'); abline(h=0, lty=2, col="red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-4.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-4.png)<!-- -->
 
 ``` r
 plot(msd.gam.trimmed, sel=3, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", main="Short-term influence", col='dodgerblue'); abline(h=0, lty=2, col="red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-5.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-5.png)<!-- -->
 
 ``` r
 # (dotted lines indicate error)
 plot(msd.gam.trimmed, all.terms=T, sel=4, ylab="Effect on mean stability", xlab="Duration group", main="Main effect of duration group")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-6.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-6.png)<!-- -->
 
 ``` r
 # checking out the model performance
 qqnorm(resid(msd.gam.trimmed)); qqline(resid(msd.gam.trimmed)) # meh
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-7.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-7.png)<!-- -->
 
 Removing the two creoles with the lowest scores produces significant
 effects. Doesn’t seem very reliable, especially given the small sample
@@ -462,7 +465,7 @@ ggplot(database, aes(duration, MannerStability, colour=duration_group)) +
 
     ## Warning: Removed 28 rows containing missing values (geom_point).
 
-![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, GlobalStability, colour=duration_group)) + 
@@ -477,7 +480,7 @@ ggplot(database, aes(duration, GlobalStability, colour=duration_group)) +
 
     ## Warning: Removed 28 rows containing missing values (geom_point).
 
-![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, PlaceStability, colour=duration_group)) + 
@@ -492,7 +495,7 @@ ggplot(database, aes(duration, PlaceStability, colour=duration_group)) +
 
     ## Warning: Removed 28 rows containing missing values (geom_point).
 
-![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, MannerStability, colour=duration_group)) + 
@@ -507,7 +510,7 @@ ggplot(database, aes(duration, MannerStability, colour=duration_group)) +
 
     ## Warning: Removed 28 rows containing missing values (geom_point).
 
-![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, GlobalStability, colour=duration_group)) + 
@@ -522,7 +525,7 @@ ggplot(database, aes(duration, GlobalStability, colour=duration_group)) +
 
     ## Warning: Removed 28 rows containing missing values (geom_point).
 
-![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 # Segment stability
 
@@ -554,7 +557,7 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme
 
     ## Warning: Width not defined. Set with `position_dodge(width = ?)`
 
-![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 ``` r
 ggplot(consonant_stability, aes(y = mmanner, x = mplace, fill=class)) +
@@ -564,7 +567,7 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace, fill=class)) +
 
     ## Warning: Width not defined. Set with `position_dodge(width = ?)`
 
-![](README_files/figure-gfm/unnamed-chunk-25-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-24-2.png)<!-- -->
 
 Here is an alternative view for the global results.
 
@@ -578,7 +581,7 @@ ggplot(consonant_global_stability) +
   labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 Calculate the stability of the segments.
 
@@ -647,7 +650,7 @@ plot(mod.db$categorical_stability, mod.db$duration, notch=T)
     ## Warning in (function (z, notch = FALSE, width = NULL, varwidth = FALSE, : some
     ## notches went outside hinges ('box'): maybe set notch=FALSE
 
-![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 Hugely skewed in favor of no manner/place (10X as frequent as the next
 most frequent level; this could cause problems for the models).
@@ -821,7 +824,7 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
         axis.title.y = element_blank())
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -836,7 +839,7 @@ ggplot(position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 Plot the results for segments that show differences.
 
@@ -857,7 +860,7 @@ ggplot(different_position_results,
 
     ## Warning: Removed 8 rows containing missing values (geom_col).
 
-![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -875,7 +878,7 @@ ggplot(different_position_results) +
 
     ## Warning: Removed 8 rows containing missing values (geom_bar).
 
-![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 # Conditions of contact
 
@@ -920,7 +923,7 @@ ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, fill = Co
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](README_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
 
 ``` r
 m <- lm(MeanStability ~ duration + ContactConditions * duration, data=creole_stability)
@@ -957,7 +960,7 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactCon
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](README_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
 
 # References
 
