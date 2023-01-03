@@ -564,7 +564,7 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
   geom_point(position= "dodge", aes(color=class)) + 
   geom_text_repel(aes(label = LexifierPhoneme)) +
   xlab("Mean stability (place of articulation)") +
-  ylab("Mean (manner of articulation)") +
+  ylab("Mean stability (manner of articulation)") +
   labs(color="Segment class")
 ```
 
