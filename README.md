@@ -22,12 +22,9 @@ Steven Moran, Carlos Silva and Nicholas A. Lester
 
 <!-- Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress. -->
 
-Supplementary materials for:
-
-> > > Consonant Stability in Portuguese-based creoles.
-
-In this report, we provide code in R (R Core Team 2021) and we use these
-R libraries (Wickham et al. 2019; Xie 2021; Slowikowski 2022):
+Supplementary materials for, “Consonant Stability in Portuguese-based
+creoles”. In this report, we provide code in R (R Core Team 2021) and we
+use these R libraries (Wickham et al. 2019; Xie 2021; Slowikowski 2022):
 
 ``` r
 library(tidyverse)
@@ -41,13 +38,10 @@ theme_set(theme_bw())
 Load the data set.
 
 ``` r
-# Because the private token keeps resetting...
-# database <- read_csv('https://raw.githubusercontent.com/CreoPhon/CreoPhonPt/main/Creoles.csv?token=AAIGDLS6YB3YSYW7QJWERXDBVYPOE')
-# write_csv(database, 'database.csv')
 database <- read_csv('database.csv')
 ```
 
-The data look like this.
+The data look like this:
 
 ``` r
 database %>% head() %>% kable()
@@ -62,7 +56,8 @@ database %>% head() %>% kable()
 | Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | t               | t             |              1 |               1 | \[ˈtudu\]   | everything | Maurer2009\[237\] |
 | Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | t               | t             |              1 |               1 | \[mata\]    | to kill    | Maurer2009\[227\] |
 
-Let’s extend the database with some variables. Duration of contact.
+We extend the database with some additional variables. First, duration
+of contact.
 
 ``` r
 database$duration <- database$`EndOfInfluence` - database$`FirstMajorSettlement`
@@ -75,14 +70,14 @@ database <- mutate(database, GlobalStability = (PlaceStability + MannerStability
 # table(database$Language, database$GlobalStability)
 ```
 
-Categorical variable for duration.
+Also, a categorical variable for duration.
 
 ``` r
 database <- database %>% mutate(duration_group = ifelse(duration <= 200, 'short', 'long'))
 ```
 
-Categorical variable for changes in manner and/or place. Stability in
-the database is ‘1’ (no change) and ‘0’ change.
+And a categorical variable for changes in manner and/or place. Stability
+in the database is ‘1’ (no change) and ‘0’ (change).
 
 ``` r
 database <- database %>% mutate(categorical_stability = ifelse(PlaceStability == 1 & MannerStability == 1, 'no manner/no place', NA))
@@ -160,18 +155,10 @@ ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
 ``` r
 ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_point() +
-  geom_text(label=creole_stability$Language)
-```
-
-![](README_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->
-
-``` r
-ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
-  geom_point() +
   geom_text_repel(aes(label = creole_stability$Language))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-3.png)<!-- -->
+![](README_files/figure-gfm/duration_mean_stability-1.png)<!-- -->
 
 Results from the simple regression.
 

@@ -12,11 +12,7 @@ bibliography: 'bibliography.bib'
   
 <!-- Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress. -->
 
-Supplementary materials for: 
-
->>> Consonant Stability in Portuguese-based creoles.
-
-In this report, we provide code in R [@R] and we use these R libraries [@tidyverse;@knitr;@ggrepel]:
+Supplementary materials for, "Consonant Stability in Portuguese-based creoles". In this report, we provide code in R [@R] and we use these R libraries [@tidyverse;@knitr;@ggrepel]:
 
 ```{r, message=FALSE}
 library(tidyverse)
@@ -30,19 +26,16 @@ theme_set(theme_bw())
 Load the data set.
 
 ```{r, message=FALSE}
-# Because the private token keeps resetting...
-# database <- read_csv('https://raw.githubusercontent.com/CreoPhon/CreoPhonPt/main/Creoles.csv?token=AAIGDLS6YB3YSYW7QJWERXDBVYPOE')
-# write_csv(database, 'database.csv')
 database <- read_csv('database.csv')
 ```
 
-The data look like this.
+The data look like this:
 
 ```{r}
 database %>% head() %>% kable()
 ```
 
-Let's extend the database with some variables. Duration of contact.
+We extend the database with some additional variables. First, duration of contact.
 
 ```{r}
 database$duration <- database$`EndOfInfluence` - database$`FirstMajorSettlement`
@@ -55,13 +48,13 @@ database <- mutate(database, GlobalStability = (PlaceStability + MannerStability
 # table(database$Language, database$GlobalStability)
 ```
 
-Categorical variable for duration.
+Also, a categorical variable for duration.
 
 ```{r}
 database <- database %>% mutate(duration_group = ifelse(duration <= 200, 'short', 'long'))
 ```
 
-Categorical variable for changes in manner and/or place. Stability in the database is '1' (no change) and '0' change.
+And a categorical variable for changes in manner and/or place. Stability in the database is '1' (no change) and '0' (change).
 
 ```{r}
 database <- database %>% mutate(categorical_stability = ifelse(PlaceStability == 1 & MannerStability == 1, 'no manner/no place', NA))
@@ -98,7 +91,6 @@ ggplot(creole_stability) +
 table(creole_stability$Area)
 ```
 
-
 Plot it by conditions of contact.
 
 ```{r}
@@ -109,6 +101,7 @@ ggplot(creole_stability) +
   labs(x = "Stability score")
 ```
 
+
 # Duration
 
 We have the overall stability values. What are these in relation to the duration of contact?
@@ -118,11 +111,9 @@ There does not seem to be a relationship between overall duration and overall st
 ```{r}
 ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_point()
+```
 
-ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
-  geom_point() +
-  geom_text(label=creole_stability$Language)
-
+```{r, duration_mean_stability}
 ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
   geom_point() +
   geom_text_repel(aes(label = creole_stability$Language))
@@ -169,7 +160,6 @@ ggplot(tmp_long, aes(x=duration, y=MeanStability)) +
   geom_point() +
   geom_text_repel(aes(label = tmp_long$Language))
 ```
-
 
 Or perhaps a single model with an interaction term MeanSim ~ duration, group * duration.
 
