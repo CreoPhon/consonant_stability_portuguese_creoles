@@ -1,7 +1,7 @@
 Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
-(03 January, 2023)
+(05 January, 2023)
 
 -   <a href="#overview" id="toc-overview">Overview</a>
 -   <a href="#creole-stability" id="toc-creole-stability">Creole
@@ -561,8 +561,8 @@ Next, we plot the results.
 
 ``` r
 ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
-  geom_point(position= "dodge", aes(color=class)) + 
-  geom_text_repel(aes(label = LexifierPhoneme)) +
+  geom_point(position = "dodge", aes(color=class)) + 
+  geom_text_repel(aes(label = LexifierPhoneme), size=4) +
   xlab("Mean stability (place of articulation)") +
   ylab("Mean stability (manner of articulation)") +
   labs(color="Segment class")
@@ -571,6 +571,10 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
     ## Warning: Width not defined. Set with `position_dodge(width = ?)`
 
 ![](README_files/figure-gfm/stability_by_consonant-1.png)<!-- -->
+
+``` r
+  # + theme(text = element_text(size=20))
+```
 
 Here is an alternative view for the global results.
 
@@ -843,7 +847,7 @@ ggplot(position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](README_files/figure-gfm/correlation_stability_word_position-1.png)<!-- -->
 
 Plot the results for segments that show differences.
 
@@ -864,7 +868,7 @@ ggplot(different_position_results,
 
     ## Warning: Removed 8 rows containing missing values (geom_col).
 
-![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -882,7 +886,7 @@ ggplot(different_position_results) +
 
     ## Warning: Removed 8 rows containing missing values (geom_bar).
 
-![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 # Conditions of contact
 

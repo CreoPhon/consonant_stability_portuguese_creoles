@@ -322,11 +322,12 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme
 
 ```{r, stability_by_consonant}
 ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
-  geom_point(position= "dodge", aes(color=class)) + 
-  geom_text_repel(aes(label = LexifierPhoneme)) +
+  geom_point(position = "dodge", aes(color=class)) + 
+  geom_text_repel(aes(label = LexifierPhoneme), size=4) +
   xlab("Mean stability (place of articulation)") +
   ylab("Mean stability (manner of articulation)") +
   labs(color="Segment class")
+  # + theme(text = element_text(size=20))
 ```
 
 Here is an alternative view for the global results.
@@ -434,7 +435,7 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
 
 Flip horizontally.
 
-```{r}
+```{r, correlation_stability_word_position}
 ggplot(position_results) + 
   geom_bar(aes(x = m,
                y = reorder(LexifierPhoneme, m),
