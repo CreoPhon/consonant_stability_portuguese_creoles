@@ -1,6 +1,6 @@
 ---
 title: "Supplementary materials for: Consonant stability in Portuguese-based creoles"
-author: ""
+author: "Steven Moran, Carlos Silva and Nicholas A. Lester" 
 date: "(`r format(Sys.time(), '%d %B, %Y')`)"
 output:
   github_document:
@@ -8,11 +8,12 @@ output:
 bibliography: 'bibliography.bib'
 ---
 
-<!-- author: "Steven Moran, Carlos Silva and Nicholas A. Lester" 
+<!-- FOr the anonymous PDF version, use:
 
   pdf_document:
     latex_engine: xelatex
     toc: true
+    number_sections: true
 -->
 
 
@@ -20,12 +21,14 @@ bibliography: 'bibliography.bib'
   
 <!-- Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress. -->
 
-Supplementary materials for, "Consonant Stability in Portuguese-based creoles". In this report, we provide code in R [@R] and we use these R libraries [@tidyverse;@knitr;@ggrepel]:
+Supplementary materials for, "Consonant Stability in Portuguese-based creoles". In this report, we provide code in R [@R] and we use these R libraries [@tidyverse;@knitr;@ggrepel;@lmerTest;@mgcv]:
 
 ```{r, message=FALSE}
 library(tidyverse)
 library(knitr)
 library(ggrepel)
+library(lmerTest)
+library(mgcv)
 
 # Set the theme for all figures
 theme_set(theme_bw())
@@ -44,6 +47,25 @@ database %>%
   head() %>%
   kable()
 ```
+
+```{r, echo=FALSE, eval=FALSE}
+# This is for the PDF version, but it still doesn't display nicely. Skipping it.
+database %>%
+  head() %>%
+knitr::kable(
+    format = "latex",
+    align = "l",
+    booktabs = TRUE,
+    longtable = TRUE,
+    linesep = "",
+    ) %>%
+  kableExtra::kable_styling(
+      position = "left",
+      latex_options = c("striped", "repeat_header"),
+      stripe_color = "gray!15"
+    )
+```
+
 
 We extend the database with some additional variables. First, duration of contact.
 
@@ -68,16 +90,20 @@ And a categorical variable for changes in manner and/or place. Stability in the 
 
 ```{r}
 database <- database %>% 
-  mutate(categorical_stability = ifelse(PlaceStability == 1 & MannerStability == 1, "no manner/no place", NA))
+  mutate(categorical_stability = ifelse(PlaceStability == 1 & MannerStability == 1, 
+                                        "no manner/no place", NA))
 
 database <- database %>% 
-  mutate(categorical_stability = ifelse(PlaceStability == 1 & MannerStability == 0, "manner/no place", categorical_stability))
+  mutate(categorical_stability = ifelse(PlaceStability == 1 & MannerStability == 0, 
+                                        "manner/no place", categorical_stability))
 
 database <- database %>% 
-  mutate(categorical_stability = ifelse(PlaceStability == 0 & MannerStability == 1, "no manner/place", categorical_stability))
+  mutate(categorical_stability = ifelse(PlaceStability == 0 & MannerStability == 1, 
+                                        "no manner/place", categorical_stability))
 
 database <- database %>% 
-  mutate(categorical_stability = ifelse(PlaceStability == 0 & MannerStability == 0, "manner/place", categorical_stability))
+  mutate(categorical_stability = ifelse(PlaceStability == 0 & MannerStability == 0, 
+                                        "manner/place", categorical_stability))
 
 table(database$categorical_stability)
 ```
@@ -87,7 +113,7 @@ table(database$categorical_stability)
 
 Which creoles in the sample are more or less stable overall?
 
-```{r, message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 creole_stability <- database %>%
   group_by(Language, Area, duration, duration_group, ContactConditions) %>%
   summarize(MeanStability = mean(GlobalStability, na.rm = TRUE))
@@ -95,7 +121,7 @@ creole_stability <- database %>%
 
 Plot it by area.
 
-```{r, creole_stability_by_area}
+```{r, creole_stability_by_area, warning=FALSE, message=FALSE}
 ggplot(creole_stability) +
   geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), fill = Area),
     stat = "identity", show.legend = TRUE) +
@@ -109,10 +135,10 @@ table(creole_stability$Area)
 
 Plot it by conditions of contact.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ggplot(creole_stability) +
-  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), fill = ContactConditions),
-    stat = "identity", show.legend = TRUE
+  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), 
+               fill = ContactConditions), stat = "identity", show.legend = TRUE
   ) +
   theme(axis.title.y = element_blank()) +
   labs(x = "Stability score")
@@ -125,14 +151,14 @@ We have the overall stability values. What are these in relation to the duration
 
 There does not seem to be a relationship between overall duration and overall stability.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ggplot(creole_stability, aes(x = duration, y = MeanStability)) +
   geom_point() +
   xlab("Duration (years)") +
   ylab("Mean stability")
 ```
 
-```{r, duration_groups_scatter}
+```{r, duration_groups_scatter, warning=FALSE, message=FALSE}
 ggplot(creole_stability, aes(x = duration, y = MeanStability)) +
   geom_point() +
   geom_text_repel(aes(label = creole_stability$Language)) +
@@ -156,7 +182,7 @@ tmp_short <- creole_stability %>% filter(duration <= 200)
 tmp_long <- creole_stability %>% filter(duration > 200)
 ```
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ggplot(tmp_short, aes(x = duration, y = MeanStability)) +
   geom_point() +
   xlab("Duration (years)") +
@@ -169,7 +195,7 @@ ggplot(tmp_short, aes(x = duration, y = MeanStability)) +
   ylab("Mean stability")
 ```
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ggplot(tmp_long, aes(x = duration, y = MeanStability)) +
   geom_point() +
   xlab("Duration (years)") +
@@ -189,7 +215,7 @@ msd <- lm(MeanStability ~ duration + duration_group * duration, data = creole_st
 summary(msd)
 ```
 
-```{r, duration_groups}
+```{r, duration_groups, warning=FALSE, message=FALSE}
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
   geom_smooth(method = "lm") +
   geom_point() +
@@ -204,16 +230,16 @@ But it looks like you might have something tastier on your hands. The creoles ap
 
 And we can also increase the number of observations by running the analysis at the segment level, rather than on mean stability.
 
-Exploratory stuff with GAMs.
+Exploratory analysis with a generalized additive model (GAM).
 
-```{r}
-library(mgcv)
+```{r, warning=FALSE, message=FALSE}
 # Factorize duration_group
 creole_stability$duration_group <- as.factor(creole_stability$duration_group)
 
 # Model with an interaction between duration_group and duration
 # (with maximum of cubic-spline fit)
-msd.gam <- gam(MeanStability ~ duration_group + s(duration, k = 3) + s(duration, by = duration_group, k = 3), data = creole_stability)
+msd.gam <- gam(MeanStability ~ duration_group + s(duration, k = 3) + 
+                 s(duration, by = duration_group, k = 3), data = creole_stability)
 
 summary(msd.gam)
 
@@ -222,35 +248,42 @@ plot(msd.gam, all.terms = T, shade = T, pages = 1)
 qqnorm(resid(msd.gam))
 qqline(resid(msd.gam))
 
-msd.gam.trimmed <- gam(MeanStability ~ duration_group + s(duration, k = 3) + s(duration, by = duration_group, k = 3), data = creole_stability %>% filter(MeanStability > 0.7))
+msd.gam.trimmed <- gam(MeanStability ~ duration_group + s(duration, k = 3) 
+                       + s(duration, by = duration_group, k = 3), 
+                       data = creole_stability %>% filter(MeanStability > 0.7))
 
 summary(msd.gam.trimmed)
 
-plot(msd.gam.trimmed, sel = 1, shade = T, ylab = "Effect on mean stability", xlab = "Duration of influence", residuals = T, main = "Main effect of duration", cex = 5, pch = ".", col = "dodgerblue")
+plot(msd.gam.trimmed, sel = 1, shade = T, ylab = "Effect on mean stability", 
+     xlab = "Duration of influence", residuals = T, main = "Main effect of duration", 
+     cex = 5, pch = ".", col = "dodgerblue")
 abline(h = 0, lty = 2, col = "red")
 
-plot(msd.gam.trimmed, sel = 2, shade = T, ylab = "Effect on mean stability", xlab = "Duration of influence", main = "Long-term influence", col = "dodgerblue")
+plot(msd.gam.trimmed, sel = 2, shade = T, ylab = "Effect on mean stability", 
+     xlab = "Duration of influence", main = "Long-term influence", col = "dodgerblue")
 abline(h = 0, lty = 2, col = "red")
 
-plot(msd.gam.trimmed, sel = 3, shade = T, ylab = "Effect on mean stability", xlab = "Duration of influence", main = "Short-term influence", col = "dodgerblue")
+plot(msd.gam.trimmed, sel = 3, shade = T, ylab = "Effect on mean stability", 
+     xlab = "Duration of influence", main = "Short-term influence", col = "dodgerblue")
 abline(h = 0, lty = 2, col = "red")
 
 # (dotted lines indicate error)
-plot(msd.gam.trimmed, all.terms = T, sel = 4, ylab = "Effect on mean stability", xlab = "Duration group", main = "Main effect of duration group")
+plot(msd.gam.trimmed, all.terms = T, sel = 4, ylab = "Effect on mean stability", 
+     xlab = "Duration group", main = "Main effect of duration group")
 
 # checking out the model performance
 qqnorm(resid(msd.gam.trimmed))
 qqline(resid(msd.gam.trimmed)) # meh
 ```
 
-Removing the two creoles with the lowest scores produces significant effects. Doesn't seem very reliable, especially given the small sample size. Also, the pattern is strange; a negative trend of duration for long-term influence and a positive one for short-term influence? Also note that the model detected a mean difference between duration groups, with the short group having (slightly) lower mean stability. This appears to be the case but -- again -- so few observations. 
+Removing the two creoles with the lowest scores produces significant effects. This doesn't seem very reliable though, especially given the small sample size. Also, the pattern is strange: a negative trend of duration for long-term influence and a positive one for short-term influence? Note that the model detected a mean difference between duration groups, with the short group having (slightly) lower mean stability. This appears to be the case -- but again -- we have so few observations. 
 
 
 # Duration effects on the segment level
 
 Does duration affect the stability values of specific segments or segment classes?
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -260,7 +293,7 @@ ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
   geom_point() +
   geom_smooth() +
@@ -270,7 +303,7 @@ ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ggplot(database, aes(duration, PlaceStability, colour = duration_group)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -280,7 +313,7 @@ ggplot(database, aes(duration, PlaceStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
   geom_point() +
   geom_smooth() +
@@ -290,7 +323,7 @@ ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
   geom_point() +
   geom_smooth() +
@@ -307,7 +340,7 @@ Which segments are the most stable across creoles in the language sample?
 
 We calculate stability of place and manner for each phoneme.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 place_results <- database %>%
   group_by(LexifierPhoneme) %>%
   summarize(mplace = mean(PlaceStability, na.rm = TRUE))
@@ -317,27 +350,29 @@ manner_results <- database %>%
 
 consonant_stability <- left_join(place_results, manner_results, by = "LexifierPhoneme")
 
-class <- c("nasal", "rhotic", "lateral", "fricative", "stop", "stop", "fricative", "stop", "stop", "lateral", "nasal", "nasal", "stop", "rhotic", "fricative", "stop", "affricate", "fricative", "fricative")
+class <- c("nasal", "rhotic", "lateral", "fricative", "stop", "stop", "fricative", 
+           "stop", "stop", "lateral", "nasal", "nasal", "stop", "rhotic", 
+           "fricative", "stop", "affricate", "fricative", "fricative")
 
 consonant_stability_class <- cbind(consonant_stability, class)
 ```
 
 Next, we plot the results.
 
-```{r, stability_by_consonant}
+```{r, stability_by_consonant, warning=FALSE, message=FALSE}
 ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
   geom_point(position = "dodge", aes(color = class)) +
   geom_text_repel(aes(label = LexifierPhoneme), size = 4) +
   xlab("Mean stability (place of articulation)") +
   ylab("Mean stability (manner of articulation)") +
   labs(color = "Segment class")
-# + theme(text = element_text(size=20))
 ```
 
 Here is an alternative view for the global results.
 
-```{r}
-consonant_global_stability <- mutate(consonant_stability_class, mglobal = (mmanner + mplace) / 2)
+```{r, warning=FALSE, message=FALSE}
+consonant_global_stability <- mutate(consonant_stability_class, 
+                                     mglobal = (mmanner + mplace) / 2)
 
 ggplot(consonant_global_stability) +
   geom_bar(aes(
@@ -348,18 +383,9 @@ ggplot(consonant_global_stability) +
   labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
 
-Calculate the stability of the segments.
-
-```{r}
-# qplot(x = duration, y = MeanStability, data = consonant_global_stability, color = duration_group) +
-#  geom_smooth(method = "lm")
-```
-
 And we can also increase the number of observations in duration regression by running the analysis at the segment level, rather than on mean stability.
 
 ```{r}
-library(lmerTest)
-
 # Factorizing
 mod.db <- database %>%
   as.data.frame() %>%
@@ -377,7 +403,7 @@ mod.db <- database %>%
 #         filter(CreolePhoneme %in% goodies)
 ```
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 plot(mod.db$categorical_stability, mod.db$duration, notch = T)
 ```
 
@@ -387,17 +413,21 @@ Hugely skewed in favor of no manner/place (10x as frequent as the next most freq
 table(mod.db$categorical_stability)
 
 # Place stability
-cat.mod.place <- glmer(PlaceStability ~ log(duration) + (1 | CreolePhoneme), data = mod.db, family = "binomial")
+cat.mod.place <- glmer(PlaceStability ~ log(duration) + (1 | CreolePhoneme), 
+                       data = mod.db, family = "binomial")
 
 summary(cat.mod.place)
 
 # Manner stability
-cat.mod.manner <- glmer(MannerStability ~ log(duration) + (1 | CreolePhoneme), data = mod.db, family = "binomial")
+cat.mod.manner <- glmer(MannerStability ~ log(duration) + (1 | CreolePhoneme), 
+                        data = mod.db, family = "binomial")
 
 summary(cat.mod.manner)
 
 # Duration group
-cat.mod.group <- glmer(as.factor(duration_group) ~ PlaceStability + MannerStability + (1 | CreolePhoneme), data = mod.db, family = "binomial", nAGQ = 0)
+cat.mod.group <- glmer(as.factor(duration_group) ~ PlaceStability + 
+                         MannerStability + (1 | CreolePhoneme), 
+                       data = mod.db, family = "binomial", nAGQ = 0)
 
 summary(cat.mod.group)
 ```
@@ -413,7 +443,7 @@ Next we ask, does word position influence stability?
 
 First, data preparation.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 data_by_position <- database %>%
   select(Position, LexifierPhoneme, PlaceStability, MannerStability) %>%
   mutate(Position = tolower(Position))
@@ -425,8 +455,9 @@ data_by_position$MannerStability <- as.numeric(data_by_position$MannerStability)
 
 Next, calculate stability for each segment according to its word position.
 
-```{r}
-position_stability <- mutate(data_by_position, GlobalStability = (PlaceStability + MannerStability) / 2)
+```{r, warning=FALSE, message=FALSE}
+position_stability <- mutate(data_by_position, GlobalStability = 
+                               (PlaceStability + MannerStability) / 2)
 
 position_results <- position_stability %>%
   group_by(LexifierPhoneme, Position) %>%
@@ -435,8 +466,11 @@ position_results <- position_stability %>%
 
 And plot the results for all segments.
 
-```{r}
-position_results$Position <- factor(position_results$Position, levels = c("word-initial", "word-medial", "word-final"))
+```{r, warning=FALSE, message=FALSE}
+position_results$Position <- factor(position_results$Position, 
+                                    levels = c("word-initial", 
+                                               "word-medial", 
+                                               "word-final"))
 
 ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
   geom_col(position = position_dodge2(width = 0.9, preserve = "single")) +
@@ -449,7 +483,7 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
 
 Flip horizontally.
 
-```{r, correlation_stability_word_position}
+```{r, correlation_stability_word_position, warning=FALSE, message=FALSE}
 ggplot(position_results) +
   geom_bar(
     aes(
@@ -466,14 +500,23 @@ ggplot(position_results) +
 
 Plot the results for segments that show differences.
 
-```{r}
-position_results1 <- position_results %>% pivot_wider(names_from = Position, values_from = m)
+```{r, warning=FALSE, message=FALSE}
+position_results1 <- position_results %>% 
+  pivot_wider(names_from = Position, values_from = m)
 
-different_position <- subset(position_results1, position_results1$`word-initial` != position_results1$`word-medial` | position_results1$`word-final` != position_results1$`word-medial`)
+different_position <- subset(position_results1, position_results1$`word-initial` 
+                             != position_results1$`word-medial` | 
+                               position_results1$`word-final` 
+                             != position_results1$`word-medial`)
 
-different_position_results <- different_position %>% pivot_longer(c(`word-initial`, `word-medial`, `word-final`), names_to = "Position", values_to = "m")
+different_position_results <- different_position %>% 
+  pivot_longer(c(`word-initial`, `word-medial`, `word-final`), 
+               names_to = "Position", values_to = "m")
 
-different_position_results$Position <- factor(different_position_results$Position, levels = c("word-initial", "word-medial", "word-final"))
+different_position_results$Position <- factor(different_position_results$Position, 
+                                              levels = c("word-initial", 
+                                                         "word-medial", 
+                                                         "word-final"))
 
 ggplot(
   different_position_results,
@@ -485,7 +528,7 @@ ggplot(
 
 Flip horizontally.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ggplot(different_position_results) +
   geom_bar(
     aes(
@@ -512,8 +555,9 @@ m <- lm(MeanStability ~ ContactConditions, data = creole_stability)
 summary(m)
 ```
 
-```{r, conditions_violin}
-ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, fill = ContactConditions)) +
+```{r, conditions_violin, warning=FALSE, message=FALSE}
+ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, 
+                             fill = ContactConditions)) +
   geom_smooth(method = "lm") +
   geom_violin() +
   xlab("Contact condition") +
@@ -521,13 +565,15 @@ ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, fill = Co
   guides(fill = "none")
 ```
 
-```{r}
-m <- lm(MeanStability ~ duration + ContactConditions * duration, data = creole_stability)
+```{r, warning=FALSE, message=FALSE}
+m <- lm(MeanStability ~ duration + ContactConditions * duration, 
+        data = creole_stability)
 summary(m)
 ```
 
-```{r, duration_groups_geom}
-ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactConditions)) +
+```{r, duration_groups_geom, warning=FALSE, message=FALSE}
+ggplot(creole_stability, aes(x = duration, y = MeanStability, 
+                             color = ContactConditions)) +
   geom_smooth(method = "lm") +
   geom_point() +
   xlab("Duration (years)") +
