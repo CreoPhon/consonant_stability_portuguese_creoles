@@ -312,14 +312,6 @@ consonant_stability_class <- cbind(consonant_stability, class)
 
 Next, we plot the results.
 
-```{r, echo=FALSE}
-ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme, color=class)) +
-  geom_point(position= "dodge") + 
-  geom_text(aes(label=LexifierPhoneme), hjust=3, vjust=0) +
-  theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank())
-```
-
 ```{r, stability_by_consonant}
 ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
   geom_point(position = "dodge", aes(color=class)) + 

@@ -555,10 +555,6 @@ consonant_stability_class <- cbind(consonant_stability, class)
 
 Next, we plot the results.
 
-    ## Warning: Width not defined. Set with `position_dodge(width = ?)`
-
-![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
-
 ``` r
 ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
   geom_point(position = "dodge", aes(color=class)) + 
@@ -588,7 +584,7 @@ ggplot(consonant_global_stability) +
   labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 Calculate the stability of the segments.
 
@@ -657,7 +653,7 @@ plot(mod.db$categorical_stability, mod.db$duration, notch=T)
     ## Warning in (function (z, notch = FALSE, width = NULL, varwidth = FALSE, : some
     ## notches went outside hinges ('box'): maybe set notch=FALSE
 
-![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 Hugely skewed in favor of no manner/place (10X as frequent as the next
 most frequent level; this could cause problems for the models).
@@ -832,7 +828,7 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
   labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -868,7 +864,7 @@ ggplot(different_position_results,
 
     ## Warning: Removed 8 rows containing missing values (geom_col).
 
-![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -886,7 +882,7 @@ ggplot(different_position_results) +
 
     ## Warning: Removed 8 rows containing missing values (geom_bar).
 
-![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 # Conditions of contact
 
