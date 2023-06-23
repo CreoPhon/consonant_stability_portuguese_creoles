@@ -1,0 +1,420 @@
+---
+title: "Inventory size, similarity and dissimilarity"
+author: "Carlos Silva"
+date: "(`r format(Sys.time(), '%d %B, %Y')`)"
+output:
+  github_document:
+    toc: true
+---
+
+# Introduction
+
+Load packages
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+
+Get data
+
+```{r}
+inv <- read.csv("C:\\Users\\Carlos\\Desktop\\Inventories.csv")
+head(inv)
+```
+
+Prepare data
+
+```{r}
+df_inv_long <- inv %>% select(Language, Phoneme) %>%  mutate(newcol = 1)
+
+df_inv <- df_inv_long %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
+
+df_total_inv <- df_inv %>% mutate_at(c(2:35), as.numeric)
+
+head(df_total_inv)
+
+```
+
+# Inventory size
+
+Get the consonant inventory size for all languages
+
+```{r}
+
+cons_count <- df_total_inv %>% select(c(2:35)) %>% mutate_at(c(1:34), as.numeric)
+  
+count <- colSums(cons_count [,c(1:34)]) %>% unname(colSums(count))
+
+cons_lg <- select(df_inv_long, 'Language') 
+
+Language <- unique(cons_lg$Language)
+
+category <- inv %>% select(Language, Category)
+
+count_lg <- data.frame(cbind(Language, count)) 
+  
+count_lg_1 <- inner_join(count_lg, category, by = "Language") %>% distinct()
+
+inv_size <- transform(count_lg_1, count = as.numeric(count))
+
+head(inv_size)
+
+```
+
+Which languages have bigger inventories?
+
+```{r}
+ggplot(inv_size) + 
+  geom_bar(aes(x = Language,
+               y = count,
+              fill = Category), 
+           stat = "identity", 
+           show.legend = TRUE,
+           position = "dodge2") + coord_flip()
+```
+
+
+Violin plot: the majority of creoles have larger consonant inventories than Portuguese.
+
+```{r}
+ggplot(inv_size, aes(x = Category, y = count, fill = Category)) +
+  geom_violin(alpha = 0.5) +
+  geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5) +
+  theme(legend.position = "none")
+```
+
+
+
+
+Is there a relationship between the inventory size of creoles and the inventory size of substrates?
+
+NO ANSWER YET
+
+
+# Consonant frequency in all languages involved
+
+
+Count frequent consonants
+
+```{r}
+total <- rowSums(cons_count)
+
+cons_freq <- data.frame(cbind(df_total_inv$Phoneme, total))
+
+cons_freq <- transform(cons_freq, total = as.numeric(total))
+
+```
+
+Which consonants are more frequent across all language involved?
+
+Maybe, it makes sense to subset the frequency of consonants in substrates only and to consonants that exist in the lexifier.
+
+```{r}
+cons_freq_1 <- subset(cons_freq, total > 5) #trim low values
+
+ggplot(cons_freq_1) + 
+  geom_bar(aes(x = V1,
+               y = total,
+               ), 
+           stat = "identity", 
+           show.legend = TRUE,
+           position = "dodge2") + coord_flip()
+```
+
+
+## Is there a relationship between this frequency and the stability values?
+
+Subset: Portuguese consonants only
+```{r}
+cons_freq_pt <- cons_freq %>% subset(V1 %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s',
+                                       't','v','z','ʒ', 'r'))
+
+```
+
+First dataset: relative frequency values
+```{r}
+cons_freq_rel <- cons_freq_pt %>% mutate(frequency = total/34)
+```
+
+Second dataset:stability values
+```{r}
+stability <- c(1.0000000	,
+1.0000000	,
+1.0000000	,
+1.0000000	,
+1.0000000	,
+0.9861111	,
+0.9722222	,
+0.9722222	,
+0.9722222	,
+0.9565217	,
+0.9444444	,
+0.9433962	,
+0.7916667	,
+0.7714286	,
+0.7361111	,
+0.6944444	,
+0.5151515	,
+0.4722222	,
+0.3888889	
+)
+V1 <- c("t",
+               "p",
+               "n",
+               "m",
+               "f",
+               "b",
+               "k",
+               "g",
+               "d",
+               "z",
+               "s",
+               "l",
+               "r",
+               "t̠ʃ",
+               "ɾ",
+               "ɲ",
+               "ʒ",
+               "ʎ",
+               "v")
+stability_consonants <- data.frame(V1, stability)
+```
+
+Merge datasets
+```{r}
+cor_freq_sta <- left_join(stability_consonants, cons_freq_rel, by='V1')
+```
+
+Results of a simple regression
+```{r}
+fs <- lm(frequency ~ stability, data=cor_freq_sta)
+summary(fs)
+```
+
+Plot the results
+```{r}
+ggplot(cor_freq_sta, aes(x = frequency, y = stability, label = V1)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+  geom_text(aes(label=V1), hjust=3, vjust=0)
+```
+
+There relationship between stability and frequency across all languages involved. But does it make sense? We are measuring the consonants in all categories and the present of the lexifier and the creoles may influence the results. Perhaps, we should try to subset and measure the frequency across substrates only, but I think that this procedure would just increase the lack of correlation.
+
+## Is there a relationship between consonant stability and their presence in the inventories of the substrate languages?
+
+
+Data preparation (substrates only)
+
+```{r}
+inv_subs <- inv %>% subset(Category == 'substrate') %>%  select(Language, Phoneme)  %>% mutate(newcol = 1)
+
+inv_subs_long <- inv_subs %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
+
+inv_subs_long <- inv_subs_long %>% mutate_at(c(2:17), as.numeric)
+
+head(inv_subs_long)
+
+```
+
+Sum row values and subset to consonants wich have correspondents in Portuguese
+
+```{r}
+
+subs_count <- inv_subs_long %>% select(c(2:17))
+
+total_subs <- rowSums(subs_count)
+
+subs_freq <- data.frame(cbind(inv_subs_long$Phoneme, total_subs))
+
+subs_freq <- transform(subs_freq, total_subs = as.numeric(total_subs))
+
+subs_freq <- subs_freq %>% subset(V1 %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s', 't','v','z','ʒ', 'r'))
+
+```
+
+Get relative values
+
+```{r}
+subs_freq_rel <- subs_freq %>% mutate(frequency = total_subs/16)
+```
+
+Merge datasets
+```{r}
+subs_sta <- left_join(stability_consonants, subs_freq_rel, by='V1')
+```
+
+Results of a simple regression
+```{r}
+subs_sta_lm <- lm(frequency ~ stability, data=subs_sta)
+summary(subs_sta_lm)
+```
+Plot the results
+```{r}
+ggplot(subs_sta, aes(x = frequency, y = stability, label = V1)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+  geom_text(aes(label=V1), hjust=3, vjust=0)
+```
+
+When we consider the correlation between the consonant stability in creoles and the frequency of these consonants in the substrates only, we find that there is a weaker correlation (if we compare with the results above). However, this correlation is statistically significant (p-value: 0.005685). Nothing the outliers which are normally voiced consonants.
+
+
+# Inventory similarity and overall creole stability
+
+Getting just the consonants which have correspondents in Portuguese
+
+```{r}
+inv_overlap <- df_total_inv %>% subset(Phoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','ʀ','ɾ','s','ʃ',
+                                       't','v','z','ʒ'))
+
+```
+
+Which languages have more have more consonants that overlap with Portuguese consonants
+
+```{r}
+cons_over <- inv_overlap %>% select(c(2:35)) %>% mutate_at(c(1:34), as.numeric)
+  
+absolute_overlap <- colSums(cons_over [,c(1:34)]) %>% unname(colSums(count))
+
+cons_overlap <- select(df_inv_long, 'Language') 
+
+Language <- unique(cons_lg$Language)
+
+category <- inv %>% select(Language, Category)
+
+overlap <- data.frame(cbind(Language, absolute_overlap)) 
+  
+inv_overlap <- inner_join(overlap, category, by = "Language") %>% distinct()
+
+head(inv_overlap)
+```
+
+Adding a new variable: inventory dissimilarity
+
+```{r}
+colnames(inv_overlap)[2]  <- "similar_consonants"
+colnames(inv_size)[2] <- "total_consonants"
+
+
+df_st <- merge(inv_overlap, inv_size, by = "Language")
+
+df_st$total_consonants = as.numeric(as.character(df_st$total_consonants))
+df_st$similar_consonants = as.numeric(as.character(df_st$similar_consonants))
+
+
+df_st$different_consonants <- df_st$`total_consonants` - df_st$`similar_consonants`
+```
+
+Transforming values from absolute to relative
+
+```{r}
+tsd_rel <- df_st %>%  mutate(total_rel = total_consonants/19, similar_rel = similar_consonants/19, diff_rel= different_consonants/19)
+```
+
+### Does substrate similarity influence creole stability?
+
+If yes, we expect to find a positive correlation overall creole stability ~ substrate inventory similarity, and a negative correlation overall creole stability ~ substrate inventory divergence.
+
+Let's just subset the data to substrates only.
+
+```{r}
+subs_tsd_rel <- tsd_rel %>% subset(Category.x=='substrate')
+```
+
+Prepare data to get the correlation between creole stability and substrate similarity
+
+```{r}
+
+Language <- c('Angolar',
+'Cape Verdean Brava',
+'Cape Verdean Fogo',
+'Cape Verdean Santiago',
+'Cape Verdean Santo Antão',
+'Cape Verdean São Vicente',
+'Daman',
+'Diu',
+'Fa dAmbô',
+'Guinea-Bissau Kriyol',
+'Kannur',
+'Korlai',
+'Papiá Kristang',
+'Patua Macau',
+'Principense',
+'Santome',
+'Sri Lanka',
+'Timor creole')
+
+value <- c(0.6571429	,
+0.9285714	,
+0.8857143	,
+0.9189189	,
+0.9444444	,
+0.9142857	,
+0.9000000	,
+0.8857143	,
+0.6428571	,
+0.9054054	,
+0.9242424	,
+0.8529412	,
+0.8750000	,
+0.9054054	,
+0.8243243	,
+0.7702703	,
+0.8970588	,
+0.9000000	
+)
+
+creole_stability_simple <- data.frame(Language, value)
+
+```
+
+```{r}
+
+substrate_similar_simple <- subs_tsd_rel %>%  select(Language, similar_rel)
+
+colnames(substrate_similar_simple)[2]  <- "value"
+
+```
+
+
+Let's import a new dataframe to get language pairs
+
+```{r}
+correspondence <- read.csv("C:\\Users\\Carlos\\Documents\\substrate_creole_correspondence.csv")
+```
+
+Join stability and similarity values to the new data frame
+
+```{r}
+colnames(creole_stability_simple)[1]  <- "creole"
+colnames(creole_stability_simple)[2]  <- "stability"
+
+cor1 <- left_join(correspondence, creole_stability_simple, by= 'creole')
+
+colnames(substrate_similar_simple)[1]  <- "substrate"
+colnames(substrate_similar_simple)[2]  <- "similarity"
+
+cor2 <- left_join(cor1, substrate_similar_simple, by= 'substrate')
+```
+
+Results of a simple regression
+```{r}
+cor2_lm <- lm(similarity ~ stability, data=cor2)
+summary(cor2_lm)
+```
+Plot the results
+```{r}
+ggplot(cor2, aes(x = similarity, y = stability, label = pair)) +
+  geom_smooth(method = "glm") +
+  geom_point() +
+  geom_text(aes(label=pair), hjust=1, vjust=1) +
+  facet_wrap(~ area)
+```
+
+
+It seems that stability increases as substrate similarity increases in the Indian creoles, but not in the other creoles, unless I am not getting this right. It would be nice to have the pairs displayed as labels, but I think that I would need to turn this graph into five different graphs.
