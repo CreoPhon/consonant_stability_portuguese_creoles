@@ -313,12 +313,13 @@ ggplot(consonant_global_stability) +
 Check for class effects on the global stability of consonants
 
 ```{r}
+
 ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
   geom_smooth(method = "lm") +
   geom_violin() +
    geom_dotplot(binaxis = "y",
                stackdir = "center",
-               dotsize = 0.5) 
+               dotsize = 0.5)
 ```
 
 Now, just plotting the relation manner to manner
@@ -328,7 +329,9 @@ ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
   geom_violin() +
    geom_dotplot(binaxis = "y",
                stackdir = "center",
-               dotsize = 0.5) 
+               dotsize = 0.5) +
+  theme(legend.position="none") +
+ stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
 
 
@@ -357,7 +360,9 @@ ggplot(consonant_stability_place, aes(x = place, y = mplace, fill = place)) +
   geom_violin()  +
    geom_dotplot(binaxis = "y",
                stackdir = "center",
-               dotsize = 0.5) 
+               dotsize = 0.5)  +
+  theme(legend.position="none")# +
+# stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
 
 Calculate the stability of the segments.

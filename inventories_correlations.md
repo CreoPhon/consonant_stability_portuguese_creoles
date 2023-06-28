@@ -1,7 +1,7 @@
 Inventory size, similarity and dissimilarity
 ================
 Carlos Silva
-(23 junho, 2023)
+(26 junho, 2023)
 
 - [Introduction](#introduction)
 - [Inventory size](#inventory-size)
