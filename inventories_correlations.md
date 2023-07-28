@@ -1,7 +1,7 @@
 Inventory size, similarity and dissimilarity
 ================
 Carlos Silva
-(26 junho, 2023)
+(28 julho, 2023)
 
 - [Introduction](#introduction)
 - [Inventory size](#inventory-size)
@@ -16,6 +16,7 @@ Carlos Silva
   stability](#inventory-similarity-and-overall-creole-stability)
   - [Does substrate similarity influence creole
     stability?](#does-substrate-similarity-influence-creole-stability)
+- [Jaccard distance](#jaccard-distance)
 
 # Introduction
 
@@ -630,3 +631,89 @@ the Indian creoles, but not in the other creoles, unless I am not
 getting this right. It would be nice to have the pairs displayed as
 labels, but I think that I would need to turn this graph into five
 different graphs.
+
+# Jaccard distance
+
+Jaccard between two vectors manually selected
+
+``` r
+jaccard <- function(a, b) {
+    intersection = length(intersect(a, b))
+    union = length(a) + length(b) - intersection
+    return (intersection/union)
+}
+
+#data <- df_total_inv
+
+jaccard(df_total_inv$`Portuguese`, df_total_inv$`Cantonese`)
+```
+
+    ## [1] 0.00862069
+
+VEGAN PACKAGE – Jaccard distance between all vectors at the same time
+
+``` r
+#install.packages("vegan")
+library(vegan)
+```
+
+    ## Warning: package 'vegan' was built under R version 4.3.1
+
+    ## Loading required package: permute
+
+    ## Warning: package 'permute' was built under R version 4.3.1
+
+    ## Loading required package: lattice
+
+    ## This is vegan 2.6-4
+
+``` r
+df_jaccard <- select(df_total_inv, c(2:35))
+results_jaccard <- vegdist(df_jaccard, method = "jaccard")
+# I may have worked, but we still need a visualization.
+```
+
+ADE4 PACKAGE – Same as above, but with hierarchical clustering– still no
+visualization. Also note that the results of this vector are different
+from the results generated using the Vegan package
+
+``` r
+#install.packages("ade4")
+library(ade4)
+```
+
+    ## Warning: package 'ade4' was built under R version 4.3.1
+
+``` r
+mm1 <- as.matrix(df_jaccard)
+mm2 <- matrix(mm1, ncol = ncol(df_jaccard), dimnames = NULL)
+ID <- colnames(df_jaccard)
+d <- dist.binary(mm2, method = 1, diag = FALSE, upper = FALSE) #method 1 is Jaccard index (1901) S3 coefficient of Gower & Legendre
+hc <- hclust(d)               # apply hierarchical clustering 
+```
+
+Trying again, but just with the Jaccard function applied to languages in
+different cycles
+
+``` r
+jaccard <- function(a, b) {
+    intersection = length(intersect(a, b))
+    union = length(a) + length(b) - intersection
+    return (intersection/union)
+}
+
+
+vec_port <- df_total_inv[2]
+vec_jac <- c() 
+vec_crio_name <- c() 
+
+
+#for (i in 2:35)
+#{jaq_val <- jaccard(vec_port,df_total_inv[i])
+#   vec_jac <- c(vec_jac, jaq_val)
+#   vec_crio_name <- c(vec_crio_name, colnames(df_total_inv)[i])}
+
+
+
+#jac_data <- data.frame(vec_jac, vec_crio_name)
+```
