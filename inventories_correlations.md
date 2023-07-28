@@ -44,7 +44,7 @@ library(ggplot2)
 Get data
 
 ``` r
-inv <- read.csv("C:\\Users\\Carlos\\Desktop\\Inventories.csv")
+inv <- read.csv("Inventories.csv")
 head(inv)
 ```
 
@@ -543,7 +543,7 @@ colnames(substrate_similar_simple)[2]  <- "value"
 Let’s import a new dataframe to get language pairs
 
 ``` r
-correspondence <- read.csv("C:\\Users\\Carlos\\Documents\\substrate_creole_correspondence.csv")
+correspondence <- read.csv("substrate_creole_correspondence.csv")
 ```
 
 Join stability and similarity values to the new data frame
