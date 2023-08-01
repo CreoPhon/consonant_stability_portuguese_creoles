@@ -1,6 +1,6 @@
 ---
 title: "Inventory size, similarity and dissimilarity"
-author: "Carlos Silva"
+author: "Carlos Silva and Steven Moran"
 date: "(`r format(Sys.time(), '%d %B, %Y')`)"
 output:
   github_document:
@@ -485,4 +485,45 @@ vec_crio_name <- c()
 
 #jac_data <- data.frame(vec_jac, vec_crio_name)
 
+```
+
+##Steven's code
+
+```{r}
+library(tidyverse)
+
+# Create Jaccard table based on full set of phonemes across all languages 
+# in the sample; other ways to do this -- to discuss
+df <- read_csv("Inventories.csv")
+df <- df %>% select(Language, Phoneme)
+df$presence <- 1
+df_wide <- df %>% spread(Phoneme, presence)
+df_wide <- df_wide %>% replace(is.na(.), 0)
+head(df_wide)
+
+# Corresponding languages for which we want Jaccard measurements
+correspondences <- read_csv("substrate_creole_correspondence.csv")
+tmp <- correspondences %>% slice(1:2)
+
+# DONE: fix the language names in the correspondences table so they can be used across tables
+all(correspondences$substrate %in% df_wide$Language) # OK
+all(correspondences$creole %in% df_wide$Language) # OK
+correspondences$substrate %in% df_wide$Language # OK
+correspondences$creole %in% df_wide$Language # OK
+
+# Get method for Jaccard
+#library(qvalue) #Error in library(qvalue) : there is no package called ‘qvalue’
+#library(jaccard) #Error: package ‘jaccard’ was built under R version 4.3.1Error: package or namespace load failed for ‘jaccard’ 
+
+# Test 
+ x <- as.numeric(df_wide[1,2:116])
+ y <- as.numeric(df_wide[1,2:116])
+ jaccard(x,y)
+ x==y # All TRUE -- passed!
+
+# Run Jaccard on test data -- some bug here in the code because new_col is the same
+tmp %>% mutate(new_col = jaccard(as.numeric(as.factor(df_wide %>% filter(Language == tmp$substrate) %>% select(2:116))), as.numeric(as.factor(df_wide %>% filter(Language == tmp$creole) %>% select(2:116)))))
+
+# When all language names match in both tables this *should* run fine
+correspondences %>% mutate(new_col = jaccard(as.numeric(as.factor(df_wide %>% filter(Language == correspondences$substrate) %>% select(2:116))), as.numeric(as.factor(df_wide %>% filter(Language == correspondences$creole) %>% select(2:116)))))
 ```
