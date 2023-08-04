@@ -2,7 +2,7 @@ Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
 Steven Moran and Carlos Silva and Nicholas A. Lester
-(23 junho, 2023)
+(04 agosto, 2023)
 
 - [Overview](#overview)
 - [Creole stability](#creole-stability)
@@ -20,7 +20,7 @@ Supplementary materials for [Consonant Stability in Portuguese-based
 creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc).
 Silva, Carlos and Steven Moran. Work in progress.
 
-In this report, we use R (R Core Team 2021) and the following packages
+In this report, we use R (RStudio Team 2020) and the following packages
 (Wickham et al. 2019; Xie 2021).
 
 ``` r
@@ -88,7 +88,7 @@ table(database$categorical_stability)
 
     ## 
     ##    manner/no place       manner/place no manner/no place    no manner/place 
-    ##                 43                 54                517                 24
+    ##                 49                 58                553                 25
 
 # Creole stability
 
@@ -115,10 +115,8 @@ table(creole_stability$Area)
 ```
 
     ## 
-    ##   Eastern Asia Gulf of Guinea Northern India Southeast Asia Southern India 
-    ##              1              4              3              2              2 
-    ##   Upper Guinea 
-    ##              6
+    ## Gulf of Guinea Northern India Southeast Asia Southern India   Upper Guinea 
+    ##              4              3              3              2              7
 
 Plot it by conditions of contact.
 
@@ -167,19 +165,19 @@ summary(msd)
     ## lm(formula = MeanStability ~ duration, data = creole_stability)
     ## 
     ## Residuals:
-    ##       Min        1Q    Median        3Q       Max 
-    ## -0.221577 -0.002688  0.036798  0.051036  0.079053 
+    ##      Min       1Q   Median       3Q      Max 
+    ## -0.21701 -0.01214  0.03417  0.04673  0.07143 
     ## 
     ## Coefficients:
     ##              Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept) 8.598e-01  4.086e-02  21.042 4.37e-13 ***
-    ## duration    1.088e-05  1.227e-04   0.089     0.93    
+    ## (Intercept) 8.336e-01  4.471e-02  18.644  9.4e-13 ***
+    ## duration    8.525e-05  1.231e-04   0.692    0.498    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 0.09017 on 16 degrees of freedom
-    ## Multiple R-squared:  0.0004911,  Adjusted R-squared:  -0.06198 
-    ## F-statistic: 0.007862 on 1 and 16 DF,  p-value: 0.9304
+    ## Residual standard error: 0.08344 on 17 degrees of freedom
+    ## Multiple R-squared:  0.02742,    Adjusted R-squared:  -0.02979 
+    ## F-statistic: 0.4793 on 1 and 17 DF,  p-value: 0.4981
 
 However, there does seem to be two groups of languages – ones that
 belong to “long duration” (\>= 400 years) and those that below to “short
@@ -237,19 +235,21 @@ summary(msd)
     ##     data = creole_stability)
     ## 
     ## Residuals:
-    ##       Min        1Q    Median        3Q       Max 
-    ## -0.180674 -0.029112  0.006105  0.041142  0.120003 
+    ##      Min       1Q   Median       3Q      Max 
+    ## -0.21107 -0.02781  0.02104  0.04323  0.07211 
     ## 
     ## Coefficients:
-    ##                               Estimate Std. Error t value Pr(>|t|)
-    ## (Intercept)                  0.5470360  0.3391096   1.613    0.129
-    ## duration                     0.0006506  0.0007192   0.905    0.381
-    ## duration_groupshort          0.2212025  0.3465288   0.638    0.534
-    ## duration:duration_groupshort 0.0001047  0.0008665   0.121    0.906
+    ##                                Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)                   8.229e-01  9.637e-02   8.539 3.82e-07 ***
+    ## duration                      9.639e-05  2.249e-04   0.429   0.6743    
+    ## duration_groupshort          -1.869e-01  1.324e-01  -1.412   0.1784    
+    ## duration:duration_groupshort  1.580e-03  6.840e-04   2.310   0.0355 *  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 0.08632 on 14 degrees of freedom
-    ## Multiple R-squared:  0.1984, Adjusted R-squared:  0.02667 
-    ## F-statistic: 1.155 on 3 and 14 DF,  p-value: 0.3615
+    ## Residual standard error: 0.07447 on 15 degrees of freedom
+    ## Multiple R-squared:  0.3164, Adjusted R-squared:  0.1796 
+    ## F-statistic: 2.314 on 3 and 15 DF,  p-value: 0.1174
 
 ``` r
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
@@ -310,23 +310,21 @@ summary(msd.gam)
     ##     by = duration_group, k = 3)
     ## 
     ## Parametric coefficients:
-    ##                     Estimate Std. Error t value Pr(>|t|)  
-    ## (Intercept)            4.705      2.252   2.090   0.0565 .
-    ## duration_groupshort   -3.722      2.253  -1.652   0.1219  
+    ##                     Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)          0.85451    0.02877  29.700 1.28e-14 ***
+    ## duration_groupshort  0.06307    0.59085   0.107    0.916    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
-    ##                                    edf Ref.df     F p-value  
-    ## s(duration)                     0.6667 0.6667 4.160  0.1197  
-    ## s(duration):duration_grouplong  1.4242 1.6079 1.606  0.1825  
-    ## s(duration):duration_groupshort 0.6667 0.6667 4.984  0.0914 .
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ##                                    edf Ref.df     F p-value
+    ## s(duration)                     0.6667 0.6667 0.036   0.879
+    ## s(duration):duration_grouplong  0.6667 0.6667 0.005   0.957
+    ## s(duration):duration_groupshort 0.8454 0.9921 0.003   0.955
     ## 
     ## Rank: 7/8
-    ## R-sq.(adj) =  0.204   Deviance explained =   38%
-    ## GCV = 0.008281  Scale est. = 0.0060923  n = 18
+    ## R-sq.(adj) =  0.191   Deviance explained = 33.4%
+    ## GCV = 0.0070083  Scale est. = 0.0054669  n = 19
 
 ``` r
 plot(msd.gam, all.terms=T, shade=T, pages=1)
@@ -355,23 +353,21 @@ summary(msd.gam.trimmed)
     ##     by = duration_group, k = 3)
     ## 
     ## Parametric coefficients:
-    ##                     Estimate Std. Error t value Pr(>|t|)   
-    ## (Intercept)            4.110      1.147   3.583  0.00423 **
-    ## duration_groupshort   -3.212      1.148  -2.799  0.01716 * 
+    ##                     Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)          0.87215    0.01743   50.03 2.97e-16 ***
+    ## duration_groupshort  0.05635    0.18193    0.31    0.762    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
-    ##                                    edf Ref.df      F p-value  
-    ## s(duration)                     0.6667 0.6667 11.824  0.0170 *
-    ## s(duration):duration_grouplong  1.5535 1.6538  4.984  0.0362 *
-    ## s(duration):duration_groupshort 0.6667 0.6667 11.858  0.0169 *
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ##                                    edf Ref.df     F p-value
+    ## s(duration)                     0.6667 0.6667 0.128   0.775
+    ## s(duration):duration_grouplong  0.6667 0.6667 0.003   0.963
+    ## s(duration):duration_groupshort 0.6667 0.6667 0.022   0.905
     ## 
     ## Rank: 7/8
-    ## R-sq.(adj) =  0.265   Deviance explained = 45.5%
-    ## GCV = 0.00198  Scale est. = 0.0013752  n = 16
+    ## R-sq.(adj) =  -0.141   Deviance explained = 7.28%
+    ## GCV = 0.0028498  Scale est. = 0.0021793  n = 17
 
 ``` r
 plot(msd.gam.trimmed, sel=1, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", residuals=T, main="Main effect of duration", cex=5, pch=".", col='dodgerblue'); abline(h=0, lty=2, col="red")
@@ -427,9 +423,9 @@ ggplot(database, aes(duration, MannerStability, colour=duration_group)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-    ## Warning: Removed 28 rows containing non-finite values (`stat_smooth()`).
+    ## Warning: Removed 18 rows containing non-finite values (`stat_smooth()`).
 
-    ## Warning: Removed 28 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 18 rows containing missing values (`geom_point()`).
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
@@ -442,9 +438,9 @@ ggplot(database, aes(duration, GlobalStability, colour=duration_group)) +
 
     ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-    ## Warning: Removed 28 rows containing non-finite values (`stat_smooth()`).
+    ## Warning: Removed 18 rows containing non-finite values (`stat_smooth()`).
 
-    ## Warning: Removed 28 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 18 rows containing missing values (`geom_point()`).
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
@@ -457,9 +453,9 @@ ggplot(database, aes(duration, PlaceStability, colour=duration_group)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-    ## Warning: Removed 28 rows containing non-finite values (`stat_smooth()`).
+    ## Warning: Removed 18 rows containing non-finite values (`stat_smooth()`).
 
-    ## Warning: Removed 28 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 18 rows containing missing values (`geom_point()`).
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
@@ -472,9 +468,9 @@ ggplot(database, aes(duration, MannerStability, colour=duration_group)) +
 
     ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-    ## Warning: Removed 28 rows containing non-finite values (`stat_smooth()`).
+    ## Warning: Removed 18 rows containing non-finite values (`stat_smooth()`).
 
-    ## Warning: Removed 28 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 18 rows containing missing values (`geom_point()`).
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
@@ -487,9 +483,9 @@ ggplot(database, aes(duration, GlobalStability, colour=duration_group)) +
 
     ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 
-    ## Warning: Removed 28 rows containing non-finite values (`stat_smooth()`).
+    ## Warning: Removed 18 rows containing non-finite values (`stat_smooth()`).
 
-    ## Warning: Removed 28 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 18 rows containing missing values (`geom_point()`).
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
@@ -541,18 +537,18 @@ summary(lm_manner_place)
     ## 
     ## Residuals:
     ##       Min        1Q    Median        3Q       Max 
-    ## -0.221896  0.001818  0.015525  0.041974  0.110688 
+    ## -0.206903 -0.000738  0.013372  0.037250  0.126426 
     ## 
     ## Coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)  0.25840    0.07788   3.318  0.00407 ** 
-    ## mmanner      0.72608    0.09037   8.035 3.44e-07 ***
+    ## (Intercept)  0.28293    0.06764   4.183 0.000624 ***
+    ## mmanner      0.70370    0.07873   8.938 7.81e-08 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 0.08679 on 17 degrees of freedom
-    ## Multiple R-squared:  0.7916, Adjusted R-squared:  0.7793 
-    ## F-statistic: 64.56 on 1 and 17 DF,  p-value: 3.44e-07
+    ## Residual standard error: 0.07783 on 17 degrees of freedom
+    ## Multiple R-squared:  0.8246, Adjusted R-squared:  0.8142 
+    ## F-statistic:  79.9 on 1 and 17 DF,  p-value: 7.811e-08
 
 ``` r
 manner_place_lmplot <- ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme)) +
@@ -595,12 +591,18 @@ Check for class effects on the global stability of consonants
 ``` r
 ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
   geom_smooth(method = "lm") +
-  geom_violin()
+  geom_violin() +
+   geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5)
 ```
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
     ## Warning: Groups with fewer than two data points have been dropped.
+
+    ## Bin width defaults to 1/30 of the range of the data. Pick better value with
+    ## `binwidth`.
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
@@ -609,12 +611,26 @@ Now, just plotting the relation manner to manner
 ``` r
 ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
   geom_smooth(method = "lm") +
-  geom_violin()
+  geom_violin() +
+   geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5) +
+  theme(legend.position="none") +
+ stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
+
+    ## Warning: The `fun.y` argument of `stat_summary()` is deprecated as of ggplot2 3.3.0.
+    ## ℹ Please use the `fun` argument instead.
+    ## This warning is displayed once every 8 hours.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
     ## Warning: Groups with fewer than two data points have been dropped.
+
+    ## Bin width defaults to 1/30 of the range of the data. Pick better value with
+    ## `binwidth`.
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
@@ -627,10 +643,19 @@ consonant_stability_place <- cbind(consonant_global_stability, place)
 
 ggplot(consonant_stability_place, aes(x = place, y = mglobal, fill = place)) +
   geom_smooth(method = "lm") +
-  geom_violin()
+  geom_violin()  +
+   geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5) 
 ```
 
     ## `geom_smooth()` using formula = 'y ~ x'
+
+    ## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
+    ## collapsing to unique 'x' values
+
+    ## Bin width defaults to 1/30 of the range of the data. Pick better value with
+    ## `binwidth`.
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-30-1.png)<!-- --> Now,
 just with the mean for Place stability
@@ -638,12 +663,22 @@ just with the mean for Place stability
 ``` r
 ggplot(consonant_stability_place, aes(x = place, y = mplace, fill = place)) +
   geom_smooth(method = "lm") +
-  geom_violin()
+  geom_violin()  +
+   geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5)  +
+  theme(legend.position="none")# +
 ```
 
     ## `geom_smooth()` using formula = 'y ~ x'
+    ## Bin width defaults to 1/30 of the range of the data. Pick better value with
+    ## `binwidth`.
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
+
+``` r
+# stat_summary(fun.y=mean, geom="point", size=2, shape=16)
+```
 
 Calculate the stability of the segments.
 
@@ -723,7 +758,7 @@ table(mod.db$categorical_stability)
 
     ## 
     ##    manner/no place       manner/place no manner/no place    no manner/place 
-    ##                 43                 54                517                 24
+    ##                 49                 58                553                 25
 
 ``` r
 # Place stability
@@ -739,27 +774,27 @@ summary(cat.mod.place)
     ##    Data: mod.db
     ## 
     ##      AIC      BIC   logLik deviance df.resid 
-    ##    296.8    310.2   -145.4    290.8      635 
+    ##    305.4    319.0   -149.7    299.4      682 
     ## 
     ## Scaled residuals: 
     ##     Min      1Q  Median      3Q     Max 
-    ## -6.2517  0.0388  0.0432  0.1725  2.1540 
+    ## -6.3810  0.0327  0.0341  0.1593  2.3669 
     ## 
     ## Random effects:
     ##  Groups        Name        Variance Std.Dev.
-    ##  CreolePhoneme (Intercept) 31.32    5.597   
-    ## Number of obs: 638, groups:  CreolePhoneme, 34
+    ##  CreolePhoneme (Intercept) 34.8     5.899   
+    ## Number of obs: 685, groups:  CreolePhoneme, 34
     ## 
     ## Fixed effects:
     ##               Estimate Std. Error z value Pr(>|z|)  
-    ## (Intercept)     5.3041     2.5427   2.086    0.037 *
-    ## log(duration)  -0.1279     0.2215  -0.577    0.564  
+    ## (Intercept)     5.5541     3.0094   1.846   0.0649 .
+    ## log(duration)  -0.0260     0.2695  -0.096   0.9231  
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr)
-    ## log(duratn) -0.511
+    ## log(duratn) -0.560
 
 ``` r
 # Manner stability
@@ -775,27 +810,27 @@ summary(cat.mod.manner)
     ##    Data: mod.db
     ## 
     ##      AIC      BIC   logLik deviance df.resid 
-    ##    251.1    264.4   -122.5    245.1      635 
+    ##    258.1    271.7   -126.0    252.1      682 
     ## 
     ## Scaled residuals: 
     ##     Min      1Q  Median      3Q     Max 
-    ## -6.2224  0.0043  0.0046  0.1928  0.7464 
+    ## -6.8056  0.0038  0.0044  0.1764  1.0106 
     ## 
     ## Random effects:
     ##  Groups        Name        Variance Std.Dev.
-    ##  CreolePhoneme (Intercept) 396.3    19.91   
-    ## Number of obs: 638, groups:  CreolePhoneme, 34
+    ##  CreolePhoneme (Intercept) 406.8    20.17   
+    ## Number of obs: 685, groups:  CreolePhoneme, 34
     ## 
     ## Fixed effects:
     ##               Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept)   10.11364    2.42941   4.163 3.14e-05 ***
-    ## log(duration)  0.08086    0.22974   0.352    0.725    
+    ## (Intercept)     8.6821     2.5407   3.417 0.000633 ***
+    ## log(duration)   0.3547     0.2668   1.329 0.183708    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr)
-    ## log(duratn) -0.517
+    ## log(duratn) -0.576
 
 ``` r
 # Duration group
@@ -816,29 +851,29 @@ summary(cat.mod.group)
     ##    Data: mod.db
     ## 
     ##      AIC      BIC   logLik deviance df.resid 
-    ##    882.3    900.2   -437.2    874.3      634 
+    ##    858.0    876.1   -425.0    850.0      681 
     ## 
     ## Scaled residuals: 
     ##     Min      1Q  Median      3Q     Max 
-    ## -1.3362 -1.1102  0.8246  0.9007  1.2288 
+    ## -0.7519 -0.6699 -0.6699  1.4927  1.6530 
     ## 
     ## Random effects:
     ##  Groups        Name        Variance Std.Dev.
     ##  CreolePhoneme (Intercept) 0        0       
-    ## Number of obs: 638, groups:  CreolePhoneme, 34
+    ## Number of obs: 685, groups:  CreolePhoneme, 34
     ## 
     ## Fixed effects:
-    ##                 Estimate Std. Error z value Pr(>|z|)  
-    ## (Intercept)     -0.04164    0.24231  -0.172   0.8636  
-    ## PlaceStability   0.62124    0.29861   2.080   0.0375 *
-    ## MannerStability -0.37043    0.27504  -1.347   0.1780  
+    ##                 Estimate Std. Error z value Pr(>|z|)   
+    ## (Intercept)      -0.7743     0.2512  -3.083  0.00205 **
+    ## PlaceStability    0.2040     0.3064   0.666  0.50549   
+    ## MannerStability  -0.2310     0.2688  -0.859  0.39017   
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr) PlcStb
-    ## PlaceStblty -0.521       
-    ## MannrStblty -0.339 -0.580
+    ## PlaceStblty -0.579       
+    ## MannrStblty -0.301 -0.554
     ## optimizer (bobyqa) convergence code: 0 (OK)
     ## boundary (singular) fit: see help('isSingular')
 
@@ -965,19 +1000,19 @@ summary(m)
     ## lm(formula = MeanStability ~ ContactConditions, data = creole_stability)
     ## 
     ## Residuals:
-    ##       Min        1Q    Median        3Q       Max 
-    ## -0.196336 -0.016876  0.007455  0.061289  0.105251 
+    ##      Min       1Q   Median       3Q      Max 
+    ## -0.19165 -0.01508  0.01495  0.05113  0.10001 
     ## 
     ## Coefficients:
     ##                          Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)               0.89255    0.03030  29.459 2.28e-15 ***
-    ## ContactConditionsSlavery -0.05335    0.04065  -1.313    0.208    
+    ## (Intercept)               0.88505    0.02896  30.562 2.68e-16 ***
+    ## ContactConditionsSlavery -0.04062    0.03806  -1.067    0.301    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 0.08569 on 16 degrees of freedom
-    ## Multiple R-squared:  0.0972, Adjusted R-squared:  0.04078 
-    ## F-statistic: 1.723 on 1 and 16 DF,  p-value: 0.2079
+    ## Residual standard error: 0.08191 on 17 degrees of freedom
+    ## Multiple R-squared:  0.06279,    Adjusted R-squared:  0.007662 
+    ## F-statistic: 1.139 on 1 and 17 DF,  p-value: 0.3008
 
 ``` r
 ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, color = ContactConditions)) +
@@ -1000,21 +1035,21 @@ summary(m)
     ##     data = creole_stability)
     ## 
     ## Residuals:
-    ##       Min        1Q    Median        3Q       Max 
-    ## -0.203607 -0.023472  0.007634  0.056201  0.098616 
+    ##      Min       1Q   Median       3Q      Max 
+    ## -0.20118 -0.02286  0.01146  0.05202  0.11796 
     ## 
     ## Coefficients:
     ##                                     Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)                        8.758e-01  7.531e-02  11.629  1.4e-08 ***
-    ## duration                           8.459e-05  3.455e-04   0.245    0.810    
-    ## ContactConditionsSlavery          -7.282e-02  9.625e-02  -0.757    0.462    
-    ## duration:ContactConditionsSlavery  1.766e-05  3.763e-04   0.047    0.963    
+    ## (Intercept)                        8.686e-01  6.762e-02  12.845  1.7e-09 ***
+    ## duration                           6.236e-05  2.314e-04   0.269    0.791    
+    ## ContactConditionsSlavery          -9.622e-02  9.367e-02  -1.027    0.321    
+    ## duration:ContactConditionsSlavery  1.295e-04  2.809e-04   0.461    0.651    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 0.08992 on 14 degrees of freedom
-    ## Multiple R-squared:  0.1302, Adjusted R-squared:  -0.05624 
-    ## F-statistic: 0.6983 on 3 and 14 DF,  p-value: 0.5685
+    ## Residual standard error: 0.08308 on 15 degrees of freedom
+    ## Multiple R-squared:  0.1492, Adjusted R-squared:  -0.02095 
+    ## F-statistic: 0.8769 on 3 and 15 DF,  p-value: 0.4751
 
 ``` r
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactConditions)) +
@@ -1032,9 +1067,8 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactCon
 
 <div id="ref-R" class="csl-entry">
 
-R Core Team. 2021. *R: A Language and Environment for Statistical
-Computing*. Vienna, Austria: R Foundation for Statistical Computing.
-<https://www.R-project.org/>.
+RStudio Team. 2020. *RStudio: Integrated Development Environment for r*.
+Boston, MA: RStudio, PBC. <http://www.rstudio.com/>.
 
 </div>
 
