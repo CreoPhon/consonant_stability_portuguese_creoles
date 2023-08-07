@@ -2,7 +2,7 @@ Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
 Steven Moran and Carlos Silva and Nicholas A. Lester
-(04 agosto, 2023)
+(07 agosto, 2023)
 
 - [Overview](#overview)
 - [Creole stability](#creole-stability)
@@ -1015,12 +1015,18 @@ summary(m)
     ## F-statistic: 1.139 on 1 and 17 DF,  p-value: 0.3008
 
 ``` r
-ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, color = ContactConditions)) +
+ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, fill = ContactConditions)) +
   geom_smooth(method = "lm") +
-  geom_violin()
+  geom_violin()  +  
+  geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5)  +
+  theme(legend.position="none")
 ```
 
     ## `geom_smooth()` using formula = 'y ~ x'
+    ## Bin width defaults to 1/30 of the range of the data. Pick better value with
+    ## `binwidth`.
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
 

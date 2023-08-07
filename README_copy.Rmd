@@ -159,6 +159,7 @@ summary(msd)
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
   geom_smooth(method = "lm") +
   geom_point()
+
 ```
 
 The variability in the two groups is very different. The direction of the effect is interesting: shorter durations yield more stability more consistently. Over time, the variability in mean stability increases. Time is "destabillizing the pattern of stability".
@@ -513,9 +514,13 @@ Linear model
 m <- lm(MeanStability ~ ContactConditions, data=creole_stability)
 summary(m)
 
-ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, color = ContactConditions)) +
+ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, fill = ContactConditions)) +
   geom_smooth(method = "lm") +
-  geom_violin()
+  geom_violin()  +  
+  geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5)  +
+  theme(legend.position="none")
 ```
 
 ```{r}
