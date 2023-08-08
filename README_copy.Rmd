@@ -50,7 +50,7 @@ database <- mutate(database, GlobalStability = (PlaceStability + MannerStability
 Categorical variable for duration.
 
 ```{r}
-database <- database %>% mutate(duration_group = ifelse(duration <= 200, 'short', 'long'))
+database <- database %>% mutate(duration_group = ifelse(duration <= 250, 'short', 'long'))
 ```
 
 Categorical variable for changes in manner and/or place. Stability in the database is '1' (no change) and '0' change.
@@ -108,12 +108,15 @@ We have the overall stability values. What are these in relation to the duration
 There does not seem to be a relationship between overall duration and overall stability.
 
 ```{r}
-ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
-  geom_point()
+library(ggrepel)
 
-ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
-  geom_point() +
-  geom_text(label=creole_stability$Language)
+
+creos <-  ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
+  geom_point()# +
+#  geom_text(label=creole_stability$Language) 
+
+
+creos + geom_text_repel(aes(label =creole_stability$Language), size = 3)
 ```
 
 Results from the simple regression.
@@ -123,13 +126,13 @@ msd <- lm(MeanStability ~ duration, data=creole_stability)
 summary(msd)
 ```
 
-However, there does seem to be two groups of languages -- ones that belong to "long duration" (>= 400 years) and those that below to "short duration" (<= 200 years).
+However, there does seem to be two groups of languages -- ones that belong to "long duration" (>= 400 years) and those that below to "short duration" (<= 250 years).
 
 We can try to split the data and rerun the models, but we note that there are very few data points.
 
 ```{r}
-tmp_short <- creole_stability %>% filter(duration <= 200)
-tmp_long <- creole_stability %>% filter(duration > 200)
+tmp_short <- creole_stability %>% filter(duration <= 250)
+tmp_long <- creole_stability %>% filter(duration > 250)
 ```
 
 ```{r}
@@ -191,9 +194,13 @@ summary(msd.gam.trimmed)
 
 plot(msd.gam.trimmed, sel=1, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", residuals=T, main="Main effect of duration", cex=5, pch=".", col='dodgerblue'); abline(h=0, lty=2, col="red")
 
-plot(msd.gam.trimmed, sel=2, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", main="Long-term influence", col='dodgerblue'); abline(h=0, lty=2, col="red")
+plot(msd.gam.trimmed, sel=2, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", 
+     #main="Long-term influence", 
+     col='dodgerblue'); abline(h=0, lty=2, col="red")
 
-plot(msd.gam.trimmed, sel=3, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", main="Short-term influence", col='dodgerblue'); abline(h=0, lty=2, col="red")
+plot(msd.gam.trimmed, sel=3, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", 
+     #main="Short-term influence", 
+     col='dodgerblue'); abline(h=0, lty=2, col="red")
 
 # (dotted lines indicate error)
 plot(msd.gam.trimmed, all.terms=T, sel=4, ylab="Effect on mean stability", xlab="Duration group", main="Main effect of duration group")

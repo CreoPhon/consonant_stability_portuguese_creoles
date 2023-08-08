@@ -2,7 +2,7 @@ Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
 Steven Moran and Carlos Silva and Nicholas A. Lester
-(07 agosto, 2023)
+(08 agosto, 2023)
 
 - [Overview](#overview)
 - [Creole stability](#creole-stability)
@@ -68,7 +68,7 @@ database <- mutate(database, GlobalStability = (PlaceStability + MannerStability
 Categorical variable for duration.
 
 ``` r
-database <- database %>% mutate(duration_group = ifelse(duration <= 200, 'short', 'long'))
+database <- database %>% mutate(duration_group = ifelse(duration <= 250, 'short', 'long'))
 ```
 
 Categorical variable for changes in manner and/or place. Stability in
@@ -139,19 +139,18 @@ There does not seem to be a relationship between overall duration and
 overall stability.
 
 ``` r
-ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
-  geom_point()
+library(ggrepel)
+
+
+creos <-  ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
+  geom_point()# +
+#  geom_text(label=creole_stability$Language) 
+
+
+creos + geom_text_repel(aes(label =creole_stability$Language), size = 3)
 ```
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
-
-``` r
-ggplot(creole_stability, aes(x=duration, y=MeanStability)) +
-  geom_point() +
-  geom_text(label=creole_stability$Language)
-```
-
-![](README_copy_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
 
 Results from the simple regression.
 
@@ -181,14 +180,14 @@ summary(msd)
 
 However, there does seem to be two groups of languages – ones that
 belong to “long duration” (\>= 400 years) and those that below to “short
-duration” (\<= 200 years).
+duration” (\<= 250 years).
 
 We can try to split the data and rerun the models, but we note that
 there are very few data points.
 
 ``` r
-tmp_short <- creole_stability %>% filter(duration <= 200)
-tmp_long <- creole_stability %>% filter(duration > 200)
+tmp_short <- creole_stability %>% filter(duration <= 250)
+tmp_long <- creole_stability %>% filter(duration > 250)
 ```
 
 ``` r
@@ -236,20 +235,20 @@ summary(msd)
     ## 
     ## Residuals:
     ##      Min       1Q   Median       3Q      Max 
-    ## -0.21107 -0.02781  0.02104  0.04323  0.07211 
+    ## -0.21021 -0.04532  0.04038  0.04576  0.07658 
     ## 
     ## Coefficients:
-    ##                                Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)                   8.229e-01  9.637e-02   8.539 3.82e-07 ***
-    ## duration                      9.639e-05  2.249e-04   0.429   0.6743    
-    ## duration_groupshort          -1.869e-01  1.324e-01  -1.412   0.1784    
-    ## duration:duration_groupshort  1.580e-03  6.840e-04   2.310   0.0355 *  
+    ##                                Estimate Std. Error t value Pr(>|t|)   
+    ## (Intercept)                   0.8153751  0.2450280   3.328  0.00459 **
+    ## duration                      0.0001120  0.0005379   0.208  0.83783   
+    ## duration_groupshort          -0.0822049  0.2590038  -0.317  0.75532   
+    ## duration:duration_groupshort  0.0006684  0.0007362   0.908  0.37829   
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 0.07447 on 15 degrees of freedom
-    ## Multiple R-squared:  0.3164, Adjusted R-squared:  0.1796 
-    ## F-statistic: 2.314 on 3 and 15 DF,  p-value: 0.1174
+    ## Residual standard error: 0.08331 on 15 degrees of freedom
+    ## Multiple R-squared:  0.1445, Adjusted R-squared:  -0.02656 
+    ## F-statistic: 0.8448 on 3 and 15 DF,  p-value: 0.4906
 
 ``` r
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
@@ -310,21 +309,23 @@ summary(msd.gam)
     ##     by = duration_group, k = 3)
     ## 
     ## Parametric coefficients:
-    ##                     Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)          0.85451    0.02877  29.700 1.28e-14 ***
-    ## duration_groupshort  0.06307    0.59085   0.107    0.916    
+    ##                     Estimate Std. Error t value Pr(>|t|)  
+    ## (Intercept)           2.1902     0.7763   2.821   0.0140 *
+    ## duration_groupshort  -1.9481     0.8695  -2.241   0.0425 *
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
-    ##                                    edf Ref.df     F p-value
-    ## s(duration)                     0.6667 0.6667 0.036   0.879
-    ## s(duration):duration_grouplong  0.6667 0.6667 0.005   0.957
-    ## s(duration):duration_groupshort 0.8454 0.9921 0.003   0.955
+    ##                                    edf Ref.df     F p-value  
+    ## s(duration)                     0.6667 0.6667 6.264  0.0618 .
+    ## s(duration):duration_grouplong  1.4159 1.6038 1.375  0.1693  
+    ## s(duration):duration_groupshort 1.4575 1.6229 2.237  0.1032  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Rank: 7/8
-    ## R-sq.(adj) =  0.191   Deviance explained = 33.4%
-    ## GCV = 0.0070083  Scale est. = 0.0054669  n = 19
+    ## R-sq.(adj) =  0.293   Deviance explained = 47.1%
+    ## GCV = 0.0067504  Scale est. = 0.0047821  n = 19
 
 ``` r
 plot(msd.gam, all.terms=T, shade=T, pages=1)
@@ -353,21 +354,21 @@ summary(msd.gam.trimmed)
     ##     by = duration_group, k = 3)
     ## 
     ## Parametric coefficients:
-    ##                     Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)          0.87215    0.01743   50.03 2.97e-16 ***
-    ## duration_groupshort  0.05635    0.18193    0.31    0.762    
+    ##                     Estimate Std. Error t value Pr(>|t|)   
+    ## (Intercept)           1.3221     0.3396   3.893  0.00202 **
+    ## duration_groupshort  -0.5035     0.3470  -1.451  0.17162   
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
     ##                                    edf Ref.df     F p-value
-    ## s(duration)                     0.6667 0.6667 0.128   0.775
-    ## s(duration):duration_grouplong  0.6667 0.6667 0.003   0.963
-    ## s(duration):duration_groupshort 0.6667 0.6667 0.022   0.905
+    ## s(duration)                     0.6667 0.6667 2.975   0.184
+    ## s(duration):duration_grouplong  1.2683 1.5080 1.101   0.374
+    ## s(duration):duration_groupshort 0.6667 0.6667 1.379   0.357
     ## 
     ## Rank: 7/8
-    ## R-sq.(adj) =  -0.141   Deviance explained = 7.28%
-    ## GCV = 0.0028498  Scale est. = 0.0021793  n = 17
+    ## R-sq.(adj) =  -0.0156   Deviance explained = 21.3%
+    ## GCV = 0.0026593  Scale est. = 0.0019395  n = 17
 
 ``` r
 plot(msd.gam.trimmed, sel=1, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", residuals=T, main="Main effect of duration", cex=5, pch=".", col='dodgerblue'); abline(h=0, lty=2, col="red")
@@ -376,13 +377,17 @@ plot(msd.gam.trimmed, sel=1, shade=T, ylab="Effect on mean stability", xlab="Dur
 ![](README_copy_files/figure-gfm/unnamed-chunk-18-3.png)<!-- -->
 
 ``` r
-plot(msd.gam.trimmed, sel=2, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", main="Long-term influence", col='dodgerblue'); abline(h=0, lty=2, col="red")
+plot(msd.gam.trimmed, sel=2, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", 
+     #main="Long-term influence", 
+     col='dodgerblue'); abline(h=0, lty=2, col="red")
 ```
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-18-4.png)<!-- -->
 
 ``` r
-plot(msd.gam.trimmed, sel=3, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", main="Short-term influence", col='dodgerblue'); abline(h=0, lty=2, col="red")
+plot(msd.gam.trimmed, sel=3, shade=T, ylab="Effect on mean stability", xlab="Duration of influence", 
+     #main="Short-term influence", 
+     col='dodgerblue'); abline(h=0, lty=2, col="red")
 ```
 
 ![](README_copy_files/figure-gfm/unnamed-chunk-18-5.png)<!-- -->
@@ -851,11 +856,11 @@ summary(cat.mod.group)
     ##    Data: mod.db
     ## 
     ##      AIC      BIC   logLik deviance df.resid 
-    ##    858.0    876.1   -425.0    850.0      681 
+    ##    934.3    952.4   -463.2    926.3      681 
     ## 
     ## Scaled residuals: 
     ##     Min      1Q  Median      3Q     Max 
-    ## -0.7519 -0.6699 -0.6699  1.4927  1.6530 
+    ## -1.0869 -0.8359 -0.8359  1.1963  1.5223 
     ## 
     ## Random effects:
     ##  Groups        Name        Variance Std.Dev.
@@ -863,17 +868,17 @@ summary(cat.mod.group)
     ## Number of obs: 685, groups:  CreolePhoneme, 34
     ## 
     ## Fixed effects:
-    ##                 Estimate Std. Error z value Pr(>|z|)   
-    ## (Intercept)      -0.7743     0.2512  -3.083  0.00205 **
-    ## PlaceStability    0.2040     0.3064   0.666  0.50549   
-    ## MannerStability  -0.2310     0.2688  -0.859  0.39017   
+    ##                 Estimate Std. Error z value Pr(>|z|)  
+    ## (Intercept)      -0.3154     0.2375  -1.328   0.1843  
+    ## PlaceStability    0.4820     0.2935   1.642   0.1006  
+    ## MannerStability  -0.5251     0.2583  -2.033   0.0421 *
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr) PlcStb
-    ## PlaceStblty -0.579       
-    ## MannrStblty -0.301 -0.554
+    ## PlaceStblty -0.571       
+    ## MannrStblty -0.295 -0.568
     ## optimizer (bobyqa) convergence code: 0 (OK)
     ## boundary (singular) fit: see help('isSingular')
 
