@@ -272,6 +272,7 @@ manner_results <- database %>% group_by(LexifierPhoneme) %>% summarize(mmanner =
 
 consonant_stability <- left_join(place_results, manner_results, by = "LexifierPhoneme")
 
+
 class <- c("stop", "stop", "fricative","stop", "stop", "lateral","nasal", "nasal", "stop", "rhotic","fricative", "stop","affricate", "fricative", "fricative","nasal", "rhotic", "lateral", "fricative")
 
 consonant_stability_class <- cbind(consonant_stability, class)
@@ -310,6 +311,8 @@ Here is an alternative view for the global results.
 
 ```{r}
 consonant_global_stability <- mutate(consonant_stability_class, mglobal = (mmanner + mplace)/2)
+
+write.csv(consonant_global_stability, "consonant_global_stability.csv", row.names=FALSE)
 
 ggplot(consonant_global_stability) + 
   geom_bar(aes(x = mglobal, 

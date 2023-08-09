@@ -14,6 +14,7 @@ Load packages
 ```{r}
 library(tidyverse)
 library(ggplot2)
+library(ggrepel)
 ```
 
 
@@ -31,7 +32,7 @@ df_inv_long <- inv %>% select(Language, Phoneme) %>%  mutate(newcol = 1)
 
 df_inv <- df_inv_long %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
 
-df_total_inv <- df_inv %>% mutate_at(c(2:35), as.numeric)
+df_total_inv <- df_inv %>% mutate_at(c(2:38), as.numeric)
 
 head(df_total_inv)
 
@@ -43,9 +44,9 @@ Get the consonant inventory size for all languages
 
 ```{r}
 
-cons_count <- df_total_inv %>% select(c(2:35)) %>% mutate_at(c(1:34), as.numeric)
+cons_count <- df_total_inv %>% select(c(2:38)) %>% mutate_at(c(1:37), as.numeric)
   
-count <- colSums(cons_count [,c(1:34)]) %>% unname(colSums(count))
+count <- colSums(cons_count [,c(1:37)]) %>% unname(colSums(count))
 
 cons_lg <- select(df_inv_long, 'Language') 
 
@@ -107,100 +108,52 @@ cons_freq <- data.frame(cbind(df_total_inv$Phoneme, total))
 
 cons_freq <- transform(cons_freq, total = as.numeric(total))
 
+colnames(cons_freq)[1] <- "LexifierPhoneme"
+
 ```
 
-Which consonants are more frequent across all language involved?
 
-Maybe, it makes sense to subset the frequency of consonants in substrates only and to consonants that exist in the lexifier.
-
-```{r}
-cons_freq_1 <- subset(cons_freq, total > 5) #trim low values
-
-ggplot(cons_freq_1) + 
-  geom_bar(aes(x = V1,
-               y = total,
-               ), 
-           stat = "identity", 
-           show.legend = TRUE,
-           position = "dodge2") + coord_flip()
-```
 
 
 ## Is there a relationship between this frequency and the stability values?
 
 Subset: Portuguese consonants only
 ```{r}
-cons_freq_pt <- cons_freq %>% subset(V1 %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s',
+cons_freq_pt <- cons_freq %>% subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s',
                                        't','v','z','ʒ', 'r'))
 
 ```
 
 First dataset: relative frequency values
 ```{r}
-cons_freq_rel <- cons_freq_pt %>% mutate(frequency = total/34)
+cons_freq_rel <- cons_freq_pt %>% mutate(frequency = total/37)
 ```
 
-Second dataset:stability values
+Second dataset:stability values  
 ```{r}
-stability <- c(1.0000000	,
-1.0000000	,
-1.0000000	,
-1.0000000	,
-1.0000000	,
-0.9861111	,
-0.9722222	,
-0.9722222	,
-0.9722222	,
-0.9565217	,
-0.9444444	,
-0.9433962	,
-0.7916667	,
-0.7714286	,
-0.7361111	,
-0.6944444	,
-0.5151515	,
-0.4722222	,
-0.3888889	
-)
-V1 <- c("t",
-               "p",
-               "n",
-               "m",
-               "f",
-               "b",
-               "k",
-               "g",
-               "d",
-               "z",
-               "s",
-               "l",
-               "r",
-               "t̠ʃ",
-               "ɾ",
-               "ɲ",
-               "ʒ",
-               "ʎ",
-               "v")
-stability_consonants <- data.frame(V1, stability)
+read.csv("consonant_global_stability.csv")
 ```
 
 Merge datasets
 ```{r}
-cor_freq_sta <- left_join(stability_consonants, cons_freq_rel, by='V1')
+cor_freq_sta <- left_join(consonant_global_stability, cons_freq_rel, by='LexifierPhoneme')
 ```
 
 Results of a simple regression
 ```{r}
-fs <- lm(frequency ~ stability, data=cor_freq_sta)
+fs <- lm(frequency ~ mglobal, data=cor_freq_sta)
 summary(fs)
 ```
 
 Plot the results
 ```{r}
-ggplot(cor_freq_sta, aes(x = frequency, y = stability, label = V1)) +
+
+fs_plot <- ggplot(cor_freq_sta, aes(x = frequency, y = mglobal, label = LexifierPhoneme)) +
   geom_smooth(method = "lm") +
-  geom_point() +
-  geom_text(aes(label=V1), hjust=3, vjust=0)
+  geom_point() # +
+  #geom_text(aes(label=V1), hjust=3, vjust=0)
+
+fs_plot + geom_text_repel(aes(label=LexifierPhoneme))
 ```
 
 There relationship between stability and frequency across all languages involved. But does it make sense? We are measuring the consonants in all categories and the present of the lexifier and the creoles may influence the results. Perhaps, we should try to subset and measure the frequency across substrates only, but I think that this procedure would just increase the lack of correlation.
@@ -215,17 +168,17 @@ inv_subs <- inv %>% subset(Category == 'substrate') %>%  select(Language, Phonem
 
 inv_subs_long <- inv_subs %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
 
-inv_subs_long <- inv_subs_long %>% mutate_at(c(2:17), as.numeric)
+inv_subs_long <- inv_subs_long %>% mutate_at(c(2:18), as.numeric)
 
 head(inv_subs_long)
 
 ```
 
-Sum row values and subset to consonants wich have correspondents in Portuguese
+Sum row values and subset to consonants which have correspondents in Portuguese
 
 ```{r}
 
-subs_count <- inv_subs_long %>% select(c(2:17))
+subs_count <- inv_subs_long %>% select(c(2:18))
 
 total_subs <- rowSums(subs_count)
 
@@ -233,35 +186,74 @@ subs_freq <- data.frame(cbind(inv_subs_long$Phoneme, total_subs))
 
 subs_freq <- transform(subs_freq, total_subs = as.numeric(total_subs))
 
-subs_freq <- subs_freq %>% subset(V1 %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s', 't','v','z','ʒ', 'r'))
+colnames(subs_freq)[1] <- "LexifierPhoneme"
+
+subs_freq <- subs_freq %>% subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s', 't','v','z','ʒ', 'r'))
 
 ```
 
 Get relative values
 
 ```{r}
-subs_freq_rel <- subs_freq %>% mutate(frequency = total_subs/16)
+subs_freq_rel <- subs_freq %>% mutate(frequency = total_subs/17)
 ```
 
 Merge datasets
 ```{r}
-subs_sta <- left_join(stability_consonants, subs_freq_rel, by='V1')
+subs_sta <- left_join(consonant_global_stability, subs_freq_rel, by='LexifierPhoneme')
 ```
 
 Results of a simple regression
 ```{r}
-subs_sta_lm <- lm(frequency ~ stability, data=subs_sta)
+subs_sta_lm <- lm(frequency ~ mglobal, data=subs_sta)
 summary(subs_sta_lm)
 ```
 Plot the results
 ```{r}
-ggplot(subs_sta, aes(x = frequency, y = stability, label = V1)) +
+subsfreq_sta_cor <- ggplot(subs_sta, aes(x = frequency, y = mglobal, label = LexifierPhoneme)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  geom_text(aes(label=V1), hjust=3, vjust=0)
+  xlab("Frequency across substrates") + ylab("Stability across creoles") # +
+ # geom_text(aes(label=V1), hjust=3, vjust=0)
+
+
+subsfreq_sta_cor + geom_text_repel(aes(label=LexifierPhoneme))
 ```
 
-When we consider the correlation between the consonant stability in creoles and the frequency of these consonants in the substrates only, we find that there is a weaker correlation (if we compare with the results above). However, this correlation is statistically significant (p-value: 0.005685). Nothing the outliers which are normally voiced consonants.
+When we consider the correlation between the consonant stability in creoles and the frequency of these consonants in the substrates only, we find that there is a weaker correlation (if we compare with the results above). However, this correlation is statistically significant (p-value: 0.004). Nothing the outliers which are normally voiced consonants.
+
+# Typological frequency vs. Substrate frequency
+
+Typological frequency data
+```{r}
+typ_freq <- read.csv("typ_freq.csv")
+```
+
+Merge datasets
+
+```{r}
+typ_sta <- left_join(typ_freq, consonant_global_stability, by='LexifierPhoneme')
+```
+
+Results of a simple regression
+```{r}
+typ_sta_lm <- lm(TypologicalFreq ~ mglobal, data=typ_sta)
+summary(typ_sta_lm)
+```
+Plot the results
+```{r}
+typ_sta_cor <- ggplot(typ_sta, aes(x = TypologicalFreq, y = mglobal, label = LexifierPhoneme)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+  xlab("Frequency across world's languages") + ylab("Stability across creoles") # +
+ # geom_text(aes(label=V1), hjust=3, vjust=0)
+
+
+typ_sta_cor + geom_text_repel(aes(label=LexifierPhoneme))
+
+```
+
+
 
 
 # Inventory similarity and overall creole stability
@@ -277,9 +269,9 @@ inv_overlap <- df_total_inv %>% subset(Phoneme %in% c('b','d','f','g','k','l','�
 Which languages have more have more consonants that overlap with Portuguese consonants
 
 ```{r}
-cons_over <- inv_overlap %>% select(c(2:35)) %>% mutate_at(c(1:34), as.numeric)
+cons_over <- inv_overlap %>% select(c(2:38)) %>% mutate_at(c(1:37), as.numeric)
   
-absolute_overlap <- colSums(cons_over [,c(1:34)]) %>% unname(colSums(count))
+absolute_overlap <- colSums(cons_over [,c(1:37)]) %>% unname(colSums(count))
 
 cons_overlap <- select(df_inv_long, 'Language') 
 
@@ -347,7 +339,8 @@ Language <- c('Angolar',
 'Principense',
 'Santome',
 'Sri Lanka',
-'Timor creole')
+'Timor creole',
+'Casamancese')
 
 value <- c(0.6571429	,
 0.9285714	,
@@ -366,8 +359,8 @@ value <- c(0.6571429	,
 0.8243243	,
 0.7702703	,
 0.8970588	,
-0.9000000	
-)
+0.9000000	,
+0.8750000)
 
 creole_stability_simple <- data.frame(Language, value)
 
