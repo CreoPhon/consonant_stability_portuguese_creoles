@@ -357,10 +357,11 @@ consonant_stability_place <- cbind(consonant_global_stability, place)
 
 ggplot(consonant_stability_place, aes(x = place, y = mglobal, fill = place)) +
   geom_smooth(method = "lm") +
-  geom_violin()  +
+  geom_violin() +
    geom_dotplot(binaxis = "y",
                stackdir = "center",
-               dotsize = 0.5) 
+               dotsize = 0.5) +
+  theme(legend.position="none")
 
 ```
 Now, just with the mean for Place stability
@@ -372,8 +373,10 @@ ggplot(consonant_stability_place, aes(x = place, y = mplace, fill = place)) +
    geom_dotplot(binaxis = "y",
                stackdir = "center",
                dotsize = 0.5)  +
-  theme(legend.position="none")# +
-# stat_summary(fun.y=mean, geom="point", size=2, shape=16)
+  theme(legend.position="none") +
+  ylab("Place stability score") +
+  xlab("Place of articulation") +
+ stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
 
 Calculate the stability of the segments.
@@ -462,8 +465,9 @@ position_results$Position <- factor(position_results$Position, levels = c('word-
 
 ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) + 
   geom_col(position = position_dodge2(width = 0.9, preserve = "single")) +
-  theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank())
+  #theme(axis.title.x = element_blank(),
+     #   axis.title.y = element_blank()) +
+  labs(y = "Stability score", x = "Phoneme")
 ```
 
 Flip horizontally.
@@ -475,7 +479,8 @@ ggplot(position_results) +
                fill = Position), 
            stat = "identity", 
            show.legend = TRUE,
-           position = "dodge2") +
+           position = "dodge2",
+           width = 0.7) +
   labs(x = "Stability score", y = "Phoneme", fill = "Position")
 ```
 
@@ -493,7 +498,8 @@ different_position_results$Position <- factor(different_position_results$Positio
 
 ggplot(different_position_results, 
        aes(x = LexifierPhoneme, y = m, fill = Position)) + 
-  geom_col(position = position_dodge2(width = 0.9, preserve = "single"))
+  geom_col(position = position_dodge2(width = 0.9, preserve = "single"))  +
+  labs(y = "Stability score", x = "Phoneme")
 ```
 
 Flip horizontally.
