@@ -74,6 +74,8 @@ Which creoles in the sample are more or less stable overall?
 
 ```{r, message=FALSE}
 creole_stability <- database %>% group_by(Language, Area, duration, duration_group, ContactConditions) %>% summarize(MeanStability = mean(GlobalStability, na.rm = TRUE))
+
+write_csv(creole_stability, 'creole_stability.csv')
 ```
 
 Plot it by area.

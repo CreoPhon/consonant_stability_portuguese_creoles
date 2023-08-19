@@ -131,7 +131,7 @@ cons_freq_rel <- cons_freq_pt %>% mutate(frequency = total/37)
 
 Second dataset:stability values  
 ```{r}
-read.csv("consonant_global_stability.csv")
+consonant_global_stability <- read.csv("consonant_global_stability.csv")
 ```
 
 Merge datasets
@@ -232,6 +232,8 @@ typ_freq <- read.csv("typ_freq.csv")
 Merge datasets
 
 ```{r}
+#consonant_global_stability <- read.csv("consonant_global_stability.csv")
+
 typ_sta <- left_join(typ_freq, consonant_global_stability, by='LexifierPhoneme')
 ```
 
@@ -515,8 +517,8 @@ correspondences$creole %in% df_wide$Language # OK
  x==y # All TRUE -- passed!
 
 # Run Jaccard on test data -- some bug here in the code because new_col is the same
-tmp %>% mutate(new_col = jaccard(as.numeric(as.factor(df_wide %>% filter(Language == tmp$substrate) %>% select(2:116))), as.numeric(as.factor(df_wide %>% filter(Language == tmp$creole) %>% select(2:116)))))
+# tmp %>% mutate(new_col = jaccard(as.numeric(as.factor(df_wide %>% filter(Language == tmp$substrate) %>% select(2:116))), as.numeric(as.factor(df_wide %>% filter(Language == tmp$creole) %>% select(2:116)))))
 
 # When all language names match in both tables this *should* run fine
-correspondences %>% mutate(new_col = jaccard(as.numeric(as.factor(df_wide %>% filter(Language == correspondences$substrate) %>% select(2:116))), as.numeric(as.factor(df_wide %>% filter(Language == correspondences$creole) %>% select(2:116)))))
+# correspondences %>% mutate(new_col = jaccard(as.numeric(as.factor(df_wide %>% filter(Language == correspondences$substrate) %>% select(2:116))), as.numeric(as.factor(df_wide %>% filter(Language == correspondences$creole) %>% select(2:116)))))
 ```

@@ -117,14 +117,14 @@ df_bor <- data.frame(order_bor, consonant)
 
 
 ```{r}
-order_sta <- c(3,
-3	,
-3	,
-3	,
-3	,
-6	,
-8	,
-8	,
+order_sta <- c(2,
+2	,
+2	,
+2	,
+5	,
+7 ,
+7	,
+7	,
 8	,
 10	,
 11	,
