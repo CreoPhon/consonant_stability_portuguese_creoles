@@ -83,7 +83,7 @@ Also, a categorical variable for duration.
 
 ```{r}
 database <- database %>% 
-  mutate(duration_group = ifelse(duration <= 200, "short", "long"))
+  mutate(duration_group = ifelse(duration <= 250, "short", "long"))
 ```
 
 And a categorical variable for changes in manner and/or place. Stability in the database is '1' (no change) and '0' (change).
@@ -117,6 +117,8 @@ Which creoles in the sample are more or less stable overall?
 creole_stability <- database %>%
   group_by(Language, Area, duration, duration_group, ContactConditions) %>%
   summarize(MeanStability = mean(GlobalStability, na.rm = TRUE))
+  
+write_csv(creole_stability, 'creole_stability.csv')
 ```
 
 Plot it by area.
@@ -145,7 +147,7 @@ ggplot(creole_stability) +
 ```
 
 
-# Duration
+# Duration of contact
 
 We have the overall stability values. What are these in relation to the duration of contact?
 
@@ -173,13 +175,13 @@ msd <- lm(MeanStability ~ duration, data = creole_stability)
 summary(msd)
 ```
 
-However, there does seem to be two groups of languages -- ones that belong to "long duration" (>= 400 years) and those that below to "short duration" (<= 200 years).
+However, there does seem to be two groups of languages -- ones that belong to "long duration" (>= 400 years) and those that below to "short duration" (<= 250 years).
 
 We can try to split the data and rerun the models, but we note that there are very few data points.
 
 ```{r}
-tmp_short <- creole_stability %>% filter(duration <= 200)
-tmp_long <- creole_stability %>% filter(duration > 200)
+tmp_short <- creole_stability %>% filter(duration <= 250)
+tmp_long <- creole_stability %>% filter(duration > 250)
 ```
 
 ```{r, warning=FALSE, message=FALSE}
@@ -279,7 +281,7 @@ qqline(resid(msd.gam.trimmed)) # meh
 Removing the two creoles with the lowest scores produces significant effects. This doesn't seem very reliable though, especially given the small sample size. Also, the pattern is strange: a negative trend of duration for long-term influence and a positive one for short-term influence? Note that the model detected a mean difference between duration groups, with the short group having (slightly) lower mean stability. This appears to be the case -- but again -- we have so few observations. 
 
 
-# Duration effects on the segment level
+## Duration effects on the segment level
 
 Does duration affect the stability values of specific segments or segment classes?
 
@@ -350,9 +352,7 @@ manner_results <- database %>%
 
 consonant_stability <- left_join(place_results, manner_results, by = "LexifierPhoneme")
 
-class <- c("nasal", "rhotic", "lateral", "fricative", "stop", "stop", "fricative", 
-           "stop", "stop", "lateral", "nasal", "nasal", "stop", "rhotic", 
-           "fricative", "stop", "affricate", "fricative", "fricative")
+class <- c("stop", "stop", "fricative", "stop", "stop", "lateral","nasal", "nasal", "stop", "rhotic","fricative", "stop","affricate", "fricative", "fricative","nasal", "rhotic", "lateral", "fricative")
 
 consonant_stability_class <- cbind(consonant_stability, class)
 ```
@@ -368,11 +368,29 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
   labs(color = "Segment class")
 ```
 
+A linear model to assess the relationship between manner and place stability
+
+
+```{r, warning=FALSE, message=FALSE}
+lm_manner_place <- lm(mplace~mmanner, data=consonant_stability)
+
+summary(lm_manner_place)
+
+manner_place_lmplot <- ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme)) +
+  geom_point(position= "dodge") + 
+  geom_smooth(method = lm)+
+  geom_text(aes(label=LexifierPhoneme), hjust=3, vjust=0)
+
+print(manner_place_lmplot + labs(y = "Manner Stability", x = "Place Stability"))
+```
+
 Here is an alternative view for the global results.
 
 ```{r, warning=FALSE, message=FALSE}
 consonant_global_stability <- mutate(consonant_stability_class, 
                                      mglobal = (mmanner + mplace) / 2)
+
+write.csv(consonant_global_stability, "consonant_global_stability.csv", row.names=FALSE)
 
 ggplot(consonant_global_stability) +
   geom_bar(aes(
@@ -383,6 +401,70 @@ ggplot(consonant_global_stability) +
   labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
 
+Check for class effects on the global stability of consonants
+
+```{r, warning=FALSE, message=FALSE}
+
+ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
+  geom_smooth(method = "lm") +
+  geom_violin() +
+   geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5)
+```
+
+Now, just plotting the relation manner to manner
+```{r, warning=FALSE, message=FALSE}
+ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
+  geom_smooth(method = "lm") +
+  geom_violin() +
+   geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5) +
+  theme(legend.position="none") +
+ stat_summary(fun.y=mean, geom="point", size=2, shape=16)
+```
+
+
+
+Check place effects on the global stability of the consonants
+
+```{r, warning=FALSE, message=FALSE}
+
+place <- c("labial", "alveolar", "labiodental", "velar", "velar", "alveolar", "labial", "alveolar", "labial", "alveolar", "alveolar", "alveolar", "palatal", "labiodental", "alveolar", "palatal", "alveolar", "palatal", "palatal")
+
+consonant_stability_place <- cbind(consonant_global_stability, place)
+
+ggplot(consonant_stability_place, aes(x = place, y = mglobal, fill = place)) +
+  geom_smooth(method = "lm") +
+  geom_violin() +
+   geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5) +
+  theme(legend.position="none")
+
+```
+Now, just with the mean for Place stability
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(consonant_stability_place, aes(x = place, y = mplace, fill = place)) +
+  geom_smooth(method = "lm") +
+  geom_violin()  +
+   geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5)  +
+  theme(legend.position="none") +
+  ylab("Place stability score") +
+  xlab("Place of articulation") +
+ stat_summary(fun.y=mean, geom="point", size=2, shape=16)
+```
+
+Calculate the stability of the segments.
+
+```{r}
+# qplot(x = duration, y = MeanStability, data = consonant_global_stability, color = duration_group) +
+#  geom_smooth(method = "lm") 
+```
 And we can also increase the number of observations in duration regression by running the analysis at the segment level, rather than on mean stability.
 
 ```{r}
@@ -550,6 +632,7 @@ The finding that "slavery has a negative impact on stability" was mainly observa
 
 Test whether there's a relation between type of contact situation and overall mean stability.
 
+Linear model
 ```{r}
 m <- lm(MeanStability ~ ContactConditions, data = creole_stability)
 summary(m)
@@ -560,10 +643,11 @@ ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability,
                              fill = ContactConditions)) +
   geom_smooth(method = "lm") +
   geom_violin() +
-  xlab("Contact condition") +
-  ylab("Mean stability") +
-  guides(fill = "none")
-```
+  geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5)  +
+  theme(legend.position="none")
+ ```
 
 ```{r, warning=FALSE, message=FALSE}
 m <- lm(MeanStability ~ duration + ContactConditions * duration, 

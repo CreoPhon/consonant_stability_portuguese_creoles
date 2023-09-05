@@ -1,0 +1,816 @@
+ID,Language,Category,Phoneme,Notes,Source,PhoibleID
+19,Portuguese,Lexifier,p,,Castro2013[242-248],
+19,Portuguese,Lexifier,b,,Castro2013[242-248],
+19,Portuguese,Lexifier,t,,Castro2013[242-248],
+19,Portuguese,Lexifier,d,,Castro2013[242-248],
+19,Portuguese,Lexifier,k,,Castro2013[242-248],
+19,Portuguese,Lexifier,g,,Castro2013[242-248],
+19,Portuguese,Lexifier,f,,Castro2013[242-248],
+19,Portuguese,Lexifier,v,,Castro2013[242-248],
+19,Portuguese,Lexifier,s,,Castro2013[242-248],
+19,Portuguese,Lexifier,z,,Castro2013[242-248],
+19,Portuguese,Lexifier,ʃ,,Castro2013[242-248],
+19,Portuguese,Lexifier,ʒ,,Castro2013[242-248],
+19,Portuguese,Lexifier,ɾ,,Castro2013[242-248],
+19,Portuguese,Lexifier,ʀ,,Castro2013[242-248],
+19,Portuguese,Lexifier,l,,Castro2013[242-248],
+19,Portuguese,Lexifier,ʎ,,Castro2013[242-248],
+19,Portuguese,Lexifier,m,,Castro2013[242-248],
+19,Portuguese,Lexifier,n,,Castro2013[242-248],
+19,Portuguese,Lexifier,ɲ,,Castro2013[242-248],
+18,Timor Pidgin,creole,p,,Baxter1990[7],
+18,Timor Pidgin,creole,t,,Baxter1990[7],
+18,Timor Pidgin,creole,k,,Baxter1990[7],
+18,Timor Pidgin,creole,b,,Baxter1990[7],
+18,Timor Pidgin,creole,d,,Baxter1990[7],
+18,Timor Pidgin,creole,g,,Baxter1990[7],
+18,Timor Pidgin,creole,t̠ʃ,,Baxter1990[7],
+18,Timor Pidgin,creole,d̠ʒ,,Baxter1990[7],
+18,Timor Pidgin,creole,f,,Baxter1990[7],
+18,Timor Pidgin,creole,s,,Baxter1990[7],
+18,Timor Pidgin,creole,ʃ,varies with [t̠ʃ],Baxter1990[7],
+18,Timor Pidgin,creole,ʒ,varies with [d̠ʒ],Baxter1990[7],
+18,Timor Pidgin,creole,v,varies with [b],Baxter1990[7],
+18,Timor Pidgin,creole,z,,Baxter1990[7],
+18,Timor Pidgin,creole,m,,Baxter1990[7],
+18,Timor Pidgin,creole,n,,Baxter1990[7],
+18,Timor Pidgin,creole,ɲ,,Baxter1990[7],
+18,Timor Pidgin,creole,ŋ,,Baxter1990[7],
+18,Timor Pidgin,creole,r,,Baxter1990[7],
+18,Timor Pidgin,creole,l,,Baxter1990[7],
+18,Timor Pidgin,creole,j,,Baxter1990[7],
+18,Timor Pidgin,creole,w,,Baxter1990[7],
+13,Papia Kristang,creole,p,,Pillaietal2021[2],
+13,Papia Kristang,creole,t̪,,Pillaietal2021[2],
+13,Papia Kristang,creole,k,,Pillaietal2021[2],
+13,Papia Kristang,creole,b,,Pillaietal2021[2],
+13,Papia Kristang,creole,d,,Pillaietal2021[2],
+13,Papia Kristang,creole,g,,Pillaietal2021[2],
+13,Papia Kristang,creole,t̠ʃ,,Pillaietal2021[2],
+13,Papia Kristang,creole,d̠ʒ,,Pillaietal2021[2],
+13,Papia Kristang,creole,f,,Pillaietal2021[2],
+13,Papia Kristang,creole,s,,Pillaietal2021[2],
+13,Papia Kristang,creole,v,highly infrequent and restricted in distribution,Pillaietal2021[2],
+13,Papia Kristang,creole,z,does not constrast initially,Pillaietal2021[2],
+13,Papia Kristang,creole,m,,Pillaietal2021[2],
+13,Papia Kristang,creole,n,,Pillaietal2021[2],
+13,Papia Kristang,creole,ɲ,occurs infrequently in initial position.,Pillaietal2021[2],
+13,Papia Kristang,creole,ŋ,,Pillaietal2021[2],
+13,Papia Kristang,creole,r,"/r/ is realised both as a tap and a trill. These are not positional variants but rather depend on emphasis, the trill occurring under stress.",Pillaietal2021[2],
+13,Papia Kristang,creole,l,,Pillaietal2021[2],
+13,Papia Kristang,creole,j,,Pillaietal2021[2],
+13,Papia Kristang,creole,w,highly infrequent,Pillaietal2021[2],
+14,Patua Macau,creole,p,,AranaWard1977[60],
+14,Patua Macau,creole,t,,AranaWard1977[60],
+14,Patua Macau,creole,k,,AranaWard1977[60],
+14,Patua Macau,creole,b,,AranaWard1977[60],
+14,Patua Macau,creole,d,,AranaWard1977[60],
+14,Patua Macau,creole,g,,AranaWard1977[60],
+14,Patua Macau,creole,t̠ʃ,,AranaWard1977[60],
+14,Patua Macau,creole,d̠ʒ,,AranaWard1977[60],
+14,Patua Macau,creole,f,,AranaWard1977[60],
+14,Patua Macau,creole,s,,AranaWard1977[60],
+14,Patua Macau,creole,ʃ,young speakers only,AranaWard1977[60],
+14,Patua Macau,creole,ʒ,young speakers only,AranaWard1977[60],
+14,Patua Macau,creole,v,,AranaWard1977[60],
+14,Patua Macau,creole,z,,AranaWard1977[60],
+14,Patua Macau,creole,m,,AranaWard1977[60],
+14,Patua Macau,creole,n,,AranaWard1977[60],
+14,Patua Macau,creole,ɲ,,AranaWard1977[60],
+14,Patua Macau,creole,ŋ,,AranaWard1977[60],
+14,Patua Macau,creole,r,,AranaWard1977[60],
+14,Patua Macau,creole,l,,AranaWard1977[60],
+14,Patua Macau,creole,j,,AranaWard1977[60],
+14,Patua Macau,creole,w,,AranaWard1977[60],
+34,Tetum,substrate,m,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,k,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,w,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,n,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,t,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,l,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,s,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,b,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,h,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,d,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,r,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,f,,VanEngelenhovenKlinken2006,1680
+34,Tetum,substrate,ʔ,,VanEngelenhovenKlinken2006,1680
+35,Larantuka Malay,substrate,m,,Paauw2008,1688
+35,Larantuka Malay,substrate,k,,Paauw2008,1688
+35,Larantuka Malay,substrate,j,,Paauw2008,1688
+35,Larantuka Malay,substrate,p,,Paauw2008,1688
+35,Larantuka Malay,substrate,w,,Paauw2008,1688
+35,Larantuka Malay,substrate,n,,Paauw2008,1688
+35,Larantuka Malay,substrate,t,,Paauw2008,1688
+35,Larantuka Malay,substrate,l,,Paauw2008,1688
+35,Larantuka Malay,substrate,s,,Paauw2008,1688
+35,Larantuka Malay,substrate,b,,Paauw2008,1688
+35,Larantuka Malay,substrate,ŋ,,Paauw2008,1688
+35,Larantuka Malay,substrate,ɡ,,Paauw2008,1688
+35,Larantuka Malay,substrate,d,,Paauw2008,1688
+35,Larantuka Malay,substrate,r,,Paauw2008,1688
+35,Larantuka Malay,substrate,f,,Paauw2008,1688
+35,Larantuka Malay,substrate,ɲ,,Paauw2008,1688
+35,Larantuka Malay,substrate,ʔ,,Paauw2008,1688
+35,Larantuka Malay,substrate,c,,Paauw2008,1688
+35,Larantuka Malay,substrate,ɟ,,Paauw2008,1688
+31,Standard Malay,substrate,m,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,k,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,j,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,p,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,w,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,n,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,t,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,l,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,s,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,b,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,ŋ,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,ɡ,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,h,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,d,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,r,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,f,marginal,ClynesDeterding2011,2223
+31,Standard Malay,substrate,ɲ,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,t̠ʃ,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,ʔ,marginal,ClynesDeterding2011,2223
+31,Standard Malay,substrate,ʃ,marginal,ClynesDeterding2011,2223
+31,Standard Malay,substrate,z,marginal,ClynesDeterding2011,2223
+31,Standard Malay,substrate,d̠ʒ,,ClynesDeterding2011,2223
+31,Standard Malay,substrate,v,marginal,ClynesDeterding2011,2223
+31,Standard Malay,substrate,x,marginal,ClynesDeterding2011,2223
+32,Hokkien Chinese,substrate,p,,Tay1970[82-83],
+32,Hokkien Chinese,substrate,t,,Tay1970[82-83],
+32,Hokkien Chinese,substrate,ts,initial only,Tay1970[82-83],
+32,Hokkien Chinese,substrate,k,,Tay1970[82-83],
+32,Hokkien Chinese,substrate,pʰ ,initial only,Tay1970[82-83],
+32,Hokkien Chinese,substrate,tʰ,initial only,Tay1970[82-83],
+32,Hokkien Chinese,substrate,tsʰ,initial only,Tay1970[82-83],
+32,Hokkien Chinese,substrate,kʰ,initial only,Tay1970[82-83],
+32,Hokkien Chinese,substrate,b,initial only,Tay1970[82-83],
+32,Hokkien Chinese,substrate,l,initial only,Tay1970[82-83],
+32,Hokkien Chinese,substrate,dz,initial only,Tay1970[82-83],
+32,Hokkien Chinese,substrate,g,initial only,Tay1970[82-83],
+32,Hokkien Chinese,substrate,s,,Tay1970[82-83],
+32,Hokkien Chinese,substrate,h,initial only,Tay1970[82-83],
+32,Hokkien Chinese,substrate,j,,Tay1970[82-83],
+32,Hokkien Chinese,substrate,w,,Tay1970[82-83],
+32,Hokkien Chinese,substrate,n,,Tay1970[82-83],
+32,Hokkien Chinese,substrate,m,final only,Tay1970[82-83],
+32,Hokkien Chinese,substrate,ŋ,final only,Tay1970[82-83],
+33,Cantonese,substrate,m,,Zee1991,2309
+33,Cantonese,substrate,k,,Zee1991,2309
+33,Cantonese,substrate,j,,Zee1991,2309
+33,Cantonese,substrate,p,,Zee1991,2309
+33,Cantonese,substrate,w,,Zee1991,2309
+33,Cantonese,substrate,n,,Zee1991,2309
+33,Cantonese,substrate,t,,Zee1991,2309
+33,Cantonese,substrate,l,,Zee1991,2309
+33,Cantonese,substrate,s,,Zee1991,2309
+33,Cantonese,substrate,ŋ,,Zee1991,2309
+33,Cantonese,substrate,h,,Zee1991,2309
+33,Cantonese,substrate,f,,Zee1991,2309
+33,Cantonese,substrate,ts,,Zee1991,2309
+33,Cantonese,substrate,kʰ,,Zee1991,2309
+33,Cantonese,substrate,pʰ,,Zee1991,2309
+33,Cantonese,substrate,tʰ,,Zee1991,2309
+33,Cantonese,substrate,kʷ,,Zee1991,2309
+33,Cantonese,substrate,tsʰ,,Zee1991,2309
+33,Cantonese,substrate,kʷʰ,,Zee1991,2309
+30,Malayalam,substrate,m,,AsherKurami1997,2559
+30,Malayalam,substrate,k,,AsherKurami1997,2559
+30,Malayalam,substrate,j,,AsherKurami1997,2559
+30,Malayalam,substrate,p,,AsherKurami1997,2559
+30,Malayalam,substrate,n,,AsherKurami1997,2559
+30,Malayalam,substrate,t,,AsherKurami1997,2559
+30,Malayalam,substrate,l,,AsherKurami1997,2559
+30,Malayalam,substrate,s,,AsherKurami1997,2559
+30,Malayalam,substrate,b,,AsherKurami1997,2559
+30,Malayalam,substrate,ŋ,,AsherKurami1997,2559
+30,Malayalam,substrate,ɡ,,AsherKurami1997,2559
+30,Malayalam,substrate,h,,AsherKurami1997,2559
+30,Malayalam,substrate,d,,AsherKurami1997,2559
+30,Malayalam,substrate,r,,AsherKurami1997,2559
+30,Malayalam,substrate,ɲ,,AsherKurami1997,2559
+30,Malayalam,substrate,ʃ,,AsherKurami1997,2559
+30,Malayalam,substrate,t̪,,AsherKurami1997,2559
+30,Malayalam,substrate,kʰ,,AsherKurami1997,2559
+30,Malayalam,substrate,pʰ,,AsherKurami1997,2559
+30,Malayalam,substrate,n̪,,AsherKurami1997,2559
+30,Malayalam,substrate,ʈ,,AsherKurami1997,2559
+30,Malayalam,substrate,c,,AsherKurami1997,2559
+30,Malayalam,substrate,tʰ,,AsherKurami1997,2559
+30,Malayalam,substrate,ɳ,,AsherKurami1997,2559
+30,Malayalam,substrate,ɟ,,AsherKurami1997,2559
+30,Malayalam,substrate,ɭ,,AsherKurami1997,2559
+30,Malayalam,substrate,ɖ,,AsherKurami1997,2559
+30,Malayalam,substrate,ʂ,,AsherKurami1997,2559
+30,Malayalam,substrate,ʈʰ,,AsherKurami1997,2559
+30,Malayalam,substrate,cʰ,,AsherKurami1997,2559
+30,Malayalam,substrate,ʐ,,AsherKurami1997,2559
+30,Malayalam,substrate,ʋ,,AsherKurami1997,2559
+30,Malayalam,substrate,r̪,,AsherKurami1997,2559
+30,Malayalam,substrate,bʰ,,AsherKurami1997,2559
+30,Malayalam,substrate,ɡʰ,,AsherKurami1997,2559
+30,Malayalam,substrate,ɖʰ,,AsherKurami1997,2559
+30,Malayalam,substrate,ɟʰ,,AsherKurami1997,2559
+30,Malayalam,substrate,dʰ,,AsherKurami1997,2559
+17,Sri Lanka Portuguese,creole,ʋ,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,ɲ,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,z,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,p,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,b,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,t,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,d,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,k,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,g,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,m,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,n,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,f,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,s,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,ɾ,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,l,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,t̠ʃ,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,d̠ʒ,,Clements2012[26-28],
+17,Sri Lanka Portuguese,creole,j,,Clements2012[26-28],
+8,Diu,creole,ʋ,,Clements2012[26-28],
+8,Diu,creole,ŋ,,Clements2012[26-28],
+8,Diu,creole,z,,Clements2012[26-28],
+8,Diu,creole,ʃ,,Clements2012[26-28],
+8,Diu,creole,p,,Clements2012[26-28],
+8,Diu,creole,b,,Clements2012[26-28],
+8,Diu,creole,t,,Clements2012[26-28],
+8,Diu,creole,d,,Clements2012[26-28],
+8,Diu,creole,k,,Clements2012[26-28],
+8,Diu,creole,g,,Clements2012[26-28],
+8,Diu,creole,m,,Clements2012[26-28],
+8,Diu,creole,n,,Clements2012[26-28],
+8,Diu,creole,f,,Clements2012[26-28],
+8,Diu,creole,s,,Clements2012[26-28],
+8,Diu,creole,ɾ,,Clements2012[26-28],
+8,Diu,creole,l,,Clements2012[26-28],
+8,Diu,creole,t̠ʃ,,Clements2012[26-28],
+8,Diu,creole,d̠ʒ,,Clements2012[26-28],
+8,Diu,creole,j,,Clements2012[26-28],
+7,Daman,creole,ʋ,,Clements2012[26-28],
+7,Daman,creole,ŋ,,Clements2012[26-28],
+7,Daman,creole,v,acrolectal only,Clements2012[26-28],
+7,Daman,creole,ɲ,,Clements2012[26-28],
+7,Daman,creole,z,,Clements2012[26-28],
+7,Daman,creole,ʎ,,Clements2012[26-28],
+7,Daman,creole,ʃ,,Clements2012[26-28],
+7,Daman,creole,p,,Clements2012[26-28],
+7,Daman,creole,b,,Clements2012[26-28],
+7,Daman,creole,t,,Clements2012[26-28],
+7,Daman,creole,d,,Clements2012[26-28],
+7,Daman,creole,k,,Clements2012[26-28],
+7,Daman,creole,g,,Clements2012[26-28],
+7,Daman,creole,m,,Clements2012[26-28],
+7,Daman,creole,n,,Clements2012[26-28],
+7,Daman,creole,f,,Clements2012[26-28],
+7,Daman,creole,s,,Clements2012[26-28],
+7,Daman,creole,ɾ,,Clements2012[26-28],
+7,Daman,creole,l,,Clements2012[26-28],
+7,Daman,creole,t̠ʃ,,Clements2012[26-28],
+7,Daman,creole,d̠ʒ,,Clements2012[26-28],
+7,Daman,creole,j,,Clements2012[26-28],
+7,Daman,creole,r,allophone of /ɾ/ ,Clements2012[26-28],
+12,Korlai,creole,ʋ,,Clements2012[26-28],
+12,Korlai,creole,ʃ,,Clements2012[26-28],
+12,Korlai,creole,ts,,Clements2012[26-28],
+12,Korlai,creole,dz,,Clements2012[26-28],
+12,Korlai,creole,bʰ  ,,Clements2012[26-28],
+12,Korlai,creole,tʰ,,Clements2012[26-28],
+12,Korlai,creole,ʈʰ,,Clements2012[26-28],
+12,Korlai,creole,ʈ,,Clements2012[26-28],
+12,Korlai,creole,dʰ,,Clements2012[26-28],
+12,Korlai,creole,kʰ,,Clements2012[26-28],
+12,Korlai,creole,gʰ,,Clements2012[26-28],
+12,Korlai,creole,ɖ,,Clements2012[26-28],
+12,Korlai,creole,p,,Clements2012[26-28],
+12,Korlai,creole,b,,Clements2012[26-28],
+12,Korlai,creole,t,,Clements2012[26-28],
+12,Korlai,creole,d,,Clements2012[26-28],
+12,Korlai,creole,k,,Clements2012[26-28],
+12,Korlai,creole,g,,Clements2012[26-28],
+12,Korlai,creole,m,,Clements2012[26-28],
+12,Korlai,creole,n,,Clements2012[26-28],
+12,Korlai,creole,f,,Clements2012[26-28],
+12,Korlai,creole,s,,Clements2012[26-28],
+12,Korlai,creole,ɾ,,Clements2012[26-28],
+12,Korlai,creole,l,,Clements2012[26-28],
+12,Korlai,creole,t̠ʃ,,Clements2012[26-28],
+12,Korlai,creole,d̠ʒ,,Clements2012[26-28],
+12,Korlai,creole,j,,Clements2012[26-28],
+11,Kannur,creole,ʋ,,Clements2012[26-28],
+11,Kannur,creole,ɲ,,Clements2012[26-28],
+11,Kannur,creole,z,,Clements2012[26-28],
+11,Kannur,creole,ʎ,,Clements2012[26-28],
+11,Kannur,creole,ʃ,,Clements2012[26-28],
+11,Kannur,creole,p,,Clements2012[26-28],
+11,Kannur,creole,b,,Clements2012[26-28],
+11,Kannur,creole,t,,Clements2012[26-28],
+11,Kannur,creole,d,,Clements2012[26-28],
+11,Kannur,creole,k,,Clements2012[26-28],
+11,Kannur,creole,g,,Clements2012[26-28],
+11,Kannur,creole,m,,Clements2012[26-28],
+11,Kannur,creole,n,,Clements2012[26-28],
+11,Kannur,creole,f,,Clements2012[26-28],
+11,Kannur,creole,s,,Clements2012[26-28],
+11,Kannur,creole,ɾ,,Clements2012[26-28],
+11,Kannur,creole,l,,Clements2012[26-28],
+11,Kannur,creole,t̠ʃ,,Clements2012[26-28],
+11,Kannur,creole,d̠ʒ,,Clements2012[26-28],
+11,Kannur,creole,j,,Clements2012[26-28],
+28,Sinhala,substrate,m,,CoatesSilva1960,178
+28,Sinhala,substrate,k,,CoatesSilva1960,178
+28,Sinhala,substrate,j,,CoatesSilva1960,178
+28,Sinhala,substrate,p,,CoatesSilva1960,178
+28,Sinhala,substrate,n,,CoatesSilva1960,178
+28,Sinhala,substrate,l,,CoatesSilva1960,178
+28,Sinhala,substrate,s,,CoatesSilva1960,178
+28,Sinhala,substrate,b,,CoatesSilva1960,178
+28,Sinhala,substrate,ŋ,marginal,CoatesSilva1960,178
+28,Sinhala,substrate,ɡ,,CoatesSilva1960,178
+28,Sinhala,substrate,ɲ,marginal,CoatesSilva1960,178
+28,Sinhala,substrate,ʃ,marginal,CoatesSilva1960,178
+28,Sinhala,substrate,ɾ,,CoatesSilva1960,178
+28,Sinhala,substrate,t̪,,CoatesSilva1960,178
+28,Sinhala,substrate,ʈ,,CoatesSilva1960,178
+28,Sinhala,substrate,d̪,,CoatesSilva1960,178
+28,Sinhala,substrate,ɖ,,CoatesSilva1960,178
+28,Sinhala,substrate,ɸ,marginal,CoatesSilva1960,178
+28,Sinhala,substrate,cç,,CoatesSilva1960,178
+28,Sinhala,substrate,ɟʝ,,CoatesSilva1960,178
+28,Sinhala,substrate,ɦ,,CoatesSilva1960,178
+28,Sinhala,substrate,ʋ,,CoatesSilva1960,178
+29,Tamil,substrate,m,,Keane2004,1058
+29,Tamil,substrate,k,,Keane2004,1058
+29,Tamil,substrate,j,,Keane2004,1058
+29,Tamil,substrate,p,,Keane2004,1058
+29,Tamil,substrate,n,,Keane2004,1058
+29,Tamil,substrate,l,,Keane2004,1058
+29,Tamil,substrate,s,,Keane2004,1058
+29,Tamil,substrate,b,marginal,Keane2004,1058
+29,Tamil,substrate,ɡ,marginal,Keane2004,1058
+29,Tamil,substrate,ɲ,marginal,Keane2004,1058
+29,Tamil,substrate,t̠ʃ,,Keane2004,1058
+29,Tamil,substrate,d̠ʒ,marginal,Keane2004,1058
+29,Tamil,substrate,ɾ,,Keane2004,1058
+29,Tamil,substrate,t̪,,Keane2004,1058
+29,Tamil,substrate,ʈ,,Keane2004,1058
+29,Tamil,substrate,d̪,marginal,Keane2004,1058
+29,Tamil,substrate,ɳ,,Keane2004,1058
+29,Tamil,substrate,ɭ,,Keane2004,1058
+29,Tamil,substrate,ɻ,,Keane2004,1058
+29,Tamil,substrate,ɖ,marginal,Keane2004,1058
+29,Tamil,substrate,ʋ,,Keane2004,1058
+27,Gujarati,substrate,m,,Mistry1997,2452
+27,Gujarati,substrate,k,,Mistry1997,2452
+27,Gujarati,substrate,j,,Mistry1997,2452
+27,Gujarati,substrate,p,,Mistry1997,2452
+27,Gujarati,substrate,n,,Mistry1997,2452
+27,Gujarati,substrate,l,,Mistry1997,2452
+27,Gujarati,substrate,s,,Mistry1997,2452
+27,Gujarati,substrate,b,,Mistry1997,2452
+27,Gujarati,substrate,ɡ,,Mistry1997,2452
+27,Gujarati,substrate,f,,Mistry1997,2452
+27,Gujarati,substrate,t̠ʃ,,Mistry1997,2452
+27,Gujarati,substrate,ʃ,,Mistry1997,2452
+27,Gujarati,substrate,d̠ʒ,,Mistry1997,2452
+27,Gujarati,substrate,ɾ,,Mistry1997,2452
+27,Gujarati,substrate,t̪,,Mistry1997,2452
+27,Gujarati,substrate,kʰ,,Mistry1997,2452
+27,Gujarati,substrate,ʈ,,Mistry1997,2452
+27,Gujarati,substrate,d̪,,Mistry1997,2452
+27,Gujarati,substrate,ɳ,,Mistry1997,2452
+27,Gujarati,substrate,ɖ,,Mistry1997,2452
+27,Gujarati,substrate,t̠ʃʰ,,Mistry1997,2452
+27,Gujarati,substrate,t̪ʰ,,Mistry1997,2452
+27,Gujarati,substrate,ʈʰ,,Mistry1997,2452
+27,Gujarati,substrate,ɦ,,Mistry1997,2452
+27,Gujarati,substrate,ʋ,,Mistry1997,2452
+27,Gujarati,substrate,ɺ,,Mistry1997,2452
+27,Gujarati,substrate,ɖ̤ʱ,,Mistry1997,2452
+27,Gujarati,substrate,b̤ʱ,,Mistry1997,2452
+27,Gujarati,substrate,d̤ʒ̤ʱ,,Mistry1997,2452
+27,Gujarati,substrate,ɡ̤ʱ,,Mistry1997,2452
+27,Gujarati,substrate,d̪̤ʱ,,Mistry1997,2452
+26,Marathi,substrate,m,,Kelkar1958,1766
+26,Marathi,substrate,k,,Kelkar1958,1766
+26,Marathi,substrate,j,,Kelkar1958,1766
+26,Marathi,substrate,p,,Kelkar1958,1766
+26,Marathi,substrate,w,,Kelkar1958,1766
+26,Marathi,substrate,l,,Kelkar1958,1766
+26,Marathi,substrate,s,,Kelkar1958,1766
+26,Marathi,substrate,b,,Kelkar1958,1766
+26,Marathi,substrate,ɡ,,Kelkar1958,1766
+26,Marathi,substrate,h,,Kelkar1958,1766
+26,Marathi,substrate,f,,Kelkar1958,1766
+26,Marathi,substrate,ɾ,,Kelkar1958,1766
+26,Marathi,substrate,t̪,,Kelkar1958,1766
+26,Marathi,substrate,ts,,Kelkar1958,1766
+26,Marathi,substrate,kʰ,,Kelkar1958,1766
+26,Marathi,substrate,pʰ,,Kelkar1958,1766
+26,Marathi,substrate,n̪,,Kelkar1958,1766
+26,Marathi,substrate,ʈ,,Kelkar1958,1766
+26,Marathi,substrate,d̪,,Kelkar1958,1766
+26,Marathi,substrate,ɳ,,Kelkar1958,1766
+26,Marathi,substrate,dz,,Kelkar1958,1766
+26,Marathi,substrate,ɖ,,Kelkar1958,1766
+26,Marathi,substrate,ʂ,,Kelkar1958,1766
+26,Marathi,substrate,tsʰ,,Kelkar1958,1766
+26,Marathi,substrate,t̪ʰ,,Kelkar1958,1766
+26,Marathi,substrate,ʈʰ,,Kelkar1958,1766
+26,Marathi,substrate,ç,,Kelkar1958,1766
+26,Marathi,substrate,cç,,Kelkar1958,1766
+26,Marathi,substrate,ɟʝ,,Kelkar1958,1766
+26,Marathi,substrate,b̤,,Kelkar1958,1766
+26,Marathi,substrate,ɡʱ,,Kelkar1958,1766
+26,Marathi,substrate,cçʰ,,Kelkar1958,1766
+26,Marathi,substrate,ɖ̤,,Kelkar1958,1766
+26,Marathi,substrate,d̪̤,,Kelkar1958,1766
+26,Marathi,substrate,ɟ̤ʝ,,Kelkar1958,1766
+26,Marathi,substrate,m̤,,Kelkar1958,1766
+26,Marathi,substrate,l̤,,Kelkar1958,1766
+26,Marathi,substrate,n̪̤,,Kelkar1958,1766
+26,Marathi,substrate,w̤,,Kelkar1958,1766
+26,Marathi,substrate,ɾ̤,,Kelkar1958,1766
+26,Marathi,substrate,d̤z,,Kelkar1958,1766
+26,Marathi,substrate,ɳ̤,,Kelkar1958,1766
+16,Santome,creole,p,,Bandeira2017[140],
+16,Santome,creole,b,[ɓ] in stressed simple onsets @Ferraz1979[21],Bandeira2017[140],
+16,Santome,creole,t,,Bandeira2017[140],
+16,Santome,creole,d,[ɗ] in stressed simple onsets @Ferraz1979[21],Bandeira2017[140],
+16,Santome,creole,k,,Bandeira2017[140],
+16,Santome,creole,g,,Bandeira2017[140],
+16,Santome,creole,f,,Bandeira2017[140],
+16,Santome,creole,v,,Bandeira2017[140],
+16,Santome,creole,s,,Bandeira2017[140],
+16,Santome,creole,z,,Bandeira2017[140],
+16,Santome,creole,ʃ,,Bandeira2017[140],
+16,Santome,creole,ʒ,,Bandeira2017[140],
+16,Santome,creole,t̠ʃ,more frequent in front of [i],Bandeira2017[140],
+16,Santome,creole,d̠ʒ,more frequent in front of [i],Bandeira2017[140],
+16,Santome,creole,m,,Bandeira2017[140],
+16,Santome,creole,n,,Bandeira2017[140],
+16,Santome,creole,ɲ,,Bandeira2017[140],
+16,Santome,creole,ʎ,,Bandeira2017[140],
+16,Santome,creole,w,,Bandeira2017[140],
+16,Santome,creole,j,,Bandeira2017[140],
+16,Santome,creole,l,,Bandeira2017[140],
+15,Principense,creole,p,,Bandeira2017[171],
+15,Principense,creole,b,,Bandeira2017[171],
+15,Principense,creole,t,has [t̠ʃ] as alophone in front of [i] and [j],Bandeira2017[171],
+15,Principense,creole,d,produced as [ɗ] by younger generations,Bandeira2017[171],
+15,Principense,creole,k,,Bandeira2017[171],
+15,Principense,creole,g,,Bandeira2017[171],
+15,Principense,creole,kp,,Bandeira2017[171],
+15,Principense,creole,ɡb,,Bandeira2017[171],
+15,Principense,creole,f,,Bandeira2017[171],
+15,Principense,creole,v,,Bandeira2017[171],
+15,Principense,creole,s,,Bandeira2017[171],
+15,Principense,creole,z,,Bandeira2017[171],
+15,Principense,creole,ʃ,,Bandeira2017[171],
+15,Principense,creole,ʒ,,Bandeira2017[171],
+15,Principense,creole,m,,Bandeira2017[171],
+15,Principense,creole,n,,Bandeira2017[171],
+15,Principense,creole,ɲ,only occurs in 3% of the words @Agostinho2015,Bandeira2017[171],
+15,Principense,creole,ʎ,,Bandeira2017[171],
+15,Principense,creole,w,,Bandeira2017[171],
+15,Principense,creole,j,,Bandeira2017[171],
+15,Principense,creole,l,,Bandeira2017[171],
+15,Principense,creole,r,,Bandeira2017[171],
+1,Angolar,creole,p,,Bandeira2017[208],
+1,Angolar,creole,b,,Bandeira2017[208],
+1,Angolar,creole,t,has [t̠ʃ] as alophone in front of [i] and [j],Bandeira2017[208],
+1,Angolar,creole,d,"has [d̠ʒ] as alophone in front of [i] and [j], [r] can be an allophone elsewhere",Bandeira2017[208],
+1,Angolar,creole,k,,Bandeira2017[208],
+1,Angolar,creole,g,,Bandeira2017[208],
+1,Angolar,creole,f,,Bandeira2017[208],
+1,Angolar,creole,v,,Bandeira2017[208],
+1,Angolar,creole,θ,,Bandeira2017[208],
+1,Angolar,creole,ð,,Bandeira2017[208],
+1,Angolar,creole,m,,Bandeira2017[208],
+1,Angolar,creole,n,,Bandeira2017[208],
+1,Angolar,creole,ɲ,,Bandeira2017[208],
+1,Angolar,creole,w,,Bandeira2017[208],
+1,Angolar,creole,j,,Bandeira2017[208],
+1,Angolar,creole,l,,Bandeira2017[208],
+9,Fa d'Ambo,creole,p,,Bandeira2017[234],
+9,Fa d'Ambo,creole,b,,Bandeira2017[234],
+9,Fa d'Ambo,creole,t,has [t̠ʃ] as alophone in front of [i] plain or nasalized,Bandeira2017[234],
+9,Fa d'Ambo,creole,d,has [d̠ʒ] as alophone in front of [i] plain or nasalized,Bandeira2017[234],
+9,Fa d'Ambo,creole,k,varies with [x],Bandeira2017[234],
+9,Fa d'Ambo,creole,g,,Bandeira2017[234],
+9,Fa d'Ambo,creole,f,,Bandeira2017[234],
+9,Fa d'Ambo,creole,v,,Bandeira2017[234],
+9,Fa d'Ambo,creole,s,,Bandeira2017[234],
+9,Fa d'Ambo,creole,z,,Bandeira2017[234],
+9,Fa d'Ambo,creole,m,,Bandeira2017[234],
+9,Fa d'Ambo,creole,n,,Bandeira2017[234],
+9,Fa d'Ambo,creole,l,,Bandeira2017[234],
+9,Fa d'Ambo,creole,w,,Bandeira2017[234],
+9,Fa d'Ambo,creole,j,,Bandeira2017[234],
+9,Fa d'Ambo,creole,ʎ,,Bandeira2017[234],
+2,Cape Verdean Brava,creole,p,,Baptista2013,
+2,Cape Verdean Brava,creole,b,,Baptista2013,
+2,Cape Verdean Brava,creole,t,,Baptista2013,
+2,Cape Verdean Brava,creole,d,,Baptista2013,
+2,Cape Verdean Brava,creole,k,,Baptista2013,
+2,Cape Verdean Brava,creole,g,,Baptista2013,
+2,Cape Verdean Brava,creole,f,,Baptista2013,
+2,Cape Verdean Brava,creole,v,,Baptista2013,
+2,Cape Verdean Brava,creole,s,,Baptista2013,
+2,Cape Verdean Brava,creole,z,,Baptista2013,
+2,Cape Verdean Brava,creole,ʃ,,Baptista2013,
+2,Cape Verdean Brava,creole,ʒ,,Baptista2013,
+2,Cape Verdean Brava,creole,t̠ʃ,,Baptista2013,
+2,Cape Verdean Brava,creole,d̠ʒ,,Baptista2013,
+2,Cape Verdean Brava,creole,m,,Baptista2013,
+2,Cape Verdean Brava,creole,n,,Baptista2013,
+2,Cape Verdean Brava,creole,ɲ,,Baptista2013,
+2,Cape Verdean Brava,creole,ʎ,,Baptista2013,
+2,Cape Verdean Brava,creole,l,,Baptista2013,
+2,Cape Verdean Brava,creole,r,,Baptista2013,
+4,Cape Verdean Sao Vicente,creole,p,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,b,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,t,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,d,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,k,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,g,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,f,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,v,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,s,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,z,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,ʃ,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,ʒ,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,t̠ʃ,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,d̠ʒ,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,m,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,n,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,ɲ,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,ŋ,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,ʎ,marginal @Swolkien2013,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,l,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,ɾ,,Rodrigues2007[145],
+4,Cape Verdean Sao Vicente,creole,ʀ,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,p,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,b,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,t,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,d,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,k,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,g,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,f,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,v,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,s,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,z,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,ʃ,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,ʒ,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,t̠ʃ,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,d̠ʒ,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,m,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,n,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,ɲ,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,ŋ,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,ʎ,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,l,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,ɾ,,Rodrigues2007[145],
+6,Cape Verdean Santo Antao,creole,ʀ,,Rodrigues2007[145],
+3,Cape Verdean Fogo,creole,p,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,b,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,t,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,d,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,k,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,g,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,f,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,v,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,s,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,z,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,ʃ,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,ʒ,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,t̠ʃ,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,d̠ʒ,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,m,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,n,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,ɲ,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,ŋ,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,ʎ,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,l,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,ɾ,,Rodrigues2007[144],
+3,Cape Verdean Fogo,creole,r,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,p,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,b,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,t,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,d,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,k,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,g,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,f,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,v,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,s,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,z,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,ʃ,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,ʒ,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,t̠ʃ,Varies with ʃ,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,d̠ʒ,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,m,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,n,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,ɲ,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,ŋ,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,ʎ,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,l,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,ɾ,,Rodrigues2007[144],
+5,Cape Verdean Santiago,creole,r,,Rodrigues2007[144],
+20,Edo,substrate,x,,Chanard2006,704
+20,Edo,substrate,ɡ,,Chanard2006,704
+20,Edo,substrate,ɽ,,Chanard2006,704
+20,Edo,substrate,h,,Chanard2006,704
+20,Edo,substrate,z,,Chanard2006,704
+20,Edo,substrate,d,,Chanard2006,704
+20,Edo,substrate,n,,Chanard2006,704
+20,Edo,substrate,ɹ,,Chanard2006,704
+20,Edo,substrate,j,,Chanard2006,704
+20,Edo,substrate,β,,Chanard2006,704
+20,Edo,substrate,t,,Chanard2006,704
+20,Edo,substrate,ŋm,,Chanard2006,704
+20,Edo,substrate,f,,Chanard2006,704
+20,Edo,substrate,s,,Chanard2006,704
+20,Edo,substrate,b,,Chanard2006,704
+20,Edo,substrate,r,,Chanard2006,704
+20,Edo,substrate,m,,Chanard2006,704
+20,Edo,substrate,k,,Chanard2006,704
+20,Edo,substrate,w,,Chanard2006,704
+20,Edo,substrate,kp,,Chanard2006,704
+20,Edo,substrate,p,,Chanard2006,704
+20,Edo,substrate,ɡb,,Chanard2006,704
+20,Edo,substrate,ɣ,,Chanard2006,704
+20,Edo,substrate,l,,Chanard2006,704
+20,Edo,substrate,v,,Chanard2006,704
+21,Kikongo,substrate,p,,Mingas1989[111],
+21,Kikongo,substrate,t,,Mingas1989[111],
+21,Kikongo,substrate,b,,Mingas1989[111],
+21,Kikongo,substrate,d,,Mingas1989[111],
+21,Kikongo,substrate,k,,Mingas1989[111],
+21,Kikongo,substrate,f,,Mingas1989[111],
+21,Kikongo,substrate,v,,Mingas1989[111],
+21,Kikongo,substrate,s,,Mingas1989[111],
+21,Kikongo,substrate,z,,Mingas1989[111],
+21,Kikongo,substrate,ʃ,,Mingas1989[111],
+21,Kikongo,substrate,ʒ,,Mingas1989[111],
+21,Kikongo,substrate,t̠ʃ,,Mingas1989[111],
+21,Kikongo,substrate,mpʰ,,Mingas1989[111],
+21,Kikongo,substrate,mb,,Mingas1989[111],
+21,Kikongo,substrate,ɱf,,Mingas1989[111],
+21,Kikongo,substrate,ɱv,,Mingas1989[111],
+21,Kikongo,substrate,ntʰ,,Mingas1989[111],
+21,Kikongo,substrate,nd,,Mingas1989[111],
+21,Kikongo,substrate,n̠ʒ,,Mingas1989[111],
+21,Kikongo,substrate,n̠ʃ,,Mingas1989[111],
+21,Kikongo,substrate,ns,,Mingas1989[111],
+21,Kikongo,substrate,nz,,Mingas1989[111],
+21,Kikongo,substrate,n̠t̠ʃ,,Mingas1989[111],
+21,Kikongo,substrate,n̠d̠ʒ,,Mingas1989[111],
+21,Kikongo,substrate,ŋkʰ,,Mingas1989[111],
+21,Kikongo,substrate,ŋg,,Mingas1989[111],
+21,Kikongo,substrate,m,,Mingas1989[111],
+21,Kikongo,substrate,n,,Mingas1989[111],
+21,Kikongo,substrate,ɲ,,Mingas1989[111],
+21,Kikongo,substrate,l,,Mingas1989[111],
+21,Kikongo,substrate,j,,Mingas1989[111],
+21,Kikongo,substrate,w,,Mingas1989[111],
+22,Kimbundu,substrate,p,,Xavier2010[41],
+22,Kimbundu,substrate,b,,Xavier2010[41],
+22,Kimbundu,substrate,t,,Xavier2010[41],
+22,Kimbundu,substrate,k,,Xavier2010[41],
+22,Kimbundu,substrate,mb,,Xavier2010[41],
+22,Kimbundu,substrate,nd,,Xavier2010[41],
+22,Kimbundu,substrate,ɱv,,Xavier2010[41],
+22,Kimbundu,substrate,nz,,Xavier2010[41],
+22,Kimbundu,substrate,n̠ʒ,,Xavier2010[41],
+22,Kimbundu,substrate,m,,Xavier2010[41],
+22,Kimbundu,substrate,n,,Xavier2010[41],
+22,Kimbundu,substrate,ŋ,,Xavier2010[41],
+22,Kimbundu,substrate,l,,Xavier2010[41],
+22,Kimbundu,substrate,f,,Xavier2010[41],
+22,Kimbundu,substrate,v,,Xavier2010[41],
+22,Kimbundu,substrate,s,,Xavier2010[41],
+22,Kimbundu,substrate,z,,Xavier2010[41],
+22,Kimbundu,substrate,ʃ,,Xavier2010[41],
+22,Kimbundu,substrate,ʒ,,Xavier2010[41],
+22,Kimbundu,substrate,h,,Xavier2010[41],
+23,Wolof,substrate,m,,Sauvageot1965,138
+23,Wolof,substrate,k,,Sauvageot1965,138
+23,Wolof,substrate,j,,Sauvageot1965,138
+23,Wolof,substrate,p,,Sauvageot1965,138
+23,Wolof,substrate,w,,Sauvageot1965,138
+23,Wolof,substrate,n,,Sauvageot1965,138
+23,Wolof,substrate,t,,Sauvageot1965,138
+23,Wolof,substrate,l,,Sauvageot1965,138
+23,Wolof,substrate,s,,Sauvageot1965,138
+23,Wolof,substrate,b,,Sauvageot1965,138
+23,Wolof,substrate,ŋ,,Sauvageot1965,138
+23,Wolof,substrate,ɡ,,Sauvageot1965,138
+23,Wolof,substrate,d,,Sauvageot1965,138
+23,Wolof,substrate,f,,Sauvageot1965,138
+23,Wolof,substrate,ɲ,,Sauvageot1965,138
+23,Wolof,substrate,ʔ,,Sauvageot1965,138
+23,Wolof,substrate,ɾ,,Sauvageot1965,138
+23,Wolof,substrate,c,,Sauvageot1965,138
+23,Wolof,substrate,ɟ,,Sauvageot1965,138
+23,Wolof,substrate,χ,,Sauvageot1965,138
+23,Wolof,substrate,mː,,Sauvageot1965,138
+23,Wolof,substrate,nː,,Sauvageot1965,138
+23,Wolof,substrate,lː,,Sauvageot1965,138
+23,Wolof,substrate,bː,,Sauvageot1965,138
+23,Wolof,substrate,ɟː,,Sauvageot1965,138
+23,Wolof,substrate,qχ,,Sauvageot1965,138
+24,Temne,substrate,m,,KanuTucker2010,2213
+24,Temne,substrate,k,,KanuTucker2010,2213
+24,Temne,substrate,j,,KanuTucker2010,2213
+24,Temne,substrate,p,,KanuTucker2010,2213
+24,Temne,substrate,w,,KanuTucker2010,2213
+24,Temne,substrate,n,,KanuTucker2010,2213
+24,Temne,substrate,t,,KanuTucker2010,2213
+24,Temne,substrate,l,,KanuTucker2010,2213
+24,Temne,substrate,s,,KanuTucker2010,2213
+24,Temne,substrate,b,,KanuTucker2010,2213
+24,Temne,substrate,ŋ,,KanuTucker2010,2213
+24,Temne,substrate,h,,KanuTucker2010,2213
+24,Temne,substrate,d,,KanuTucker2010,2213
+24,Temne,substrate,r,,KanuTucker2010,2213
+24,Temne,substrate,f,,KanuTucker2010,2213
+24,Temne,substrate,t̠ʃ,,KanuTucker2010,2213
+24,Temne,substrate,ʃ,,KanuTucker2010,2213
+24,Temne,substrate,t̪,,KanuTucker2010,2213
+24,Temne,substrate,ɡb,,KanuTucker2010,2213
+25,Mandinka,substrate,m,,Drame1981,1126
+25,Mandinka,substrate,k,,Drame1981,1126
+25,Mandinka,substrate,j,,Drame1981,1126
+25,Mandinka,substrate,p,,Drame1981,1126
+25,Mandinka,substrate,w,,Drame1981,1126
+25,Mandinka,substrate,n,,Drame1981,1126
+25,Mandinka,substrate,t,,Drame1981,1126
+25,Mandinka,substrate,l,,Drame1981,1126
+25,Mandinka,substrate,s,,Drame1981,1126
+25,Mandinka,substrate,b,,Drame1981,1126
+25,Mandinka,substrate,ŋ,,Drame1981,1126
+25,Mandinka,substrate,ɡ,,Drame1981,1126
+25,Mandinka,substrate,h,,Drame1981,1126
+25,Mandinka,substrate,d,,Drame1981,1126
+25,Mandinka,substrate,r,,Drame1981,1126
+25,Mandinka,substrate,f,,Drame1981,1126
+25,Mandinka,substrate,ɲ,,Drame1981,1126
+25,Mandinka,substrate,t̠ʃ,,Drame1981,1126
+25,Mandinka,substrate,d̠ʒ,,Drame1981,1126
+10,Guinea-Bissau Kriyol,creole,p,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,t,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,k,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,b,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,d,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,g,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,f,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,s,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,m,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,n,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,ɲ,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,t̠ʃ,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,d̠ʒ,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,ŋ,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,ɾ,,Chapouto2014[15],
+10,Guinea-Bissau Kriyol,creole,l,,Chapouto2014[15],
+36,Casamancese,creole,p,,Biagui2012[31],
+36,Casamancese,creole,t,,Biagui2012[31],
+36,Casamancese,creole,k,,Biagui2012[31],
+36,Casamancese,creole,b,,Biagui2012[31],
+36,Casamancese,creole,d,,Biagui2012[31],
+36,Casamancese,creole,g,,Biagui2012[31],
+36,Casamancese,creole,f,,Biagui2012[31],
+36,Casamancese,creole,s,,Biagui2012[31],
+36,Casamancese,creole,m,,Biagui2012[31],
+36,Casamancese,creole,n,,Biagui2012[31],
+36,Casamancese,creole,ɲ,,Biagui2012[31],
+36,Casamancese,creole,c,,Biagui2012[31],
+36,Casamancese,creole,ɟ,,Biagui2012[31],
+36,Casamancese,creole,ŋ,,Biagui2012[31],
+36,Casamancese,creole,r,,Biagui2012[31],
+36,Casamancese,creole,l,,Biagui2012[31],
+36,Casamancese,creole,j,,Biagui2012[31],
+36,Casamancese,creole,w,,Biagui2012[31],
+37,Nyun,substrate,p,,Diop2013[47],
+37,Nyun,substrate,t,,Diop2013[47],
+37,Nyun,substrate,k,,Diop2013[47],
+37,Nyun,substrate,b,,Diop2013[47],
+37,Nyun,substrate,d,,Diop2013[47],
+37,Nyun,substrate,g,,Diop2013[47],
+37,Nyun,substrate,f,,Diop2013[47],
+37,Nyun,substrate,s,,Diop2013[47],
+37,Nyun,substrate,m,,Diop2013[47],
+37,Nyun,substrate,n,,Diop2013[47],
+37,Nyun,substrate,ɲ,,Diop2013[47],
+37,Nyun,substrate,c,,Diop2013[47],
+37,Nyun,substrate,ɟ,,Diop2013[47],
+37,Nyun,substrate,ŋ,,Diop2013[47],
+37,Nyun,substrate,r,,Diop2013[47],
+37,Nyun,substrate,l,,Diop2013[47],
+37,Nyun,substrate,j,,Diop2013[47],
+37,Nyun,substrate,w,,Diop2013[47],
+37,Nyun,substrate,h,,Diop2013[47],
