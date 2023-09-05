@@ -33,6 +33,7 @@ library(PMCMRplus)
 library(ggpubr)
 library(rstatix)
 library(stats)
+library(prabclus)
 
 # Set the theme for all figures
 theme_set(theme_bw())
@@ -382,6 +383,70 @@ ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
 ```
 
 
+## Jaccard distance between inventories
+
+```{r, warning=FALSE, message=FALSE}
+df_jac <- read_csv("Inventories.csv")
+#df_jac <- df_jac %>% subset(Category != 'creole') 
+df_jac <- df_jac %>% dplyr::select(c('Language','Phoneme'))
+df_jac$presence <- 1
+df_wide <- df_jac %>% spread(Phoneme, presence)
+df_wide <- df_wide %>% replace(is.na(.), 0)
+head(df_wide)
+
+
+tmp <- df_wide %>%
+  column_to_rownames(var = "Language")
+jac_dist <- jaccard(t(tmp))
+
+```
+The Jaccard distance values were then manually extracted into a new table, so we could visualize those values according to the relevant language in contact (jaccard_results.csv). Then, we created a new table which summaries those results for creoles and joins their stability values, so we can assess if there is or there is not a correlation between the jaccard distances and the overall stability os creoles.
+
+```{r}
+df_cor <- read.csv("jaccard_summary.csv")
+```
+
+Linear models
+
+Inventory distance creoles ~ Portuguese
+
+```{r, warning=FALSE, message=FALSE}
+
+cl <- lm(stability ~ lex_crio, data=df_cor)
+summary(cl)
+
+ggplot(df_cor, aes(x = stability, y = lex_crio, label = Language)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+geom_text(aes(label=Language), hjust=1, vjust=0)
+```
+
+Inventory distance substrates ~ Portuguese
+
+```{r, warning=FALSE, message=FALSE}
+sl_mean <- lm(stability ~ lex_subs_mean, data=df_cor)
+summary(sl_mean)
+
+ggplot(df_cor, aes(x = stability, y = lex_subs_mean, label = Language)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+  geom_text(aes(label=Language), hjust=1, vjust=0)
+```
+
+Inventory distance substrates ~ creoles
+
+
+```{r, warning=FALSE, message=FALSE}
+sc_mean <- lm(stability ~ crio_subs_mean, data=df_cor)
+summary(sc_mean)
+
+ggplot(df_cor, aes(x = stability, y = crio_subs_mean, label = Language)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+  geom_text(aes(label=Language), hjust=1, vjust=0)
+```
+
+
 # Consonant stability
 
 Which segments are the most stable across creoles in the language sample?
@@ -576,7 +641,7 @@ First, data preparation.
 
 ```{r, warning=FALSE, message=FALSE}
 data_by_position <- database %>%
-  select(Position, LexifierPhoneme, PlaceStability, MannerStability) %>%
+  dplyr::select(Position, LexifierPhoneme, PlaceStability, MannerStability) %>%
   mutate(Position = tolower(Position))
 
 data_by_position$PlaceStability <- as.numeric(data_by_position$PlaceStability)
@@ -973,7 +1038,7 @@ head(inv)
 Prepare data
 
 ```{r}
-df_inv_long <- inv %>% select(Language, Phoneme) %>%  mutate(newcol = 1)
+df_inv_long <- inv %>% dplyr::select(Language, Phoneme) %>%  mutate(newcol = 1)
 
 df_inv <- df_inv_long %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
 
@@ -988,15 +1053,15 @@ Measuring the inventory size
 Get the consonant inventory size for all languages
 
 ```{r, warning=FALSE, message=FALSE}
-cons_count <- df_total_inv %>% select(c(2:38)) %>% mutate_at(c(1:37), as.numeric)
+cons_count <- df_total_inv %>% dplyr::select(c(2:38)) %>% mutate_at(c(1:37), as.numeric)
   
 count <- colSums(cons_count [,c(1:37)]) #%>% unname(colSums(count))
 
-cons_lg <- select(df_inv_long, "Language") 
+cons_lg <- dplyr::select(df_inv_long, "Language") 
 
 Language <- unique(cons_lg$Language)
 
-category <- inv %>% select(Language, Category)
+category <- inv %>% dplyr::select(Language, Category)
 
 count_lg <- data.frame(cbind(Language, count)) 
   
@@ -1102,7 +1167,7 @@ Is there a relationship between consonant stability and their presence in the in
 Data preparation (substrates only)
 
 ```{r}
-inv_subs <- inv %>% subset(Category == 'substrate') %>%  select(Language, Phoneme)  %>% mutate(newcol = 1)
+inv_subs <- inv %>% subset(Category == 'substrate') %>%  dplyr::select(Language, Phoneme)  %>% mutate(newcol = 1)
 
 inv_subs_long <- inv_subs %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
 
@@ -1116,7 +1181,7 @@ Sum row values and subset to consonants which have correspondents in Portuguese
 
 ```{r}
 
-subs_count <- inv_subs_long %>% select(c(2:18))
+subs_count <- inv_subs_long %>% dplyr::select(c(2:18))
 
 total_subs <- rowSums(subs_count)
 

@@ -10,6 +10,8 @@ Steven Moran, Carlos Silva and Nicholas A. Lester
   - [Duration of contact](#duration-of-contact)
   - [Duration effects on the segment
     level](#duration-effects-on-the-segment-level)
+  - [Jaccard distance between
+    inventories](#jaccard-distance-between-inventories)
 - [Consonant stability](#consonant-stability)
   - [Manner stability](#manner-stability)
   - [Place stability](#place-stability)
@@ -46,7 +48,14 @@ library(PMCMRplus)
 library(ggpubr)
 library(rstatix)
 library(stats)
+library(prabclus)
+```
 
+    ## Warning: package 'prabclus' was built under R version 4.3.1
+
+    ## Warning: package 'mclust' was built under R version 4.3.1
+
+``` r
 # Set the theme for all figures
 theme_set(theme_bw())
 ```
@@ -615,6 +624,159 @@ ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
 
 ![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
+## Jaccard distance between inventories
+
+``` r
+df_jac <- read_csv("Inventories.csv")
+#df_jac <- df_jac %>% subset(Category != 'creole') 
+df_jac <- df_jac %>% dplyr::select(c('Language','Phoneme'))
+df_jac$presence <- 1
+df_wide <- df_jac %>% spread(Phoneme, presence)
+df_wide <- df_wide %>% replace(is.na(.), 0)
+head(df_wide)
+```
+
+    ## # A tibble: 6 × 116
+    ##   Language         b   `b̤`    bː    bʰ  `b̤ʱ`     c     ç    cç   cçʰ    cʰ     d
+    ##   <chr>        <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+    ## 1 Angolar          1     0     0     0     0     0     0     0     0     0     1
+    ## 2 Cantonese        0     0     0     0     0     0     0     0     0     0     0
+    ## 3 Cape Verdea…     1     0     0     0     0     0     0     0     0     0     1
+    ## 4 Cape Verdea…     1     0     0     0     0     0     0     0     0     0     1
+    ## 5 Cape Verdea…     1     0     0     0     0     0     0     0     0     0     1
+    ## 6 Cape Verdea…     1     0     0     0     0     0     0     0     0     0     1
+    ## # ℹ 104 more variables: `d̪` <dbl>, ð <dbl>, `d̪̤` <dbl>, dʰ <dbl>, `d̪̤ʱ` <dbl>,
+    ## #   dz <dbl>, `d̤z` <dbl>, `d̠ʒ` <dbl>, `d̤ʒ̤ʱ` <dbl>, ɖ <dbl>, `ɖ̤` <dbl>,
+    ## #   ɖʰ <dbl>, `ɖ̤ʱ` <dbl>, f <dbl>, g <dbl>, ɣ <dbl>, ɡ <dbl>, ɡb <dbl>,
+    ## #   gʰ <dbl>, ɡʰ <dbl>, ɡʱ <dbl>, `ɡ̤ʱ` <dbl>, h <dbl>, ɦ <dbl>, j <dbl>,
+    ## #   ɟ <dbl>, ɟː <dbl>, ɟʰ <dbl>, ɟʝ <dbl>, `ɟ̤ʝ` <dbl>, k <dbl>, kʰ <dbl>,
+    ## #   kp <dbl>, kʷ <dbl>, kʷʰ <dbl>, l <dbl>, `l̤` <dbl>, ɭ <dbl>, lː <dbl>,
+    ## #   m <dbl>, `m̤` <dbl>, mː <dbl>, mb <dbl>, ɱf <dbl>, mpʰ <dbl>, ɱv <dbl>, …
+
+``` r
+tmp <- df_wide %>%
+  column_to_rownames(var = "Language")
+jac_dist <- jaccard(t(tmp))
+```
+
+The Jaccard distance values were then manually extracted into a new
+table, so we could visualize those values according to the relevant
+language in contact (jaccard_results.csv). Then, we created a new table
+which summaries those results for creoles and joins their stability
+values, so we can assess if there is or there is not a correlation
+between the jaccard distances and the overall stability os creoles.
+
+``` r
+df_cor <- read.csv("jaccard_summary.csv")
+```
+
+Linear models
+
+Inventory distance creoles ~ Portuguese
+
+``` r
+cl <- lm(stability ~ lex_crio, data=df_cor)
+summary(cl)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = stability ~ lex_crio, data = df_cor)
+    ## 
+    ## Residuals:
+    ##       Min        1Q    Median        3Q       Max 
+    ## -0.210456  0.004963  0.036732  0.043100  0.058147 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)   0.9335     0.0532  17.546 2.51e-12 ***
+    ## lex_crio     -0.2109     0.1463  -1.441    0.168    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.07987 on 17 degrees of freedom
+    ## Multiple R-squared:  0.1089, Adjusted R-squared:  0.05647 
+    ## F-statistic: 2.077 on 1 and 17 DF,  p-value: 0.1677
+
+``` r
+ggplot(df_cor, aes(x = stability, y = lex_crio, label = Language)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+geom_text(aes(label=Language), hjust=1, vjust=0)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+
+Inventory distance substrates ~ Portuguese
+
+``` r
+sl_mean <- lm(stability ~ lex_subs_mean, data=df_cor)
+summary(sl_mean)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = stability ~ lex_subs_mean, data = df_cor)
+    ## 
+    ## Residuals:
+    ##       Min        1Q    Median        3Q       Max 
+    ## -0.191196 -0.009182  0.021829  0.050399  0.091351 
+    ## 
+    ## Coefficients:
+    ##               Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)     0.7064     0.1450   4.871 0.000144 ***
+    ## lex_subs_mean   0.2416     0.2240   1.079 0.295663    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.08185 on 17 degrees of freedom
+    ## Multiple R-squared:  0.06409,    Adjusted R-squared:  0.009041 
+    ## F-statistic: 1.164 on 1 and 17 DF,  p-value: 0.2957
+
+``` r
+ggplot(df_cor, aes(x = stability, y = lex_subs_mean, label = Language)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+  geom_text(aes(label=Language), hjust=1, vjust=0)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+
+Inventory distance substrates ~ creoles
+
+``` r
+sc_mean <- lm(stability ~ crio_subs_mean, data=df_cor)
+summary(sc_mean)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = stability ~ crio_subs_mean, data = df_cor)
+    ## 
+    ## Residuals:
+    ##      Min       1Q   Median       3Q      Max 
+    ## -0.20840 -0.02278  0.03155  0.04882  0.08357 
+    ## 
+    ## Coefficients:
+    ##                Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)     0.89192    0.07841   11.38 2.27e-09 ***
+    ## crio_subs_mean -0.05658    0.14151   -0.40    0.694    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.08421 on 17 degrees of freedom
+    ## Multiple R-squared:  0.009317,   Adjusted R-squared:  -0.04896 
+    ## F-statistic: 0.1599 on 1 and 17 DF,  p-value: 0.6942
+
+``` r
+ggplot(df_cor, aes(x = stability, y = crio_subs_mean, label = Language)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+  geom_text(aes(label=Language), hjust=1, vjust=0)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+
 # Consonant stability
 
 Which segments are the most stable across creoles in the language
@@ -687,7 +849,7 @@ manner_place_lmplot <- ggplot(consonant_stability, aes(y = mmanner, x = mplace, 
 print(manner_place_lmplot + labs(y = "Manner Stability", x = "Place Stability"))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 Here is an alternative view for the global results.
 
@@ -706,7 +868,7 @@ ggplot(consonant_global_stability) +
   labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 ## Manner stability
 
@@ -721,7 +883,7 @@ ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
                dotsize = 0.5)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 Now, just plotting the relation manner to manner
 
@@ -736,7 +898,7 @@ ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
  stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 ## Place stability
 
@@ -756,7 +918,7 @@ ggplot(consonant_stability_place, aes(x = place, y = mglobal, fill = place)) +
   theme(legend.position="none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-31-1.png)<!-- --> Now, just
+![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- --> Now, just
 with the mean for Place stability
 
 ``` r
@@ -772,7 +934,7 @@ ggplot(consonant_stability_place, aes(x = place, y = mplace, fill = place)) +
  stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
 
 Calculate the stability of the segments.
 
@@ -807,7 +969,7 @@ mod.db <- database %>%
 plot(mod.db$categorical_stability, mod.db$duration, notch = T)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
 
 Hugely skewed in favor of no manner/place (10x as frequent as the next
 most frequent level; this could cause problems for the models).
@@ -956,7 +1118,7 @@ First, data preparation.
 
 ``` r
 data_by_position <- database %>%
-  select(Position, LexifierPhoneme, PlaceStability, MannerStability) %>%
+  dplyr::select(Position, LexifierPhoneme, PlaceStability, MannerStability) %>%
   mutate(Position = tolower(Position))
 
 data_by_position$PlaceStability <- as.numeric(data_by_position$PlaceStability)
@@ -993,7 +1155,7 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
   labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -1042,7 +1204,7 @@ ggplot(
   labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -1061,7 +1223,7 @@ ggplot(different_position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-46-1.png)<!-- -->
 
 ## Typological frequency and borrowability
 
@@ -1279,7 +1441,7 @@ ggplot(df_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape = NA
   geom_jitter(width = 0.2) + theme(legend.position="top")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-49-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-54-1.png)<!-- -->
 
 1)  Friedman test
 
@@ -1379,7 +1541,7 @@ ggplot(sta_typ_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape
   geom_jitter(width = 0.2) + theme(legend.position="top")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-55-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-60-1.png)<!-- -->
 
 Stability vs borrowability
 
@@ -1388,7 +1550,7 @@ ggplot(sta_bor_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape
   geom_jitter(width = 0.2) + theme(legend.position="top")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-56-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-61-1.png)<!-- -->
 
 Bump chart
 
@@ -1403,7 +1565,7 @@ ggplot(data = df_long, aes(x = conditions, y = order, group = consonant)) +
         panel.grid.minor = element_blank())
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-57-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-62-1.png)<!-- -->
 
 ``` r
     #theme(panel.background = element_rect(color="white")) +
@@ -1432,7 +1594,7 @@ head(inv)
 Prepare data
 
 ``` r
-df_inv_long <- inv %>% select(Language, Phoneme) %>%  mutate(newcol = 1)
+df_inv_long <- inv %>% dplyr::select(Language, Phoneme) %>%  mutate(newcol = 1)
 
 df_inv <- df_inv_long %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
 
@@ -1463,15 +1625,15 @@ Measuring the inventory size
 Get the consonant inventory size for all languages
 
 ``` r
-cons_count <- df_total_inv %>% select(c(2:38)) %>% mutate_at(c(1:37), as.numeric)
+cons_count <- df_total_inv %>% dplyr::select(c(2:38)) %>% mutate_at(c(1:37), as.numeric)
   
 count <- colSums(cons_count [,c(1:37)]) #%>% unname(colSums(count))
 
-cons_lg <- select(df_inv_long, "Language") 
+cons_lg <- dplyr::select(df_inv_long, "Language") 
 
 Language <- unique(cons_lg$Language)
 
-category <- inv %>% select(Language, Category)
+category <- inv %>% dplyr::select(Language, Category)
 
 count_lg <- data.frame(cbind(Language, count)) 
   
@@ -1502,7 +1664,7 @@ ggplot(inv_size) +
            position = "dodge2") + coord_flip()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-61-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-66-1.png)<!-- -->
 
 Violin plot: the majority of creoles have larger consonant inventories
 than Portuguese.
@@ -1516,7 +1678,7 @@ ggplot(inv_size, aes(x = Category, y = count, fill = Category)) +
   theme(legend.position = "none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-62-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-67-1.png)<!-- -->
 
 Consonant frequency in all languages involved
 
@@ -1596,7 +1758,7 @@ fs_plot <- ggplot(cor_freq_sta, aes(x = frequency, y = mglobal, label = Lexifier
 fs_plot + geom_text_repel(aes(label=LexifierPhoneme))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-69-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-74-1.png)<!-- -->
 
 There relationship between stability and frequency across all languages
 involved. But does it make sense? We are measuring the consonants in all
@@ -1611,7 +1773,7 @@ in the inventories of the substrate languages?
 Data preparation (substrates only)
 
 ``` r
-inv_subs <- inv %>% subset(Category == 'substrate') %>%  select(Language, Phoneme)  %>% mutate(newcol = 1)
+inv_subs <- inv %>% subset(Category == 'substrate') %>%  dplyr::select(Language, Phoneme)  %>% mutate(newcol = 1)
 
 inv_subs_long <- inv_subs %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
 
@@ -1637,7 +1799,7 @@ Sum row values and subset to consonants which have correspondents in
 Portuguese
 
 ``` r
-subs_count <- inv_subs_long %>% select(c(2:18))
+subs_count <- inv_subs_long %>% dplyr::select(c(2:18))
 
 total_subs <- rowSums(subs_count)
 
@@ -1702,7 +1864,7 @@ subsfreq_sta_cor <- ggplot(subs_sta, aes(x = frequency, y = mglobal, label = Lex
 subsfreq_sta_cor + geom_text_repel(aes(label=LexifierPhoneme))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-75-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-80-1.png)<!-- -->
 
 When we consider the correlation between the consonant stability in
 creoles and the frequency of these consonants in the substrates only, we
@@ -1766,7 +1928,7 @@ typ_sta_cor <- ggplot(typ_sta, aes(x = TypologicalFreq, y = mglobal, label = Lex
 typ_sta_cor + geom_text_repel(aes(label=LexifierPhoneme))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-79-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-84-1.png)<!-- -->
 
 # References
 
