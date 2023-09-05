@@ -6,12 +6,16 @@ Steven Moran, Carlos Silva and Nicholas A. Lester
 
 - [Overview](#overview)
 - [Creole stability](#creole-stability)
-- [Duration of contact](#duration-of-contact)
+  - [Conditions of contact](#conditions-of-contact)
+  - [Duration of contact](#duration-of-contact)
   - [Duration effects on the segment
     level](#duration-effects-on-the-segment-level)
-- [Segment stability](#segment-stability)
-- [Word position](#word-position)
-- [Conditions of contact](#conditions-of-contact)
+- [Consonant stability](#consonant-stability)
+  - [Manner stability](#manner-stability)
+  - [Place stability](#place-stability)
+  - [Word position](#word-position)
+  - [Typological frequency, borrowability and
+    stability](#typological-frequency-borrowability-and-stability)
 - [References](#references)
 
 <!-- FOr the anonymous PDF version, use:
@@ -36,6 +40,10 @@ library(knitr)
 library(ggrepel)
 library(lmerTest)
 library(mgcv)
+library(PMCMRplus)
+library(ggpubr)
+library(rstatix)
+library(stats)
 
 # Set the theme for all figures
 theme_set(theme_bw())
@@ -143,7 +151,16 @@ table(creole_stability$Area)
     ## Gulf of Guinea Northern India Southeast Asia Southern India   Upper Guinea 
     ##              4              3              3              2              7
 
-Plot it by conditions of contact.
+## Conditions of contact
+
+We have the overall stability values. What are these in relation to the
+conditions of contact?
+
+The finding that “slavery has a negative impact on stability” was mainly
+observational and also literature-based (e.g. Faraclas et al. (2007);
+Carvalho and Lucchesi (2016); Upper Guinea light creoles = slavery but
+with lighter contact conditions versus Gulf of Guinea hard creole =
+slavery and harder contact conditions).
 
 ``` r
 ggplot(creole_stability) +
@@ -156,7 +173,89 @@ ggplot(creole_stability) +
 
 ![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
-# Duration of contact
+Test whether there’s a relation between type of contact situation and
+overall mean stability.
+
+Linear model
+
+``` r
+m <- lm(MeanStability ~ ContactConditions, data = creole_stability)
+summary(m)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = MeanStability ~ ContactConditions, data = creole_stability)
+    ## 
+    ## Residuals:
+    ##      Min       1Q   Median       3Q      Max 
+    ## -0.19165 -0.01508  0.01495  0.05113  0.10001 
+    ## 
+    ## Coefficients:
+    ##                          Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)               0.88505    0.02896  30.562 2.68e-16 ***
+    ## ContactConditionsSlavery -0.04062    0.03806  -1.067    0.301    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.08191 on 17 degrees of freedom
+    ## Multiple R-squared:  0.06279,    Adjusted R-squared:  0.007662 
+    ## F-statistic: 1.139 on 1 and 17 DF,  p-value: 0.3008
+
+``` r
+ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, 
+                             fill = ContactConditions)) +
+  geom_smooth(method = "lm") +
+  geom_violin() +
+  geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5)  +
+  theme(legend.position="none")
+```
+
+![](README_files/figure-gfm/conditions_violin-1.png)<!-- -->
+
+``` r
+m <- lm(MeanStability ~ duration + ContactConditions * duration, 
+        data = creole_stability)
+summary(m)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = MeanStability ~ duration + ContactConditions * duration, 
+    ##     data = creole_stability)
+    ## 
+    ## Residuals:
+    ##      Min       1Q   Median       3Q      Max 
+    ## -0.20118 -0.02286  0.01146  0.05202  0.11796 
+    ## 
+    ## Coefficients:
+    ##                                     Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)                        8.686e-01  6.762e-02  12.845  1.7e-09 ***
+    ## duration                           6.236e-05  2.314e-04   0.269    0.791    
+    ## ContactConditionsSlavery          -9.622e-02  9.367e-02  -1.027    0.321    
+    ## duration:ContactConditionsSlavery  1.295e-04  2.809e-04   0.461    0.651    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.08308 on 15 degrees of freedom
+    ## Multiple R-squared:  0.1492, Adjusted R-squared:  -0.02095 
+    ## F-statistic: 0.8769 on 3 and 15 DF,  p-value: 0.4751
+
+``` r
+ggplot(creole_stability, aes(x = duration, y = MeanStability, 
+                             color = ContactConditions)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+  xlab("Duration (years)") +
+  ylab("Mean stability") +
+  labs(color = "Contact conditions")
+```
+
+![](README_files/figure-gfm/duration_groups_geom-1.png)<!-- -->
+
+## Duration of contact
 
 We have the overall stability values. What are these in relation to the
 duration of contact?
@@ -171,7 +270,7 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability)) +
   ylab("Mean stability")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ``` r
 ggplot(creole_stability, aes(x = duration, y = MeanStability)) +
@@ -228,7 +327,7 @@ ggplot(tmp_short, aes(x = duration, y = MeanStability)) +
   ylab("Mean stability")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ``` r
 ggplot(tmp_short, aes(x = duration, y = MeanStability)) +
@@ -238,7 +337,7 @@ ggplot(tmp_short, aes(x = duration, y = MeanStability)) +
   ylab("Mean stability")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-2.png)<!-- -->
 
 ``` r
 ggplot(tmp_long, aes(x = duration, y = MeanStability)) +
@@ -247,7 +346,7 @@ ggplot(tmp_long, aes(x = duration, y = MeanStability)) +
   ylab("Mean stability")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ``` r
 ggplot(tmp_long, aes(x = duration, y = MeanStability)) +
@@ -257,7 +356,7 @@ ggplot(tmp_long, aes(x = duration, y = MeanStability)) +
   ylab("Mean stability")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
 
 A single model with an interaction term MeanSim ~ duration, group \*
 duration.
@@ -357,14 +456,14 @@ summary(msd.gam)
 plot(msd.gam, all.terms = T, shade = T, pages = 1)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ``` r
 qqnorm(resid(msd.gam))
 qqline(resid(msd.gam))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
 
 ``` r
 msd.gam.trimmed <- gam(MeanStability ~ duration_group + s(duration, k = 3) 
@@ -406,7 +505,7 @@ plot(msd.gam.trimmed, sel = 1, shade = T, ylab = "Effect on mean stability",
 abline(h = 0, lty = 2, col = "red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-3.png)<!-- -->
 
 ``` r
 plot(msd.gam.trimmed, sel = 2, shade = T, ylab = "Effect on mean stability", 
@@ -414,7 +513,7 @@ plot(msd.gam.trimmed, sel = 2, shade = T, ylab = "Effect on mean stability",
 abline(h = 0, lty = 2, col = "red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-4.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-4.png)<!-- -->
 
 ``` r
 plot(msd.gam.trimmed, sel = 3, shade = T, ylab = "Effect on mean stability", 
@@ -422,7 +521,7 @@ plot(msd.gam.trimmed, sel = 3, shade = T, ylab = "Effect on mean stability",
 abline(h = 0, lty = 2, col = "red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-5.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-5.png)<!-- -->
 
 ``` r
 # (dotted lines indicate error)
@@ -430,7 +529,7 @@ plot(msd.gam.trimmed, all.terms = T, sel = 4, ylab = "Effect on mean stability",
      xlab = "Duration group", main = "Main effect of duration group")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-6.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-6.png)<!-- -->
 
 ``` r
 # checking out the model performance
@@ -438,7 +537,7 @@ qqnorm(resid(msd.gam.trimmed))
 qqline(resid(msd.gam.trimmed)) # meh
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-7.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-7.png)<!-- -->
 
 Removing the two creoles with the lowest scores produces significant
 effects. This doesn’t seem very reliable though, especially given the
@@ -464,7 +563,7 @@ ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
@@ -476,7 +575,7 @@ ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, PlaceStability, colour = duration_group)) +
@@ -488,7 +587,7 @@ ggplot(database, aes(duration, PlaceStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
@@ -500,7 +599,7 @@ ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
@@ -512,9 +611,9 @@ ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
-# Segment stability
+# Consonant stability
 
 Which segments are the most stable across creoles in the language
 sample?
@@ -586,7 +685,7 @@ manner_place_lmplot <- ggplot(consonant_stability, aes(y = mmanner, x = mplace, 
 print(manner_place_lmplot + labs(y = "Manner Stability", x = "Place Stability"))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 Here is an alternative view for the global results.
 
@@ -605,7 +704,9 @@ ggplot(consonant_global_stability) +
   labs(x = "Stability score", y = "Phoneme", fill = "Manner")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+
+## Manner stability
 
 Check for class effects on the global stability of consonants
 
@@ -618,7 +719,7 @@ ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
                dotsize = 0.5)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 Now, just plotting the relation manner to manner
 
@@ -633,7 +734,9 @@ ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
  stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+
+## Place stability
 
 Check place effects on the global stability of the consonants
 
@@ -651,7 +754,7 @@ ggplot(consonant_stability_place, aes(x = place, y = mglobal, fill = place)) +
   theme(legend.position="none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- --> Now, just
+![](README_files/figure-gfm/unnamed-chunk-31-1.png)<!-- --> Now, just
 with the mean for Place stability
 
 ``` r
@@ -667,7 +770,7 @@ ggplot(consonant_stability_place, aes(x = place, y = mplace, fill = place)) +
  stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 Calculate the stability of the segments.
 
@@ -702,7 +805,7 @@ mod.db <- database %>%
 plot(mod.db$categorical_stability, mod.db$duration, notch = T)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 Hugely skewed in favor of no manner/place (10x as frequent as the next
 most frequent level; this could cause problems for the models).
@@ -843,7 +946,7 @@ Numerically, the manner/place category has 50% of its observations in
 the longest duration from the sample. At the same time, no manner/no
 place is associated with the shortest duration.
 
-# Word position
+## Word position
 
 Next we ask, does word position influence stability?
 
@@ -888,7 +991,7 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
   labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -937,7 +1040,7 @@ ggplot(
   labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -956,97 +1059,356 @@ ggplot(different_position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
 
-# Conditions of contact
+## Typological frequency, borrowability and stability
 
-The finding that “slavery has a negative impact on stability” was mainly
-observational and also literature-based (e.g. Faraclas et al. (2007);
-Carvalho and Lucchesi (2016); Upper Guinea light creoles = slavery but
-with lighter contact conditions versus Gulf of Guinea hard creole =
-slavery and harder contact conditions).
+First, we turn the data into ordinal.
 
-Test whether there’s a relation between type of contact situation and
-overall mean stability.
+Ordinal data was generated by ranking the percentage values of
+stability, borrowability and typological frequency from 1 to 19.
+Duplicate values summed and averaged in the ranking.
 
-Linear model
+1)  Cross linguistic frequency
 
 ``` r
-m <- lm(MeanStability ~ ContactConditions, data = creole_stability)
-summary(m)
+order_typ <- c(1,
+2   ,
+3   ,
+4   ,
+5   ,
+5   ,
+7   ,
+8   ,
+9   ,
+10  ,
+11.5    ,
+11.5    ,
+13  ,
+14  ,
+15  ,
+16  ,
+17  ,
+18  ,
+19)
+consonant <- c("m",
+             "k",
+             "p",
+             "n",
+             "t",
+             "l",
+             "s",
+             "b",
+             "g",
+             "d",
+             "f",
+             "r",
+             "ɲ",
+             "t̠ʃ",
+             "z",
+             "v",
+             "ɾ",
+             "ʒ",
+             "ʎ")
+df_typ <- data.frame(order_typ, consonant)
+```
+
+2)  Borrowability
+
+``` r
+order_bor <- c(1    ,
+2   ,
+3   ,
+4   ,
+5   ,
+6   ,
+6   ,
+8   ,
+9   ,
+10  ,
+11  ,
+12  ,
+13  ,
+14.5    ,
+14.5    ,
+16  ,
+17  ,
+18  ,
+19)
+consonant <- c("f",
+              "g",
+              "t̠ʃ",
+              "b",
+              "z",
+              "v",
+              "d",
+              "r",
+              "p",
+              "l",
+              "s",
+              "ʒ",
+              "ɾ",
+              "ɲ",
+              "k",
+              "ʎ",
+              "t",
+              "n",
+              "m")
+df_bor <- data.frame(order_bor, consonant)
+```
+
+3)  Stability values
+
+``` r
+order_sta <- c(2,
+2   ,
+2   ,
+2   ,
+5   ,
+7 ,
+7   ,
+7   ,
+8   ,
+10  ,
+11  ,
+12  ,
+13  ,
+14  ,
+15  ,
+16  ,
+17  ,
+18  ,
+19)
+consonant <- c("t",
+               "p",
+               "n",
+               "m",
+               "f",
+               "b",
+               "k",
+               "g",
+               "d",
+               "z",
+               "s",
+               "l",
+               "r",
+               "t̠ʃ",
+               "ɾ",
+               "ɲ",
+               "ʒ",
+               "ʎ",
+               "v")
+df_sta <- data.frame(order_sta, consonant)
+```
+
+Then, we create the data frames and prepare them for non-parametric
+tests
+
+Long format with joint groups
+
+``` r
+df_friedman <- left_join(df_sta, df_bor, by="consonant")
+
+order_df <- left_join(df_friedman, df_typ, by="consonant")
+head(order_df)
+```
+
+    ##   order_sta consonant order_bor order_typ
+    ## 1         2         t        17       5.0
+    ## 2         2         p         9       3.0
+    ## 3         2         n        18       4.0
+    ## 4         2         m        19       1.0
+    ## 5         5         f         1      11.5
+    ## 6         7         b         4       8.0
+
+``` r
+df_long <- order_df %>% gather(key = "conditions", 
+                         value = "order", order_bor, order_sta, order_typ)
+
+head(df_long)
+```
+
+    ##   consonant conditions order
+    ## 1         t  order_bor    17
+    ## 2         p  order_bor     9
+    ## 3         n  order_bor    18
+    ## 4         m  order_bor    19
+    ## 5         f  order_bor     1
+    ## 6         b  order_bor     4
+
+In particular, for the Spearman’s rank correlation coefficient
+
+Large format and separated groups
+
+``` r
+df_sta_bor <- left_join(df_sta, df_bor, by="consonant")
+df_sta_typ <- left_join(df_sta, df_typ, by="consonant")
+```
+
+Converting to long format
+
+``` r
+sta_bor_long <- df_sta_bor %>% gather(key = "conditions", 
+                                    value = "order", order_bor, order_sta)
+sta_typ_long <- df_sta_typ %>% gather(key = "conditions", 
+                                      value = "order", order_typ, order_sta)
+```
+
+Finally, we perform the non-parametric tests
+
+Statistical summary
+
+``` r
+df_long %>% group_by(conditions) %>%  summarise(n = n(), mean = mean(order), 
+                                               sd = sd(order))
+```
+
+    ## # A tibble: 3 × 4
+    ##   conditions     n  mean    sd
+    ##   <chr>      <int> <dbl> <dbl>
+    ## 1 order_bor     19  9.95  5.66
+    ## 2 order_sta     19  9.84  5.76
+    ## 3 order_typ     19  9.95  5.67
+
+A first plot
+
+``` r
+ggplot(df_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape = NA) + 
+  geom_jitter(width = 0.2) + theme(legend.position="top")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-49-1.png)<!-- -->
+
+1)  Friedman test
+
+``` r
+friedman.test(y = df_long$order, groups = df_long$conditions, blocks = df_long$consonant)
 ```
 
     ## 
-    ## Call:
-    ## lm(formula = MeanStability ~ ContactConditions, data = creole_stability)
+    ##  Friedman rank sum test
     ## 
-    ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -0.19165 -0.01508  0.01495  0.05113  0.10001 
-    ## 
-    ## Coefficients:
-    ##                          Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)               0.88505    0.02896  30.562 2.68e-16 ***
-    ## ContactConditionsSlavery -0.04062    0.03806  -1.067    0.301    
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
-    ## Residual standard error: 0.08191 on 17 degrees of freedom
-    ## Multiple R-squared:  0.06279,    Adjusted R-squared:  0.007662 
-    ## F-statistic: 1.139 on 1 and 17 DF,  p-value: 0.3008
+    ## data:  df_long$order, df_long$conditions and df_long$consonant
+    ## Friedman chi-squared = 2.5135, df = 2, p-value = 0.2846
 
 ``` r
-ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, 
-                             fill = ContactConditions)) +
-  geom_smooth(method = "lm") +
-  geom_violin() +
-  geom_dotplot(binaxis = "y",
-               stackdir = "center",
-               dotsize = 0.5)  +
-  theme(legend.position="none")
+df_long %>% friedman_effsize(order ~ conditions | consonant)
 ```
 
-![](README_files/figure-gfm/conditions_violin-1.png)<!-- -->
+    ## # A tibble: 1 × 5
+    ##   .y.       n effsize method    magnitude
+    ## * <chr> <int>   <dbl> <chr>     <ord>    
+    ## 1 order    19  0.0661 Kendall W small
+
+2)  Conover’s all-pairs test
 
 ``` r
-m <- lm(MeanStability ~ duration + ContactConditions * duration, 
-        data = creole_stability)
-summary(m)
+frdAllPairsConoverTest(
+  y = df_long$order, 
+  groups = df_long$conditions, 
+  blocks = df_long$consonant, 
+  p.adjust.method = "bonf")
 ```
 
-    ## 
-    ## Call:
-    ## lm(formula = MeanStability ~ duration + ContactConditions * duration, 
-    ##     data = creole_stability)
-    ## 
-    ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -0.20118 -0.02286  0.01146  0.05202  0.11796 
-    ## 
-    ## Coefficients:
-    ##                                     Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)                        8.686e-01  6.762e-02  12.845  1.7e-09 ***
-    ## duration                           6.236e-05  2.314e-04   0.269    0.791    
-    ## ContactConditionsSlavery          -9.622e-02  9.367e-02  -1.027    0.321    
-    ## duration:ContactConditionsSlavery  1.295e-04  2.809e-04   0.461    0.651    
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
-    ## Residual standard error: 0.08308 on 15 degrees of freedom
-    ## Multiple R-squared:  0.1492, Adjusted R-squared:  -0.02095 
-    ## F-statistic: 0.8769 on 3 and 15 DF,  p-value: 0.4751
+    ##           order_bor order_sta
+    ## order_sta 0.68      -        
+    ## order_typ 0.44      1.00
+
+3)  Durbin’s all-pairs test
 
 ``` r
-ggplot(creole_stability, aes(x = duration, y = MeanStability, 
-                             color = ContactConditions)) +
-  geom_smooth(method = "lm") +
-  geom_point() +
-  xlab("Duration (years)") +
-  ylab("Mean stability") +
-  labs(color = "Contact conditions")
+durbinAllPairsTest(
+  y      = df_long$order, 
+  groups = df_long$conditions, 
+  blocks = df_long$consonant,
+  p.adjust.method = "holm")
 ```
 
-![](README_files/figure-gfm/duration_groups_geom-1.png)<!-- -->
+    ##           order_bor order_sta
+    ## order_sta 0.44      -        
+    ## order_typ 0.43      0.81
+
+4)  Spearman’s Correlation Coefficient
+
+4.1) Stability~Borrowability
+
+``` r
+cor.test(x=df_sta_bor$order_bor, 
+         y=df_sta_bor$order_sta, 
+         method = 'spearman')
+```
+
+    ## 
+    ##  Spearman's rank correlation rho
+    ## 
+    ## data:  df_sta_bor$order_bor and df_sta_bor$order_sta
+    ## S = 1252.8, p-value = 0.687
+    ## alternative hypothesis: true rho is not equal to 0
+    ## sample estimates:
+    ##         rho 
+    ## -0.09894132
+
+4.2) Stability~Typological frequency
+
+``` r
+cor.test(x=df_sta_typ$order_typ, 
+         y=df_sta_typ$order_sta, 
+         method = 'spearman')
+```
+
+    ## 
+    ##  Spearman's rank correlation rho
+    ## 
+    ## data:  df_sta_typ$order_typ and df_sta_typ$order_sta
+    ## S = 197.88, p-value = 1.295e-05
+    ## alternative hypothesis: true rho is not equal to 0
+    ## sample estimates:
+    ##      rho 
+    ## 0.826425
+
+Visualizing the results
+
+Box plots
+
+Stability vs typological frequency
+
+``` r
+ggplot(sta_typ_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape = NA) + 
+  geom_jitter(width = 0.2) + theme(legend.position="top")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-55-1.png)<!-- -->
+
+Stability vs borrowability
+
+``` r
+ggplot(sta_bor_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape = NA) + 
+  geom_jitter(width = 0.2) + theme(legend.position="top")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-56-1.png)<!-- -->
+
+Bump chart
+
+``` r
+ggplot(data = df_long, aes(x = conditions, y = order, group = consonant)) +
+  geom_line(aes(color = consonant, alpha = 1), size = 1) +
+  geom_point(aes(color = consonant, alpha = 1), size = 2,  alpha = 0.8) +
+  scale_y_reverse(breaks = 1:nrow(df_long)) +
+  scale_alpha(guide = 'none') +
+  #theme(legend.position="bottom") +
+  theme( panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+```
+
+![](README_files/figure-gfm/unnamed-chunk-57-1.png)<!-- -->
+
+``` r
+    #theme(panel.background = element_rect(color="white")) +
+    #theme(plot.background  = element_rect(color="white")) +
+    #theme(panel.border     = element_rect(color="white")) +
+    #theme(strip.background = element_rect(color="white"))
+```
 
 # References
 
