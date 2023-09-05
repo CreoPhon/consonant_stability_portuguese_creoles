@@ -674,7 +674,7 @@ ggplot(different_position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Word position")
 ```
 
-## Typological frequency, borrowability and stability
+## Typological frequency and borrowability
 
 First, we turn the data into ordinal.
 
@@ -959,5 +959,239 @@ ggplot(data = df_long, aes(x = conditions, y = order, group = consonant)) +
     #theme(panel.border     = element_rect(color="white")) +
     #theme(strip.background = element_rect(color="white"))
 ```
+
+
+## Inventory size and frequency across substrates
+
+Get data
+
+```{r}
+inv <- read.csv("Inventories.csv")
+head(inv)
+```
+
+Prepare data
+
+```{r}
+df_inv_long <- inv %>% select(Language, Phoneme) %>%  mutate(newcol = 1)
+
+df_inv <- df_inv_long %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
+
+df_total_inv <- df_inv %>% mutate_at(c(2:38), as.numeric)
+
+head(df_total_inv)
+
+```
+
+Measuring the inventory size
+
+Get the consonant inventory size for all languages
+
+```{r, warning=FALSE, message=FALSE}
+cons_count <- df_total_inv %>% select(c(2:38)) %>% mutate_at(c(1:37), as.numeric)
+  
+count <- colSums(cons_count [,c(1:37)]) #%>% unname(colSums(count))
+
+cons_lg <- select(df_inv_long, "Language") 
+
+Language <- unique(cons_lg$Language)
+
+category <- inv %>% select(Language, Category)
+
+count_lg <- data.frame(cbind(Language, count)) 
+  
+count_lg_1 <- inner_join(count_lg, category, by = "Language") %>% distinct()
+
+inv_size <- transform(count_lg_1, count = as.numeric(count))
+
+head(inv_size)
+
+```
+
+Which languages have bigger inventories?
+
+```{r}
+ggplot(inv_size) + 
+  geom_bar(aes(x = Language,
+               y = count,
+              fill = Category), 
+           stat = "identity", 
+           show.legend = TRUE,
+           position = "dodge2") + coord_flip()
+```
+
+
+Violin plot: the majority of creoles have larger consonant inventories than Portuguese.
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(inv_size, aes(x = Category, y = count, fill = Category)) +
+  geom_violin(alpha = 0.5) +
+  geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5) +
+  theme(legend.position = "none")
+```
+
+
+
+Consonant frequency in all languages involved
+
+
+Count frequent consonants
+
+```{r}
+total <- rowSums(cons_count)
+
+cons_freq <- data.frame(cbind(df_total_inv$Phoneme, total))
+
+cons_freq <- transform(cons_freq, total = as.numeric(total))
+
+colnames(cons_freq)[1] <- "LexifierPhoneme"
+
+```
+
+
+
+
+Is there a relationship between this frequency and the stability values?
+
+Subset: Portuguese consonants only
+```{r}
+cons_freq_pt <- cons_freq %>% subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s',
+                                       't','v','z','ʒ', 'r'))
+
+```
+
+First dataset: relative frequency values
+```{r}
+cons_freq_rel <- cons_freq_pt %>% mutate(frequency = total/37)
+```
+
+Second dataset:stability values  
+```{r}
+consonant_global_stability <- read.csv("consonant_global_stability.csv")
+```
+
+Merge datasets
+```{r}
+cor_freq_sta <- left_join(consonant_global_stability, cons_freq_rel, by='LexifierPhoneme')
+```
+
+Results of a simple regression
+```{r}
+fs <- lm(frequency ~ mglobal, data=cor_freq_sta)
+summary(fs)
+```
+
+Plot the results
+```{r, warning=FALSE, message=FALSE}
+
+fs_plot <- ggplot(cor_freq_sta, aes(x = frequency, y = mglobal, label = LexifierPhoneme)) +
+  geom_smooth(method = "lm") +
+  geom_point() # +
+  #geom_text(aes(label=V1), hjust=3, vjust=0)
+
+fs_plot + geom_text_repel(aes(label=LexifierPhoneme))
+```
+
+There relationship between stability and frequency across all languages involved. But does it make sense? We are measuring the consonants in all categories and the present of the lexifier and the creoles may influence the results. Perhaps, we should try to subset and measure the frequency across substrates only, but I think that this procedure would just increase the lack of correlation.
+
+Is there a relationship between consonant stability and their presence in the inventories of the substrate languages?
+
+
+Data preparation (substrates only)
+
+```{r}
+inv_subs <- inv %>% subset(Category == 'substrate') %>%  select(Language, Phoneme)  %>% mutate(newcol = 1)
+
+inv_subs_long <- inv_subs %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
+
+inv_subs_long <- inv_subs_long %>% mutate_at(c(2:18), as.numeric)
+
+head(inv_subs_long)
+
+```
+
+Sum row values and subset to consonants which have correspondents in Portuguese
+
+```{r}
+
+subs_count <- inv_subs_long %>% select(c(2:18))
+
+total_subs <- rowSums(subs_count)
+
+subs_freq <- data.frame(cbind(inv_subs_long$Phoneme, total_subs))
+
+subs_freq <- transform(subs_freq, total_subs = as.numeric(total_subs))
+
+colnames(subs_freq)[1] <- "LexifierPhoneme"
+
+subs_freq <- subs_freq %>% subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s', 't','v','z','ʒ', 'r'))
+
+```
+
+Get relative values
+
+```{r}
+subs_freq_rel <- subs_freq %>% mutate(frequency = total_subs/17)
+```
+
+Merge datasets
+```{r}
+subs_sta <- left_join(consonant_global_stability, subs_freq_rel, by='LexifierPhoneme')
+```
+
+Results of a simple regression
+```{r}
+subs_sta_lm <- lm(frequency ~ mglobal, data=subs_sta)
+summary(subs_sta_lm)
+```
+Plot the results
+```{r, warning=FALSE, message=FALSE}
+subsfreq_sta_cor <- ggplot(subs_sta, aes(x = frequency, y = mglobal, label = LexifierPhoneme)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+  xlab("Frequency across substrates") + ylab("Stability across creoles") # +
+ # geom_text(aes(label=V1), hjust=3, vjust=0)
+
+
+subsfreq_sta_cor + geom_text_repel(aes(label=LexifierPhoneme))
+```
+
+When we consider the correlation between the consonant stability in creoles and the frequency of these consonants in the substrates only, we find that there is a weaker correlation (if we compare with the results above). However, this correlation is statistically significant (p-value: 0.004). Nothing the outliers which are normally voiced consonants.
+
+Typological frequency vs. Substrate frequency
+
+Typological frequency data, extrated from PHOIBLE
+```{r}
+typ_freq <- read.csv("typ_freq.csv")
+```
+
+Merge datasets
+
+```{r}
+#consonant_global_stability <- read.csv("consonant_global_stability.csv")
+
+typ_sta <- left_join(typ_freq, consonant_global_stability, by='LexifierPhoneme')
+```
+
+Results of a simple regression
+```{r}
+typ_sta_lm <- lm(TypologicalFreq ~ mglobal, data=typ_sta)
+summary(typ_sta_lm)
+```
+Plot the results
+```{r, warning=FALSE, message=FALSE}
+typ_sta_cor <- ggplot(typ_sta, aes(x = TypologicalFreq, y = mglobal, label = LexifierPhoneme)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+  xlab("Frequency across world's languages") + ylab("Stability across creoles") # +
+ # geom_text(aes(label=V1), hjust=3, vjust=0)
+
+
+typ_sta_cor + geom_text_repel(aes(label=LexifierPhoneme))
+
+```
+
 
 # References
