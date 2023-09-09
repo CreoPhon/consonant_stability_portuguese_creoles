@@ -1,10 +1,11 @@
 ---
 title: "Supplementary materials for: Consonant stability in Portuguese-based creoles"
-author: "Steven Moran, Carlos Silva and Nicholas A. Lester" 
+author: "Carlos Silva, Steven Moran and Nicholas A. Lester" 
 date: "(`r format(Sys.time(), '%d %B, %Y')`)"
 output:
   github_document:
     toc: true
+    number_sections: true
 bibliography: 'bibliography.bib'
 ---
 
@@ -130,8 +131,7 @@ Plot it by area.
 
 ```{r, creole_stability_by_area, warning=FALSE, message=FALSE}
 ggplot(creole_stability) +
-  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), fill = Area),
-    stat = "identity", show.legend = TRUE) +
+  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), fill = Area), stat = "identity", show.legend = TRUE)  +
   theme(axis.title.y = element_blank()) +
   labs(x = "Stability score")
 ```
@@ -155,7 +155,7 @@ ggplot(creole_stability) +
                fill = ContactConditions), stat = "identity", show.legend = TRUE
   ) +
   theme(axis.title.y = element_blank()) +
-  labs(x = "Stability score")
+  labs(x = "Stability score", fill = "Conditions of contact")
 ```
 
 Test whether there's a relation between type of contact situation and overall mean stability.
@@ -174,7 +174,8 @@ ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability,
   geom_dotplot(binaxis = "y",
                stackdir = "center",
                dotsize = 0.5)  +
-  theme(legend.position="none")
+  theme(legend.position="none") +
+  labs(y = "Stability score", x = "Conditions of contact")
 
 ```
 
@@ -211,8 +212,8 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability)) +
 ggplot(creole_stability, aes(x = duration, y = MeanStability)) +
   geom_point() +
   geom_text_repel(aes(label = creole_stability$Language)) +
-  xlab("Duration (years)") +
-  ylab("Mean stability")
+  xlab("Duration of contact (years)") +
+  ylab("Stability score")
 ```
 
 Results from the simple regression.
@@ -268,9 +269,9 @@ summary(msd)
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  xlab("Duration (years)") +
-  ylab("Mean stability") +
-  labs(color = "Duration group")
+  xlab("Duration of contact (years)") +
+  ylab("Stability score") +
+  labs(color = "Group")
 ```
 
 The variability in the two groups is very different. The direction of the effect is interesting: shorter durations yield more stability more consistently. Over time, the variability in mean stability increases. Time is "destabillizing the pattern of stability".
@@ -482,22 +483,22 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
 A linear model to assess the relationship between manner and place stability
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, manner_place_cor, warning=FALSE, message=FALSE}
 lm_manner_place <- lm(mplace~mmanner, data=consonant_stability)
 
 summary(lm_manner_place)
 
 manner_place_lmplot <- ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme)) +
   geom_point(position= "dodge") + 
-  geom_smooth(method = lm)+
-  geom_text(aes(label=LexifierPhoneme), hjust=3, vjust=0)
+  geom_smooth(method = lm) #+
+  #geom_text(aes(label=LexifierPhoneme), hjust=3, vjust=0)
 
-print(manner_place_lmplot + labs(y = "Manner Stability", x = "Place Stability"))
+print(manner_place_lmplot + labs(y = "Manner stability", x = "Place stability")) + geom_text_repel(aes(label=LexifierPhoneme), hjust=3, vjust=1)
 ```
 
 Here is an alternative view for the global results.
 
-```{r, warning=FALSE, message=FALSE}
+```{r, consonant_stability, warning=FALSE, message=FALSE}
 consonant_global_stability <- mutate(consonant_stability_class, 
                                      mglobal = (mmanner + mplace) / 2)
 
@@ -509,7 +510,7 @@ ggplot(consonant_global_stability) +
     y = reorder(LexifierPhoneme, mglobal),
     fill = class
   ), stat = "identity", show.legend = TRUE) +
-  labs(x = "Stability score", y = "Phoneme", fill = "Manner")
+  labs(x = "Stability score", y="", fill = "Class")
 ```
 
 ## Manner stability
@@ -527,7 +528,7 @@ ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
 ```
 
 Now, just plotting the relation manner to manner
-```{r, warning=FALSE, message=FALSE}
+```{r, manner_manner, warning=FALSE, message=FALSE}
 ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
   geom_smooth(method = "lm") +
   geom_violin() +
@@ -535,6 +536,8 @@ ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
                stackdir = "center",
                dotsize = 0.5) +
   theme(legend.position="none") +
+  ylab("Manner stability score") +
+  xlab("Manner of articulation") +
  stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
 
@@ -560,7 +563,7 @@ ggplot(consonant_stability_place, aes(x = place, y = mglobal, fill = place)) +
 ```
 Now, just with the mean for Place stability
 
-```{r, warning=FALSE, message=FALSE}
+```{r, place_place, warning=FALSE, message=FALSE}
 ggplot(consonant_stability_place, aes(x = place, y = mplace, fill = place)) +
   geom_smooth(method = "lm") +
   geom_violin()  +
@@ -679,7 +682,7 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
 
 Flip horizontally.
 
-```{r, correlation_stability_word_position, warning=FALSE, message=FALSE}
+```{r, position_stability, warning=FALSE, message=FALSE}
 ggplot(position_results) +
   geom_bar(
     aes(
@@ -691,7 +694,7 @@ ggplot(position_results) +
     show.legend = TRUE,
     position = "dodge2"
   ) +
-  labs(x = "Stability score", y = "Phoneme", fill = "Word position")
+  labs(x = "Stability score", y = "", fill = "Position")
 ```
 
 Plot the results for segments that show differences.
@@ -749,7 +752,7 @@ Ordinal data was generated by ranking the percentage values of stability, borrow
 
 ```{r, warning=FALSE, message=FALSE}
 
-order_typ <- c(1,
+Typology <- c(1,
 2	,
 3	,
 4	,
@@ -787,13 +790,13 @@ consonant <- c("m",
              "ɾ",
              "ʒ",
              "ʎ")
-df_typ <- data.frame(order_typ, consonant)
+df_typ <- data.frame(Typology, consonant)
 ```
 
 2) Borrowability
 
 ```{r, warning=FALSE, message=FALSE}
-order_bor <- c(1	,
+Borrowability <- c(1	,
 2	,
 3	,
 4	,
@@ -831,14 +834,14 @@ consonant <- c("f",
               "t",
               "n",
               "m")
-df_bor <- data.frame(order_bor, consonant)
+df_bor <- data.frame(Borrowability, consonant)
 ```
 
 3) Stability values
 
 
 ```{r, warning=FALSE, message=FALSE}
-order_sta <- c(2,
+Stability <- c(2,
 2	,
 2	,
 2	,
@@ -876,7 +879,7 @@ consonant <- c("t",
                "ʒ",
                "ʎ",
                "v")
-df_sta <- data.frame(order_sta, consonant)
+df_sta <- data.frame(Stability, consonant)
 
 ```
 
@@ -893,7 +896,7 @@ head(order_df)
 
 
 df_long <- order_df %>% gather(key = "conditions", 
-                         value = "order", order_bor, order_sta, order_typ)
+                         value = "order", Borrowability, Stability, Typology)
 
 head(df_long)
 
@@ -914,9 +917,9 @@ Converting to long format
 ```{r, warning=FALSE, message=FALSE}
   
 sta_bor_long <- df_sta_bor %>% gather(key = "conditions", 
-                                    value = "order", order_bor, order_sta)
+                                    value = "order", Borrowability, Stability)
 sta_typ_long <- df_sta_typ %>% gather(key = "conditions", 
-                                      value = "order", order_typ, order_sta)
+                                      value = "order", Typology, Stability)
 ```
 
 Finally, we perform the non-parametric tests
@@ -973,16 +976,16 @@ durbinAllPairsTest(
 4.1) Stability~Borrowability
 
 ```{r, warning=FALSE, message=FALSE}
-cor.test(x=df_sta_bor$order_bor, 
-         y=df_sta_bor$order_sta, 
+cor.test(x=df_sta_bor$Borrowability, 
+         y=df_sta_bor$Stability, 
          method = 'spearman')
 ```
 
 4.2) Stability~Typological frequency
 
 ```{r, warning=FALSE, message=FALSE}
-cor.test(x=df_sta_typ$order_typ, 
-         y=df_sta_typ$order_sta, 
+cor.test(x=df_sta_typ$Typology, 
+         y=df_sta_typ$Stability, 
          method = 'spearman')
 ```
 
@@ -1007,22 +1010,22 @@ ggplot(sta_bor_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape
   geom_jitter(width = 0.2) + theme(legend.position="top")
 ```
 
+
+
 Bump chart
 
-```{r, warning=FALSE, message=FALSE}
+```{r, universal_tendencies, warning=FALSE, message=FALSE}
 
 ggplot(data = df_long, aes(x = conditions, y = order, group = consonant)) +
   geom_line(aes(color = consonant, alpha = 1), size = 1) +
   geom_point(aes(color = consonant, alpha = 1), size = 2,  alpha = 0.8) +
   scale_y_reverse(breaks = 1:nrow(df_long)) +
   scale_alpha(guide = 'none') +
-  #theme(legend.position="bottom") +
-  theme( panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
-    #theme(panel.background = element_rect(color="white")) +
-    #theme(plot.background  = element_rect(color="white")) +
-    #theme(panel.border     = element_rect(color="white")) +
-    #theme(strip.background = element_rect(color="white"))
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        axis.ticks.x = element_blank())+
+  ylab("Ranking")+
+  xlab("")
 ```
 
 
@@ -1088,13 +1091,14 @@ ggplot(inv_size) +
 
 Violin plot: the majority of creoles have larger consonant inventories than Portuguese.
 
-```{r, warning=FALSE, message=FALSE}
+```{r, size_violin, warning=FALSE, message=FALSE}
 ggplot(inv_size, aes(x = Category, y = count, fill = Category)) +
   geom_violin(alpha = 0.5) +
   geom_dotplot(binaxis = "y",
                stackdir = "center",
                dotsize = 0.5) +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  ylab("No. of consonants")
 ```
 
 
@@ -1212,7 +1216,7 @@ subs_sta_lm <- lm(frequency ~ mglobal, data=subs_sta)
 summary(subs_sta_lm)
 ```
 Plot the results
-```{r, warning=FALSE, message=FALSE}
+```{r, substratefreq_creosta, warning=FALSE, message=FALSE}
 subsfreq_sta_cor <- ggplot(subs_sta, aes(x = frequency, y = mglobal, label = LexifierPhoneme)) +
   geom_smooth(method = "lm") +
   geom_point() +
@@ -1246,7 +1250,7 @@ typ_sta_lm <- lm(TypologicalFreq ~ mglobal, data=typ_sta)
 summary(typ_sta_lm)
 ```
 Plot the results
-```{r, warning=FALSE, message=FALSE}
+```{r, typfreq_stacreo, warning=FALSE, message=FALSE}
 typ_sta_cor <- ggplot(typ_sta, aes(x = TypologicalFreq, y = mglobal, label = LexifierPhoneme)) +
   geom_smooth(method = "lm") +
   geom_point() +

@@ -1,26 +1,26 @@
 Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
-Steven Moran, Carlos Silva and Nicholas A. Lester
-(05 setembro, 2023)
+Carlos Silva, Steven Moran and Nicholas A. Lester
+(09 setembro, 2023)
 
-- [Overview](#overview)
-- [Creole stability](#creole-stability)
-  - [Conditions of contact](#conditions-of-contact)
-  - [Duration of contact](#duration-of-contact)
-  - [Duration effects on the segment
-    level](#duration-effects-on-the-segment-level)
-  - [Jaccard distance between
-    inventories](#jaccard-distance-between-inventories)
-- [Consonant stability](#consonant-stability)
-  - [Manner stability](#manner-stability)
-  - [Place stability](#place-stability)
-  - [Word position](#word-position)
-  - [Typological frequency and
-    borrowability](#typological-frequency-and-borrowability)
-  - [Inventory size and frequency across
-    substrates](#inventory-size-and-frequency-across-substrates)
-- [References](#references)
+- [1 Overview](#1-overview)
+- [2 Creole stability](#2-creole-stability)
+  - [2.1 Conditions of contact](#21-conditions-of-contact)
+  - [2.2 Duration of contact](#22-duration-of-contact)
+  - [2.3 Duration effects on the segment
+    level](#23-duration-effects-on-the-segment-level)
+  - [2.4 Jaccard distance between
+    inventories](#24-jaccard-distance-between-inventories)
+- [3 Consonant stability](#3-consonant-stability)
+  - [3.1 Manner stability](#31-manner-stability)
+  - [3.2 Place stability](#32-place-stability)
+  - [3.3 Word position](#33-word-position)
+  - [3.4 Typological frequency and
+    borrowability](#34-typological-frequency-and-borrowability)
+  - [3.5 Inventory size and frequency across
+    substrates](#35-inventory-size-and-frequency-across-substrates)
+- [4 References](#4-references)
 
 <!-- FOr the anonymous PDF version, use:
 &#10;  pdf_document:
@@ -29,7 +29,7 @@ Steven Moran, Carlos Silva and Nicholas A. Lester
     number_sections: true
 -->
 
-# Overview
+# 1 Overview
 
 <!-- Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress. -->
 
@@ -76,12 +76,12 @@ database %>%
 
 | Language    | Macroarea | Area           | Lexifier   | FirstMajorSettlement | EndOfInfluence | ContactConditions | LanguageContact | Class | Position     | LexifierPhoneme | CreolePhoneme | PlaceStability | MannerStability | Word        | Gloss      | Source            |
 |:------------|:----------|:---------------|:-----------|---------------------:|---------------:|:------------------|:----------------|:------|:-------------|:----------------|:--------------|---------------:|----------------:|:------------|:-----------|:------------------|
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | p               | p             |              1 |               1 | \[ˈpɛnɛ\]   | feather    | Maurer2009\[232\] |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | p               | p             |              1 |               1 | \[t̠ʃipa\]   | guts       | Maurer2009\[238\] |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | b               | b             |              1 |               1 | \[bwɛga\]   | belly      | Maurer2009\[216\] |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | b               | b             |              1 |               1 | \[kaˈbɛlu\] | hair       | Maurer2009\[221\] |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | t               | t             |              1 |               1 | \[ˈtudu\]   | everything | Maurer2009\[237\] |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | t               | t             |              1 |               1 | \[mata\]    | to kill    | Maurer2009\[227\] |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | p               | p             |              1 |               1 | $$ˈpɛnɛ$$   | feather    | Maurer2009$$232$$ |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | p               | p             |              1 |               1 | $$t̠ʃipa$$   | guts       | Maurer2009$$238$$ |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | b               | b             |              1 |               1 | $$bwɛga$$   | belly      | Maurer2009$$216$$ |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | b               | b             |              1 |               1 | $$kaˈbɛlu$$ | hair       | Maurer2009$$221$$ |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | t               | t             |              1 |               1 | $$ˈtudu$$   | everything | Maurer2009$$237$$ |
+| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | t               | t             |              1 |               1 | $$mata$$    | to kill    | Maurer2009$$227$$ |
 
 We extend the database with some additional variables. First, duration
 of contact.
@@ -130,7 +130,7 @@ table(database$categorical_stability)
     ##    manner/no place       manner/place no manner/no place    no manner/place 
     ##                 49                 58                553                 25
 
-# Creole stability
+# 2 Creole stability
 
 Which creoles in the sample are more or less stable overall?
 
@@ -146,8 +146,7 @@ Plot it by area.
 
 ``` r
 ggplot(creole_stability) +
-  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), fill = Area),
-    stat = "identity", show.legend = TRUE) +
+  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), fill = Area), stat = "identity", show.legend = TRUE)  +
   theme(axis.title.y = element_blank()) +
   labs(x = "Stability score")
 ```
@@ -162,7 +161,7 @@ table(creole_stability$Area)
     ## Gulf of Guinea Northern India Southeast Asia Southern India   Upper Guinea 
     ##              4              3              3              2              7
 
-## Conditions of contact
+## 2.1 Conditions of contact
 
 We have the overall stability values. What are these in relation to the
 conditions of contact?
@@ -179,7 +178,7 @@ ggplot(creole_stability) +
                fill = ContactConditions), stat = "identity", show.legend = TRUE
   ) +
   theme(axis.title.y = element_blank()) +
-  labs(x = "Stability score")
+  labs(x = "Stability score", fill = "Conditions of contact")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
@@ -221,7 +220,8 @@ ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability,
   geom_dotplot(binaxis = "y",
                stackdir = "center",
                dotsize = 0.5)  +
-  theme(legend.position="none")
+  theme(legend.position="none") +
+  labs(y = "Stability score", x = "Conditions of contact")
 ```
 
 ![](README_files/figure-gfm/conditions_violin-1.png)<!-- -->
@@ -266,7 +266,7 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability,
 
 ![](README_files/figure-gfm/duration_groups_geom-1.png)<!-- -->
 
-## Duration of contact
+## 2.2 Duration of contact
 
 We have the overall stability values. What are these in relation to the
 duration of contact?
@@ -287,8 +287,8 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability)) +
 ggplot(creole_stability, aes(x = duration, y = MeanStability)) +
   geom_point() +
   geom_text_repel(aes(label = creole_stability$Language)) +
-  xlab("Duration (years)") +
-  ylab("Mean stability")
+  xlab("Duration of contact (years)") +
+  ylab("Stability score")
 ```
 
 ![](README_files/figure-gfm/duration_groups_scatter-1.png)<!-- -->
@@ -403,9 +403,9 @@ summary(msd)
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  xlab("Duration (years)") +
-  ylab("Mean stability") +
-  labs(color = "Duration group")
+  xlab("Duration of contact (years)") +
+  ylab("Stability score") +
+  labs(color = "Group")
 ```
 
 ![](README_files/figure-gfm/duration_groups-1.png)<!-- -->
@@ -559,7 +559,7 @@ duration groups, with the short group having (slightly) lower mean
 stability. This appears to be the case – but again – we have so few
 observations.
 
-## Duration effects on the segment level
+## 2.3 Duration effects on the segment level
 
 Does duration affect the stability values of specific segments or
 segment classes?
@@ -624,7 +624,7 @@ ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
 
 ![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
-## Jaccard distance between inventories
+## 2.4 Jaccard distance between inventories
 
 ``` r
 df_jac <- read_csv("Inventories.csv")
@@ -777,7 +777,7 @@ ggplot(df_cor, aes(x = stability, y = crio_subs_mean, label = Language)) +
 
 ![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
-# Consonant stability
+# 3 Consonant stability
 
 Which segments are the most stable across creoles in the language
 sample?
@@ -843,13 +843,13 @@ summary(lm_manner_place)
 ``` r
 manner_place_lmplot <- ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme)) +
   geom_point(position= "dodge") + 
-  geom_smooth(method = lm)+
-  geom_text(aes(label=LexifierPhoneme), hjust=3, vjust=0)
+  geom_smooth(method = lm) #+
+  #geom_text(aes(label=LexifierPhoneme), hjust=3, vjust=0)
 
-print(manner_place_lmplot + labs(y = "Manner Stability", x = "Place Stability"))
+print(manner_place_lmplot + labs(y = "Manner stability", x = "Place stability")) + geom_text_repel(aes(label=LexifierPhoneme), hjust=3, vjust=1)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](README_files/figure-gfm/manner_place_cor-1.png)<!-- -->![](README_files/figure-gfm/manner_place_cor-2.png)<!-- -->
 
 Here is an alternative view for the global results.
 
@@ -865,12 +865,12 @@ ggplot(consonant_global_stability) +
     y = reorder(LexifierPhoneme, mglobal),
     fill = class
   ), stat = "identity", show.legend = TRUE) +
-  labs(x = "Stability score", y = "Phoneme", fill = "Manner")
+  labs(x = "Stability score", y="", fill = "Class")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](README_files/figure-gfm/consonant_stability-1.png)<!-- -->
 
-## Manner stability
+## 3.1 Manner stability
 
 Check for class effects on the global stability of consonants
 
@@ -883,7 +883,7 @@ ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
                dotsize = 0.5)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 Now, just plotting the relation manner to manner
 
@@ -895,12 +895,14 @@ ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
                stackdir = "center",
                dotsize = 0.5) +
   theme(legend.position="none") +
+  ylab("Manner stability score") +
+  xlab("Manner of articulation") +
  stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](README_files/figure-gfm/manner_manner-1.png)<!-- -->
 
-## Place stability
+## 3.2 Place stability
 
 Check place effects on the global stability of the consonants
 
@@ -918,7 +920,7 @@ ggplot(consonant_stability_place, aes(x = place, y = mglobal, fill = place)) +
   theme(legend.position="none")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- --> Now, just
+![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- --> Now, just
 with the mean for Place stability
 
 ``` r
@@ -934,7 +936,7 @@ ggplot(consonant_stability_place, aes(x = place, y = mplace, fill = place)) +
  stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
+![](README_files/figure-gfm/place_place-1.png)<!-- -->
 
 Calculate the stability of the segments.
 
@@ -969,7 +971,7 @@ mod.db <- database %>%
 plot(mod.db$categorical_stability, mod.db$duration, notch = T)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
 
 Hugely skewed in favor of no manner/place (10x as frequent as the next
 most frequent level; this could cause problems for the models).
@@ -1110,7 +1112,7 @@ Numerically, the manner/place category has 50% of its observations in
 the longest duration from the sample. At the same time, no manner/no
 place is associated with the shortest duration.
 
-## Word position
+## 3.3 Word position
 
 Next we ask, does word position influence stability?
 
@@ -1155,7 +1157,7 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
   labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -1171,10 +1173,10 @@ ggplot(position_results) +
     show.legend = TRUE,
     position = "dodge2"
   ) +
-  labs(x = "Stability score", y = "Phoneme", fill = "Word position")
+  labs(x = "Stability score", y = "", fill = "Position")
 ```
 
-![](README_files/figure-gfm/correlation_stability_word_position-1.png)<!-- -->
+![](README_files/figure-gfm/position_stability-1.png)<!-- -->
 
 Plot the results for segments that show differences.
 
@@ -1204,7 +1206,7 @@ ggplot(
   labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -1223,9 +1225,9 @@ ggplot(different_position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-46-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
 
-## Typological frequency and borrowability
+## 3.4 Typological frequency and borrowability
 
 First, we turn the data into ordinal.
 
@@ -1236,7 +1238,7 @@ Duplicate values summed and averaged in the ranking.
 1)  Cross linguistic frequency
 
 ``` r
-order_typ <- c(1,
+Typology <- c(1,
 2   ,
 3   ,
 4   ,
@@ -1274,13 +1276,13 @@ consonant <- c("m",
              "ɾ",
              "ʒ",
              "ʎ")
-df_typ <- data.frame(order_typ, consonant)
+df_typ <- data.frame(Typology, consonant)
 ```
 
 2)  Borrowability
 
 ``` r
-order_bor <- c(1    ,
+Borrowability <- c(1    ,
 2   ,
 3   ,
 4   ,
@@ -1318,13 +1320,13 @@ consonant <- c("f",
               "t",
               "n",
               "m")
-df_bor <- data.frame(order_bor, consonant)
+df_bor <- data.frame(Borrowability, consonant)
 ```
 
 3)  Stability values
 
 ``` r
-order_sta <- c(2,
+Stability <- c(2,
 2   ,
 2   ,
 2   ,
@@ -1362,7 +1364,7 @@ consonant <- c("t",
                "ʒ",
                "ʎ",
                "v")
-df_sta <- data.frame(order_sta, consonant)
+df_sta <- data.frame(Stability, consonant)
 ```
 
 Then, we create the data frames and prepare them for non-parametric
@@ -1377,28 +1379,28 @@ order_df <- left_join(df_friedman, df_typ, by="consonant")
 head(order_df)
 ```
 
-    ##   order_sta consonant order_bor order_typ
-    ## 1         2         t        17       5.0
-    ## 2         2         p         9       3.0
-    ## 3         2         n        18       4.0
-    ## 4         2         m        19       1.0
-    ## 5         5         f         1      11.5
-    ## 6         7         b         4       8.0
+    ##   Stability consonant Borrowability Typology
+    ## 1         2         t            17      5.0
+    ## 2         2         p             9      3.0
+    ## 3         2         n            18      4.0
+    ## 4         2         m            19      1.0
+    ## 5         5         f             1     11.5
+    ## 6         7         b             4      8.0
 
 ``` r
 df_long <- order_df %>% gather(key = "conditions", 
-                         value = "order", order_bor, order_sta, order_typ)
+                         value = "order", Borrowability, Stability, Typology)
 
 head(df_long)
 ```
 
-    ##   consonant conditions order
-    ## 1         t  order_bor    17
-    ## 2         p  order_bor     9
-    ## 3         n  order_bor    18
-    ## 4         m  order_bor    19
-    ## 5         f  order_bor     1
-    ## 6         b  order_bor     4
+    ##   consonant    conditions order
+    ## 1         t Borrowability    17
+    ## 2         p Borrowability     9
+    ## 3         n Borrowability    18
+    ## 4         m Borrowability    19
+    ## 5         f Borrowability     1
+    ## 6         b Borrowability     4
 
 In particular, for the Spearman’s rank correlation coefficient
 
@@ -1413,9 +1415,9 @@ Converting to long format
 
 ``` r
 sta_bor_long <- df_sta_bor %>% gather(key = "conditions", 
-                                    value = "order", order_bor, order_sta)
+                                    value = "order", Borrowability, Stability)
 sta_typ_long <- df_sta_typ %>% gather(key = "conditions", 
-                                      value = "order", order_typ, order_sta)
+                                      value = "order", Typology, Stability)
 ```
 
 Finally, we perform the non-parametric tests
@@ -1428,11 +1430,11 @@ df_long %>% group_by(conditions) %>%  summarise(n = n(), mean = mean(order),
 ```
 
     ## # A tibble: 3 × 4
-    ##   conditions     n  mean    sd
-    ##   <chr>      <int> <dbl> <dbl>
-    ## 1 order_bor     19  9.95  5.66
-    ## 2 order_sta     19  9.84  5.76
-    ## 3 order_typ     19  9.95  5.67
+    ##   conditions        n  mean    sd
+    ##   <chr>         <int> <dbl> <dbl>
+    ## 1 Borrowability    19  9.95  5.66
+    ## 2 Stability        19  9.84  5.76
+    ## 3 Typology         19  9.95  5.67
 
 A first plot
 
@@ -1441,7 +1443,7 @@ ggplot(df_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape = NA
   geom_jitter(width = 0.2) + theme(legend.position="top")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-54-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
 
 1)  Friedman test
 
@@ -1474,9 +1476,9 @@ frdAllPairsConoverTest(
   p.adjust.method = "bonf")
 ```
 
-    ##           order_bor order_sta
-    ## order_sta 0.68      -        
-    ## order_typ 0.44      1.00
+    ##           Borrowability Stability
+    ## Stability 0.68          -        
+    ## Typology  0.44          1.00
 
 3)  Durbin’s all-pairs test
 
@@ -1488,24 +1490,24 @@ durbinAllPairsTest(
   p.adjust.method = "holm")
 ```
 
-    ##           order_bor order_sta
-    ## order_sta 0.44      -        
-    ## order_typ 0.43      0.81
+    ##           Borrowability Stability
+    ## Stability 0.44          -        
+    ## Typology  0.43          0.81
 
 4)  Spearman’s Correlation Coefficient
 
 4.1) Stability~Borrowability
 
 ``` r
-cor.test(x=df_sta_bor$order_bor, 
-         y=df_sta_bor$order_sta, 
+cor.test(x=df_sta_bor$Borrowability, 
+         y=df_sta_bor$Stability, 
          method = 'spearman')
 ```
 
     ## 
     ##  Spearman's rank correlation rho
     ## 
-    ## data:  df_sta_bor$order_bor and df_sta_bor$order_sta
+    ## data:  df_sta_bor$Borrowability and df_sta_bor$Stability
     ## S = 1252.8, p-value = 0.687
     ## alternative hypothesis: true rho is not equal to 0
     ## sample estimates:
@@ -1515,15 +1517,15 @@ cor.test(x=df_sta_bor$order_bor,
 4.2) Stability~Typological frequency
 
 ``` r
-cor.test(x=df_sta_typ$order_typ, 
-         y=df_sta_typ$order_sta, 
+cor.test(x=df_sta_typ$Typology, 
+         y=df_sta_typ$Stability, 
          method = 'spearman')
 ```
 
     ## 
     ##  Spearman's rank correlation rho
     ## 
-    ## data:  df_sta_typ$order_typ and df_sta_typ$order_sta
+    ## data:  df_sta_typ$Typology and df_sta_typ$Stability
     ## S = 197.88, p-value = 1.295e-05
     ## alternative hypothesis: true rho is not equal to 0
     ## sample estimates:
@@ -1541,7 +1543,7 @@ ggplot(sta_typ_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape
   geom_jitter(width = 0.2) + theme(legend.position="top")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-60-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-56-1.png)<!-- -->
 
 Stability vs borrowability
 
@@ -1550,7 +1552,7 @@ ggplot(sta_bor_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape
   geom_jitter(width = 0.2) + theme(legend.position="top")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-61-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-57-1.png)<!-- -->
 
 Bump chart
 
@@ -1560,21 +1562,16 @@ ggplot(data = df_long, aes(x = conditions, y = order, group = consonant)) +
   geom_point(aes(color = consonant, alpha = 1), size = 2,  alpha = 0.8) +
   scale_y_reverse(breaks = 1:nrow(df_long)) +
   scale_alpha(guide = 'none') +
-  #theme(legend.position="bottom") +
-  theme( panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        axis.ticks.x = element_blank())+
+  ylab("Ranking")+
+  xlab("")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-62-1.png)<!-- -->
+![](README_files/figure-gfm/universal_tendencies-1.png)<!-- -->
 
-``` r
-    #theme(panel.background = element_rect(color="white")) +
-    #theme(plot.background  = element_rect(color="white")) +
-    #theme(panel.border     = element_rect(color="white")) +
-    #theme(strip.background = element_rect(color="white"))
-```
-
-## Inventory size and frequency across substrates
+## 3.5 Inventory size and frequency across substrates
 
 Get data
 
@@ -1664,7 +1661,7 @@ ggplot(inv_size) +
            position = "dodge2") + coord_flip()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-66-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-61-1.png)<!-- -->
 
 Violin plot: the majority of creoles have larger consonant inventories
 than Portuguese.
@@ -1675,10 +1672,11 @@ ggplot(inv_size, aes(x = Category, y = count, fill = Category)) +
   geom_dotplot(binaxis = "y",
                stackdir = "center",
                dotsize = 0.5) +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  ylab("No. of consonants")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-67-1.png)<!-- -->
+![](README_files/figure-gfm/size_violin-1.png)<!-- -->
 
 Consonant frequency in all languages involved
 
@@ -1758,7 +1756,7 @@ fs_plot <- ggplot(cor_freq_sta, aes(x = frequency, y = mglobal, label = Lexifier
 fs_plot + geom_text_repel(aes(label=LexifierPhoneme))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-74-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-68-1.png)<!-- -->
 
 There relationship between stability and frequency across all languages
 involved. But does it make sense? We are measuring the consonants in all
@@ -1864,7 +1862,7 @@ subsfreq_sta_cor <- ggplot(subs_sta, aes(x = frequency, y = mglobal, label = Lex
 subsfreq_sta_cor + geom_text_repel(aes(label=LexifierPhoneme))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-80-1.png)<!-- -->
+![](README_files/figure-gfm/substratefreq_creosta-1.png)<!-- -->
 
 When we consider the correlation between the consonant stability in
 creoles and the frequency of these consonants in the substrates only, we
@@ -1928,9 +1926,9 @@ typ_sta_cor <- ggplot(typ_sta, aes(x = TypologicalFreq, y = mglobal, label = Lex
 typ_sta_cor + geom_text_repel(aes(label=LexifierPhoneme))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-84-1.png)<!-- -->
+![](README_files/figure-gfm/typfreq_stacreo-1.png)<!-- -->
 
-# References
+# 4 References
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 
