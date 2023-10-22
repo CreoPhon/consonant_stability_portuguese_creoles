@@ -1,8 +1,8 @@
 Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
-Carlos Silva, Steven Moran and Nicholas A. Lester
-(09 setembro, 2023)
+Carlos Silva and Steven Moran
+(22 outubro, 2023)
 
 - [1 Overview](#1-overview)
 - [2 Creole stability](#2-creole-stability)
@@ -46,6 +46,11 @@ library(lmerTest)
 library(mgcv)
 library(PMCMRplus)
 library(ggpubr)
+```
+
+    ## Warning: package 'ggpubr' was built under R version 4.3.1
+
+``` r
 library(rstatix)
 library(stats)
 library(prabclus)
@@ -238,21 +243,21 @@ summary(m)
     ##     data = creole_stability)
     ## 
     ## Residuals:
-    ##      Min       1Q   Median       3Q      Max 
-    ## -0.20118 -0.02286  0.01146  0.05202  0.11796 
+    ##       Min        1Q    Median        3Q       Max 
+    ## -0.153522 -0.031982  0.009208  0.038949  0.140726 
     ## 
     ## Coefficients:
     ##                                     Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)                        8.686e-01  6.762e-02  12.845  1.7e-09 ***
-    ## duration                           6.236e-05  2.314e-04   0.269    0.791    
-    ## ContactConditionsSlavery          -9.622e-02  9.367e-02  -1.027    0.321    
-    ## duration:ContactConditionsSlavery  1.295e-04  2.809e-04   0.461    0.651    
+    ## (Intercept)                        8.686e-01  6.167e-02  14.086  4.7e-10 ***
+    ## duration                           6.236e-05  2.110e-04   0.296    0.772    
+    ## ContactConditionsSlavery          -1.351e-01  8.305e-02  -1.627    0.125    
+    ## duration:ContactConditionsSlavery  2.474e-04  2.541e-04   0.974    0.346    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 0.08308 on 15 degrees of freedom
-    ## Multiple R-squared:  0.1492, Adjusted R-squared:  -0.02095 
-    ## F-statistic: 0.8769 on 3 and 15 DF,  p-value: 0.4751
+    ## Residual standard error: 0.07576 on 15 degrees of freedom
+    ## Multiple R-squared:  0.2925, Adjusted R-squared:  0.151 
+    ## F-statistic: 2.067 on 3 and 15 DF,  p-value: 0.1477
 
 ``` r
 ggplot(creole_stability, aes(x = duration, y = MeanStability, 
@@ -306,18 +311,18 @@ summary(msd)
     ## 
     ## Residuals:
     ##      Min       1Q   Median       3Q      Max 
-    ## -0.21701 -0.01214  0.03417  0.04673  0.07143 
+    ## -0.19440 -0.01713  0.02677  0.05092  0.08640 
     ## 
     ## Coefficients:
     ##              Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept) 8.336e-01  4.471e-02  18.644  9.4e-13 ***
-    ## duration    8.525e-05  1.231e-04   0.692    0.498    
+    ## (Intercept) 0.8066224  0.0417628  19.314 5.29e-13 ***
+    ## duration    0.0001726  0.0001180   1.463    0.162    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 0.08344 on 17 degrees of freedom
-    ## Multiple R-squared:  0.02742,    Adjusted R-squared:  -0.02979 
-    ## F-statistic: 0.4793 on 1 and 17 DF,  p-value: 0.4981
+    ## Residual standard error: 0.07974 on 17 degrees of freedom
+    ## Multiple R-squared:  0.1118, Adjusted R-squared:  0.05953 
+    ## F-statistic: 2.139 on 1 and 17 DF,  p-value: 0.1618
 
 However, there does seem to be two groups of languages – ones that
 belong to “long duration” (\>= 400 years) and those that below to “short
@@ -384,20 +389,20 @@ summary(msd)
     ## 
     ## Residuals:
     ##      Min       1Q   Median       3Q      Max 
-    ## -0.21021 -0.04532  0.04038  0.04576  0.07658 
+    ## -0.19540 -0.01408  0.01558  0.05578  0.09017 
     ## 
     ## Coefficients:
     ##                                Estimate Std. Error t value Pr(>|t|)   
-    ## (Intercept)                   0.8153751  0.2450280   3.328  0.00459 **
-    ## duration                      0.0001120  0.0005379   0.208  0.83783   
-    ## duration_groupshort          -0.0822049  0.2590038  -0.317  0.75532   
-    ## duration:duration_groupshort  0.0006684  0.0007362   0.908  0.37829   
+    ## (Intercept)                   0.9645090  0.2525341   3.819  0.00168 **
+    ## duration                     -0.0001690  0.0005509  -0.307  0.76325   
+    ## duration_groupshort          -0.1683250  0.2652407  -0.635  0.53524   
+    ## duration:duration_groupshort  0.0003902  0.0007185   0.543  0.59501   
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 0.08331 on 15 degrees of freedom
-    ## Multiple R-squared:  0.1445, Adjusted R-squared:  -0.02656 
-    ## F-statistic: 0.8448 on 3 and 15 DF,  p-value: 0.4906
+    ## Residual standard error: 0.08375 on 15 degrees of freedom
+    ## Multiple R-squared:  0.1354, Adjusted R-squared:  -0.03753 
+    ## F-statistic: 0.783 on 3 and 15 DF,  p-value: 0.5218
 
 ``` r
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
@@ -445,23 +450,23 @@ summary(msd.gam)
     ##     by = duration_group, k = 3)
     ## 
     ## Parametric coefficients:
-    ##                     Estimate Std. Error t value Pr(>|t|)  
-    ## (Intercept)           2.1902     0.7763   2.821   0.0140 *
-    ## duration_groupshort  -1.9481     0.8695  -2.241   0.0425 *
+    ##                     Estimate Std. Error t value Pr(>|t|)   
+    ## (Intercept)           1.0073     0.2965   3.397  0.00434 **
+    ## duration_groupshort  -1.2305     0.4398  -2.798  0.01424 * 
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
     ##                                    edf Ref.df     F p-value  
-    ## s(duration)                     0.6667 0.6667 6.264  0.0618 .
-    ## s(duration):duration_grouplong  1.4159 1.6038 1.375  0.1693  
-    ## s(duration):duration_groupshort 1.4575 1.6229 2.237  0.1032  
+    ## s(duration)                     0.6667 0.6667 6.605  0.0545 .
+    ## s(duration):duration_grouplong  0.7592 0.8431 0.895  0.3997  
+    ## s(duration):duration_groupshort 1.5840 1.6598 8.549  0.0288 *
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Rank: 7/8
-    ## R-sq.(adj) =  0.293   Deviance explained = 47.1%
-    ## GCV = 0.0067504  Scale est. = 0.0047821  n = 19
+    ## R-sq.(adj) =  0.419   Deviance explained = 54.8%
+    ## GCV = 0.0053365  Scale est. = 0.0039294  n = 19
 
 ``` r
 plot(msd.gam, all.terms = T, shade = T, pages = 1)
@@ -988,7 +993,15 @@ table(mod.db$categorical_stability)
 # Place stability
 cat.mod.place <- glmer(PlaceStability ~ log(duration) + (1 | CreolePhoneme), 
                        data = mod.db, family = "binomial")
+```
 
+    ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
+    ## Model failed to converge with max|grad| = 0.0989796 (tol = 0.002, component 1)
+
+    ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model is nearly unidentifiable: very large eigenvalue
+    ##  - Rescale variables?
+
+``` r
 summary(cat.mod.place)
 ```
 
@@ -1003,23 +1016,27 @@ summary(cat.mod.place)
     ## 
     ## Scaled residuals: 
     ##     Min      1Q  Median      3Q     Max 
-    ## -6.3810  0.0327  0.0341  0.1593  2.3669 
+    ## -6.4584  0.0282  0.0300  0.1610  2.4148 
     ## 
     ## Random effects:
     ##  Groups        Name        Variance Std.Dev.
-    ##  CreolePhoneme (Intercept) 34.8     5.899   
+    ##  CreolePhoneme (Intercept) 40.56    6.369   
     ## Number of obs: 685, groups:  CreolePhoneme, 34
     ## 
     ## Fixed effects:
-    ##               Estimate Std. Error z value Pr(>|z|)  
-    ## (Intercept)     5.5541     3.0094   1.846   0.0649 .
-    ## log(duration)  -0.0260     0.2695  -0.096   0.9231  
+    ##                Estimate Std. Error z value Pr(>|z|)    
+    ## (Intercept)   5.4884795  0.0007144 7683.01   <2e-16 ***
+    ## log(duration) 0.0643701  0.0007145   90.09   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr)
-    ## log(duratn) -0.560
+    ## log(duratn) 0.000 
+    ## optimizer (Nelder_Mead) convergence code: 0 (OK)
+    ## Model failed to converge with max|grad| = 0.0989796 (tol = 0.002, component 1)
+    ## Model is nearly unidentifiable: very large eigenvalue
+    ##  - Rescale variables?
 
 ``` r
 # Manner stability
@@ -1036,27 +1053,27 @@ summary(cat.mod.manner)
     ##    Data: mod.db
     ## 
     ##      AIC      BIC   logLik deviance df.resid 
-    ##    258.1    271.7   -126.0    252.1      682 
+    ##    255.8    269.4   -124.9    249.8      682 
     ## 
     ## Scaled residuals: 
     ##     Min      1Q  Median      3Q     Max 
-    ## -6.8056  0.0038  0.0044  0.1764  1.0106 
+    ## -6.2314  0.0036  0.0044  0.1687  1.2034 
     ## 
     ## Random effects:
     ##  Groups        Name        Variance Std.Dev.
-    ##  CreolePhoneme (Intercept) 406.8    20.17   
+    ##  CreolePhoneme (Intercept) 405.7    20.14   
     ## Number of obs: 685, groups:  CreolePhoneme, 34
     ## 
     ## Fixed effects:
-    ##               Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept)     8.6821     2.5407   3.417 0.000633 ***
-    ## log(duration)   0.3547     0.2668   1.329 0.183708    
+    ##               Estimate Std. Error z value Pr(>|z|)   
+    ## (Intercept)     7.6512     2.5212   3.035  0.00241 **
+    ## log(duration)   0.5459     0.2683   2.035  0.04185 * 
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr)
-    ## log(duratn) -0.576
+    ## log(duratn) -0.565
 
 ``` r
 # Duration group
@@ -1079,11 +1096,11 @@ summary(cat.mod.group)
     ##    Data: mod.db
     ## 
     ##      AIC      BIC   logLik deviance df.resid 
-    ##    934.3    952.4   -463.2    926.3      681 
+    ##    944.6    962.7   -468.3    936.6      681 
     ## 
     ## Scaled residuals: 
-    ##     Min      1Q  Median      3Q     Max 
-    ## -1.0869 -0.8359 -0.8359  1.1963  1.5223 
+    ##    Min     1Q Median     3Q    Max 
+    ## -1.342 -0.900 -0.900  1.111  1.276 
     ## 
     ## Random effects:
     ##  Groups        Name        Variance Std.Dev.
@@ -1091,17 +1108,17 @@ summary(cat.mod.group)
     ## Number of obs: 685, groups:  CreolePhoneme, 34
     ## 
     ## Fixed effects:
-    ##                 Estimate Std. Error z value Pr(>|z|)  
-    ## (Intercept)      -0.3154     0.2375  -1.328   0.1843  
-    ## PlaceStability    0.4820     0.2935   1.642   0.1006  
-    ## MannerStability  -0.5251     0.2583  -2.033   0.0421 *
+    ##                 Estimate Std. Error z value Pr(>|z|)   
+    ## (Intercept)       0.3120     0.2363   1.321  0.18665   
+    ## PlaceStability    0.2769     0.2897   0.956  0.33922   
+    ## MannerStability  -0.7995     0.2621  -3.050  0.00229 **
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr) PlcStb
-    ## PlaceStblty -0.571       
-    ## MannrStblty -0.295 -0.568
+    ## PlaceStblty -0.543       
+    ## MannrStblty -0.326 -0.570
     ## optimizer (bobyqa) convergence code: 0 (OK)
     ## boundary (singular) fit: see help('isSingular')
 
