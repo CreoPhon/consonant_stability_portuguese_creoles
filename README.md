@@ -2,7 +2,7 @@ Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
 Carlos Silva and Steven Moran
-(22 outubro, 2023)
+(19 abril, 2024)
 
 - [1 Overview](#1-overview)
 - [2 Creole stability](#2-creole-stability)
