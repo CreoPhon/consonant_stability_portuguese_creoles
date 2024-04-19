@@ -2,7 +2,7 @@ Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
 Carlos Silva and Steven Moran
-(19 abril, 2024)
+(19 April, 2024)
 
 - [1 Overview](#1-overview)
 - [2 Creole stability](#2-creole-stability)
@@ -34,9 +34,9 @@ Carlos Silva and Steven Moran
 <!-- Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress. -->
 
 Supplementary materials for, “Consonant Stability in Portuguese-based
-creoles”. In this report, we provide code in R (RStudio Team 2020) and
-we use these R libraries (Wickham et al. 2019; Xie 2021; Slowikowski
-2022; Kuznetsova, Brockhoff, and Christensen 2017; Wood 2004):
+creoles”. In this report, we provide code in R (R Core Team 2023) and we
+use these R libraries (Wickham et al. 2019; Xie 2021; Slowikowski 2022;
+Kuznetsova, Brockhoff, and Christensen 2017; Wood 2004):
 
 ``` r
 library(tidyverse)
@@ -46,21 +46,10 @@ library(lmerTest)
 library(mgcv)
 library(PMCMRplus)
 library(ggpubr)
-```
-
-    ## Warning: package 'ggpubr' was built under R version 4.3.1
-
-``` r
 library(rstatix)
 library(stats)
 library(prabclus)
-```
 
-    ## Warning: package 'prabclus' was built under R version 4.3.1
-
-    ## Warning: package 'mclust' was built under R version 4.3.1
-
-``` r
 # Set the theme for all figures
 theme_set(theme_bw())
 ```
@@ -191,7 +180,7 @@ ggplot(creole_stability) +
 Test whether there’s a relation between type of contact situation and
 overall mean stability.
 
-Linear model
+Linear model.
 
 ``` r
 m <- lm(MeanStability ~ ContactConditions, data = creole_stability)
@@ -650,13 +639,13 @@ head(df_wide)
     ## 4 Cape Verdea…     1     0     0     0     0     0     0     0     0     0     1
     ## 5 Cape Verdea…     1     0     0     0     0     0     0     0     0     0     1
     ## 6 Cape Verdea…     1     0     0     0     0     0     0     0     0     0     1
-    ## # ℹ 104 more variables: `d̪` <dbl>, ð <dbl>, `d̪̤` <dbl>, dʰ <dbl>, `d̪̤ʱ` <dbl>,
+    ## # ℹ 104 more variables: `d̪` <dbl>, `d̪̤` <dbl>, ð <dbl>, dʰ <dbl>, `d̪̤ʱ` <dbl>,
     ## #   dz <dbl>, `d̤z` <dbl>, `d̠ʒ` <dbl>, `d̤ʒ̤ʱ` <dbl>, ɖ <dbl>, `ɖ̤` <dbl>,
-    ## #   ɖʰ <dbl>, `ɖ̤ʱ` <dbl>, f <dbl>, g <dbl>, ɣ <dbl>, ɡ <dbl>, ɡb <dbl>,
-    ## #   gʰ <dbl>, ɡʰ <dbl>, ɡʱ <dbl>, `ɡ̤ʱ` <dbl>, h <dbl>, ɦ <dbl>, j <dbl>,
+    ## #   ɖʰ <dbl>, `ɖ̤ʱ` <dbl>, f <dbl>, g <dbl>, gʰ <dbl>, ɡ <dbl>, ɡb <dbl>,
+    ## #   ɡʰ <dbl>, ɡʱ <dbl>, `ɡ̤ʱ` <dbl>, ɣ <dbl>, h <dbl>, ɦ <dbl>, j <dbl>,
     ## #   ɟ <dbl>, ɟː <dbl>, ɟʰ <dbl>, ɟʝ <dbl>, `ɟ̤ʝ` <dbl>, k <dbl>, kʰ <dbl>,
-    ## #   kp <dbl>, kʷ <dbl>, kʷʰ <dbl>, l <dbl>, `l̤` <dbl>, ɭ <dbl>, lː <dbl>,
-    ## #   m <dbl>, `m̤` <dbl>, mː <dbl>, mb <dbl>, ɱf <dbl>, mpʰ <dbl>, ɱv <dbl>, …
+    ## #   kp <dbl>, kʷ <dbl>, kʷʰ <dbl>, l <dbl>, `l̤` <dbl>, lː <dbl>, ɭ <dbl>,
+    ## #   ʎ <dbl>, m <dbl>, `m̤` <dbl>, mː <dbl>, mb <dbl>, mpʰ <dbl>, ɱf <dbl>, …
 
 ``` r
 tmp <- df_wide %>%
@@ -707,7 +696,7 @@ summary(cl)
 ggplot(df_cor, aes(x = stability, y = lex_crio, label = Language)) +
   geom_smooth(method = "lm") +
   geom_point() +
-geom_text(aes(label=Language), hjust=1, vjust=0)
+  geom_text_repel(aes(label = Language))
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
@@ -742,7 +731,7 @@ summary(sl_mean)
 ggplot(df_cor, aes(x = stability, y = lex_subs_mean, label = Language)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  geom_text(aes(label=Language), hjust=1, vjust=0)
+  geom_text_repel(aes(label = Language))
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
@@ -777,7 +766,7 @@ summary(sc_mean)
 ggplot(df_cor, aes(x = stability, y = crio_subs_mean, label = Language)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  geom_text(aes(label=Language), hjust=1, vjust=0)
+  geom_text_repel(aes(label = Language))
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
@@ -818,7 +807,7 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
 ![](README_files/figure-gfm/stability_by_consonant-1.png)<!-- -->
 
 A linear model to assess the relationship between manner and place
-stability
+stability.
 
 ``` r
 lm_manner_place <- lm(mplace~mmanner, data=consonant_stability)
@@ -877,7 +866,7 @@ ggplot(consonant_global_stability) +
 
 ## 3.1 Manner stability
 
-Check for class effects on the global stability of consonants
+Check for class effects on the global stability of consonants.
 
 ``` r
 ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
@@ -890,7 +879,7 @@ ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
 
 ![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
-Now, just plotting the relation manner to manner
+Now, just plotting the relation manner to manner.
 
 ``` r
 ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
@@ -909,7 +898,7 @@ ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
 
 ## 3.2 Place stability
 
-Check place effects on the global stability of the consonants
+Check place effects on the global stability of the consonants.
 
 ``` r
 place <- c("labial", "alveolar", "labiodental", "velar", "velar", "alveolar", "labial", "alveolar", "labial", "alveolar", "alveolar", "alveolar", "palatal", "labiodental", "alveolar", "palatal", "alveolar", "palatal", "palatal")
@@ -926,7 +915,7 @@ ggplot(consonant_stability_place, aes(x = place, y = mglobal, fill = place)) +
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- --> Now, just
-with the mean for Place stability
+with the mean for place stability.
 
 ``` r
 ggplot(consonant_stability_place, aes(x = place, y = mplace, fill = place)) +
@@ -979,7 +968,7 @@ plot(mod.db$categorical_stability, mod.db$duration, notch = T)
 ![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
 
 Hugely skewed in favor of no manner/place (10x as frequent as the next
-most frequent level; this could cause problems for the models).
+most frequent level; note this may cause problems for the models).
 
 ``` r
 table(mod.db$categorical_stability)
@@ -996,7 +985,7 @@ cat.mod.place <- glmer(PlaceStability ~ log(duration) + (1 | CreolePhoneme),
 ```
 
     ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
-    ## Model failed to converge with max|grad| = 0.0989796 (tol = 0.002, component 1)
+    ## Model failed to converge with max|grad| = 0.0989799 (tol = 0.002, component 1)
 
     ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model is nearly unidentifiable: very large eigenvalue
     ##  - Rescale variables?
@@ -1025,8 +1014,8 @@ summary(cat.mod.place)
     ## 
     ## Fixed effects:
     ##                Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept)   5.4884795  0.0007144 7683.01   <2e-16 ***
-    ## log(duration) 0.0643701  0.0007145   90.09   <2e-16 ***
+    ## (Intercept)   5.4884037  0.0007144  7682.9   <2e-16 ***
+    ## log(duration) 0.0643798  0.0007145    90.1   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
@@ -1034,7 +1023,7 @@ summary(cat.mod.place)
     ##             (Intr)
     ## log(duratn) 0.000 
     ## optimizer (Nelder_Mead) convergence code: 0 (OK)
-    ## Model failed to converge with max|grad| = 0.0989796 (tol = 0.002, component 1)
+    ## Model failed to converge with max|grad| = 0.0989799 (tol = 0.002, component 1)
     ## Model is nearly unidentifiable: very large eigenvalue
     ##  - Rescale variables?
 
@@ -1066,14 +1055,14 @@ summary(cat.mod.manner)
     ## 
     ## Fixed effects:
     ##               Estimate Std. Error z value Pr(>|z|)   
-    ## (Intercept)     7.6512     2.5212   3.035  0.00241 **
+    ## (Intercept)     7.6512     2.5177   3.039  0.00237 **
     ## log(duration)   0.5459     0.2683   2.035  0.04185 * 
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr)
-    ## log(duratn) -0.565
+    ## log(duratn) -0.566
 
 ``` r
 # Duration group
@@ -1246,7 +1235,7 @@ ggplot(different_position_results) +
 
 ## 3.4 Typological frequency and borrowability
 
-First, we turn the data into ordinal.
+First, we turn the data into ordinal values.
 
 Ordinal data was generated by ranking the percentage values of
 stability, borrowability and typological frequency from 1 to 19.
@@ -1385,9 +1374,7 @@ df_sta <- data.frame(Stability, consonant)
 ```
 
 Then, we create the data frames and prepare them for non-parametric
-tests
-
-Long format with joint groups
+tests. Long format with joint groups.
 
 ``` r
 df_friedman <- left_join(df_sta, df_bor, by="consonant")
@@ -1419,16 +1406,15 @@ head(df_long)
     ## 5         f Borrowability     1
     ## 6         b Borrowability     4
 
-In particular, for the Spearman’s rank correlation coefficient
-
-Large format and separated groups
+In particular, for the Spearman’s rank correlation coefficient. Large
+format and separated groups.
 
 ``` r
 df_sta_bor <- left_join(df_sta, df_bor, by="consonant")
 df_sta_typ <- left_join(df_sta, df_typ, by="consonant")
 ```
 
-Converting to long format
+Converting to long format.
 
 ``` r
 sta_bor_long <- df_sta_bor %>% gather(key = "conditions", 
@@ -1437,13 +1423,11 @@ sta_typ_long <- df_sta_typ %>% gather(key = "conditions",
                                       value = "order", Typology, Stability)
 ```
 
-Finally, we perform the non-parametric tests
-
-Statistical summary
+Finally, we perform the non-parametric tests. The statistical summary:
 
 ``` r
-df_long %>% group_by(conditions) %>%  summarise(n = n(), mean = mean(order), 
-                                               sd = sd(order))
+df_long %>% group_by(conditions) %>%  
+  summarise(n = n(), mean = mean(order), sd = sd(order))
 ```
 
     ## # A tibble: 3 × 4
@@ -1453,16 +1437,18 @@ df_long %>% group_by(conditions) %>%  summarise(n = n(), mean = mean(order),
     ## 2 Stability        19  9.84  5.76
     ## 3 Typology         19  9.95  5.67
 
-A first plot
+A first plot.
 
 ``` r
-ggplot(df_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape = NA) + 
-  geom_jitter(width = 0.2) + theme(legend.position="top")
+ggplot(df_long, aes(x = consonant, y = order)) + 
+  geom_boxplot(outlier.shape = NA) + 
+  geom_jitter(width = 0.2) + 
+  theme(legend.position="top")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
 
-1)  Friedman test
+1)  Friedman test.
 
 ``` r
 friedman.test(y = df_long$order, groups = df_long$conditions, blocks = df_long$consonant)
@@ -1483,7 +1469,7 @@ df_long %>% friedman_effsize(order ~ conditions | consonant)
     ## * <chr> <int>   <dbl> <chr>     <ord>    
     ## 1 order    19  0.0661 Kendall W small
 
-2)  Conover’s all-pairs test
+2)  Conover’s all-pairs test.
 
 ``` r
 frdAllPairsConoverTest(
@@ -1494,10 +1480,10 @@ frdAllPairsConoverTest(
 ```
 
     ##           Borrowability Stability
-    ## Stability 0.68          -        
-    ## Typology  0.44          1.00
+    ## Stability 0.67          -        
+    ## Typology  0.43          1.00
 
-3)  Durbin’s all-pairs test
+3)  Durbin’s all-pairs test.
 
 ``` r
 durbinAllPairsTest(
@@ -1511,9 +1497,9 @@ durbinAllPairsTest(
     ## Stability 0.44          -        
     ## Typology  0.43          0.81
 
-4)  Spearman’s Correlation Coefficient
+4)  Spearman’s correlation coefficient.
 
-4.1) Stability~Borrowability
+4.1) Stability ~ Borrowability.
 
 ``` r
 cor.test(x=df_sta_bor$Borrowability, 
@@ -1531,7 +1517,7 @@ cor.test(x=df_sta_bor$Borrowability,
     ##         rho 
     ## -0.09894132
 
-4.2) Stability~Typological frequency
+4.2) Stability ~ Typological frequency.
 
 ``` r
 cor.test(x=df_sta_typ$Typology, 
@@ -1549,11 +1535,9 @@ cor.test(x=df_sta_typ$Typology,
     ##      rho 
     ## 0.826425
 
-Visualizing the results
+Next, visualize the results. Box plots.
 
-Box plots
-
-Stability vs typological frequency
+Stability vs typological frequency.
 
 ``` r
 ggplot(sta_typ_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape = NA) + 
@@ -1562,7 +1546,7 @@ ggplot(sta_typ_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape
 
 ![](README_files/figure-gfm/unnamed-chunk-56-1.png)<!-- -->
 
-Stability vs borrowability
+Stability vs borrowability.
 
 ``` r
 ggplot(sta_bor_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape = NA) + 
@@ -1571,7 +1555,7 @@ ggplot(sta_bor_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape
 
 ![](README_files/figure-gfm/unnamed-chunk-57-1.png)<!-- -->
 
-Bump chart
+Bump chart.
 
 ``` r
 ggplot(data = df_long, aes(x = conditions, y = order, group = consonant)) +
@@ -1590,7 +1574,7 @@ ggplot(data = df_long, aes(x = conditions, y = order, group = consonant)) +
 
 ## 3.5 Inventory size and frequency across substrates
 
-Get data
+Get the data.
 
 ``` r
 inv <- read.csv("Inventories.csv")
@@ -1605,7 +1589,7 @@ head(inv)
     ## 5 19 Portuguese Lexifier       k       Castro2013[242-248]        NA
     ## 6 19 Portuguese Lexifier       g       Castro2013[242-248]        NA
 
-Prepare data
+Prepare the data.
 
 ``` r
 df_inv_long <- inv %>% dplyr::select(Language, Phoneme) %>%  mutate(newcol = 1)
@@ -1634,9 +1618,8 @@ head(df_total_inv)
     ## #   `Cape Verdean Brava` <dbl>, `Cape Verdean Sao Vicente` <dbl>,
     ## #   `Cape Verdean Santo Antao` <dbl>, `Cape Verdean Fogo` <dbl>, …
 
-Measuring the inventory size
-
-Get the consonant inventory size for all languages
+Measuring the inventory size. Get the consonant inventory size for all
+languages.
 
 ``` r
 cons_count <- df_total_inv %>% dplyr::select(c(2:38)) %>% mutate_at(c(1:37), as.numeric)
@@ -1680,8 +1663,8 @@ ggplot(inv_size) +
 
 ![](README_files/figure-gfm/unnamed-chunk-61-1.png)<!-- -->
 
-Violin plot: the majority of creoles have larger consonant inventories
-than Portuguese.
+Violin plot shows that the majority of creoles have larger consonant
+inventories than Portuguese.
 
 ``` r
 ggplot(inv_size, aes(x = Category, y = count, fill = Category)) +
@@ -1695,9 +1678,8 @@ ggplot(inv_size, aes(x = Category, y = count, fill = Category)) +
 
 ![](README_files/figure-gfm/size_violin-1.png)<!-- -->
 
-Consonant frequency in all languages involved
-
-Count frequent consonants
+Consonant frequency in all languages involved. Count frequent
+consonants.
 
 ``` r
 total <- rowSums(cons_count)
@@ -1710,33 +1692,32 @@ colnames(cons_freq)[1] <- "LexifierPhoneme"
 ```
 
 Is there a relationship between this frequency and the stability values?
-
-Subset: Portuguese consonants only
+Portuguese consonants only.
 
 ``` r
 cons_freq_pt <- cons_freq %>% subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s',
                                        't','v','z','ʒ', 'r'))
 ```
 
-First dataset: relative frequency values
+First dataset: relative frequency values.
 
 ``` r
 cons_freq_rel <- cons_freq_pt %>% mutate(frequency = total/37)
 ```
 
-Second dataset:stability values
+Second dataset: stability values.
 
 ``` r
 consonant_global_stability <- read.csv("consonant_global_stability.csv")
 ```
 
-Merge datasets
+Merge the datasets.
 
 ``` r
 cor_freq_sta <- left_join(consonant_global_stability, cons_freq_rel, by='LexifierPhoneme')
 ```
 
-Results of a simple regression
+Results of a simple regression.
 
 ``` r
 fs <- lm(frequency ~ mglobal, data=cor_freq_sta)
@@ -1762,7 +1743,7 @@ summary(fs)
     ## Multiple R-squared:  0.6163, Adjusted R-squared:  0.5938 
     ## F-statistic: 27.31 on 1 and 17 DF,  p-value: 6.851e-05
 
-Plot the results
+Plot the results.
 
 ``` r
 fs_plot <- ggplot(cor_freq_sta, aes(x = frequency, y = mglobal, label = LexifierPhoneme)) +
@@ -1785,14 +1766,18 @@ increase the lack of correlation.
 Is there a relationship between consonant stability and their presence
 in the inventories of the substrate languages?
 
-Data preparation (substrates only)
+Data preparation (substrates only).
 
 ``` r
-inv_subs <- inv %>% subset(Category == 'substrate') %>%  dplyr::select(Language, Phoneme)  %>% mutate(newcol = 1)
+inv_subs <- inv %>% subset(Category == 'substrate') %>% 
+  dplyr::select(Language, Phoneme) %>% 
+  mutate(newcol = 1)
 
-inv_subs_long <- inv_subs %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
+inv_subs_long <- inv_subs %>% 
+  pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
 
-inv_subs_long <- inv_subs_long %>% mutate_at(c(2:18), as.numeric)
+inv_subs_long <- inv_subs_long %>% 
+  mutate_at(c(2:18), as.numeric)
 
 head(inv_subs_long)
 ```
@@ -1811,10 +1796,11 @@ head(inv_subs_long)
     ## #   Wolof <dbl>, Temne <dbl>, Mandinka <dbl>, Nyun <dbl>
 
 Sum row values and subset to consonants which have correspondents in
-Portuguese
+Portuguese.
 
 ``` r
-subs_count <- inv_subs_long %>% dplyr::select(c(2:18))
+subs_count <- inv_subs_long %>% 
+  dplyr::select(c(2:18))
 
 total_subs <- rowSums(subs_count)
 
@@ -1824,22 +1810,23 @@ subs_freq <- transform(subs_freq, total_subs = as.numeric(total_subs))
 
 colnames(subs_freq)[1] <- "LexifierPhoneme"
 
-subs_freq <- subs_freq %>% subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s', 't','v','z','ʒ', 'r'))
+subs_freq <- subs_freq %>% 
+  subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s', 't','v','z','ʒ', 'r'))
 ```
 
-Get relative values
+Get relative values.
 
 ``` r
 subs_freq_rel <- subs_freq %>% mutate(frequency = total_subs/17)
 ```
 
-Merge datasets
+Merge datasets.
 
 ``` r
 subs_sta <- left_join(consonant_global_stability, subs_freq_rel, by='LexifierPhoneme')
 ```
 
-Results of a simple regression
+Results of a simple regression.
 
 ``` r
 subs_sta_lm <- lm(frequency ~ mglobal, data=subs_sta)
@@ -1866,7 +1853,7 @@ summary(subs_sta_lm)
     ## Multiple R-squared:  0.4105, Adjusted R-squared:  0.3736 
     ## F-statistic: 11.14 on 1 and 16 DF,  p-value: 0.004175
 
-Plot the results
+Plot the results.
 
 ``` r
 subsfreq_sta_cor <- ggplot(subs_sta, aes(x = frequency, y = mglobal, label = LexifierPhoneme)) +
@@ -1887,15 +1874,15 @@ find that there is a weaker correlation (if we compare with the results
 above). However, this correlation is statistically significant (p-value:
 0.004). Nothing the outliers which are normally voiced consonants.
 
-Typological frequency vs. Substrate frequency
+Typological frequency vs. Substrate frequency.
 
-Typological frequency data, extrated from PHOIBLE
+Typological frequency data, extrated from PHOIBLE.
 
 ``` r
 typ_freq <- read.csv("typ_freq.csv")
 ```
 
-Merge datasets
+Merge the datasets.
 
 ``` r
 #consonant_global_stability <- read.csv("consonant_global_stability.csv")
@@ -1903,7 +1890,7 @@ Merge datasets
 typ_sta <- left_join(typ_freq, consonant_global_stability, by='LexifierPhoneme')
 ```
 
-Results of a simple regression
+Results of a simple regression.
 
 ``` r
 typ_sta_lm <- lm(TypologicalFreq ~ mglobal, data=typ_sta)
@@ -1930,7 +1917,7 @@ summary(typ_sta_lm)
     ## Multiple R-squared:  0.5838, Adjusted R-squared:  0.5577 
     ## F-statistic: 22.44 on 1 and 16 DF,  p-value: 0.0002233
 
-Plot the results
+Plot the results.
 
 ``` r
 typ_sta_cor <- ggplot(typ_sta, aes(x = TypologicalFreq, y = mglobal, label = LexifierPhoneme)) +
@@ -1947,7 +1934,8 @@ typ_sta_cor + geom_text_repel(aes(label=LexifierPhoneme))
 
 # 4 References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-CarvalhoLucchesi16" class="csl-entry">
 
@@ -1979,8 +1967,9 @@ Mixed Effects Models.” *Journal of Statistical Software* 82 (13): 1–26.
 
 <div id="ref-R" class="csl-entry">
 
-RStudio Team. 2020. *RStudio: Integrated Development Environment for r*.
-Boston, MA: RStudio, PBC. <http://www.rstudio.com/>.
+R Core Team. 2023. *R: A Language and Environment for Statistical
+Computing*. Vienna, Austria: R Foundation for Statistical Computing.
+<https://www.R-project.org/>.
 
 </div>
 
