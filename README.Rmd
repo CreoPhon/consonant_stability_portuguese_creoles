@@ -1,6 +1,6 @@
 ---
 title: "Supplementary materials for: Consonant stability in Portuguese-based creoles"
-author: "Carlos Silva, Steven Moran and Nicholas A. Lester" 
+author: "Carlos Silva and Steven Moran" 
 date: "(`r format(Sys.time(), '%d %B, %Y')`)"
 output:
   github_document:
