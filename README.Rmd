@@ -22,7 +22,7 @@ bibliography: 'bibliography.bib'
   
 <!-- Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress. -->
 
-Supplementary materials for, "Consonant Stability in Portuguese-based creoles". In this report, we provide code in R [@R] and we use these R libraries [@tidyverse;@knitr;@ggrepel;@lmerTest;@mgcv]:
+Supplementary materials for, "Consonant Stability in Portuguese-based creoles". In this report, we provide code in R [@R] and we use these R libraries [@tidyverse;@knitr;@ggrepel;@lmerTest;@mgcv;@maps]:
 
 ```{r, message=FALSE}
 library(tidyverse)
@@ -35,6 +35,7 @@ library(ggpubr)
 library(rstatix)
 library(stats)
 library(prabclus)
+library(maps)
 
 # Set the theme for all figures
 theme_set(theme_bw())
@@ -112,6 +113,18 @@ database <- database %>%
                                         "manner/place", categorical_stability))
 
 table(database$categorical_stability)
+```
+
+# Language sample
+
+Here are the languages plotted on a world map.
+
+```{r, message=FALSE}
+locations <- read_csv('creole_locations.csv')
+
+ggplot(data = locations, aes(x = Longitude, y = Latitude)) + 
+  borders("world", colour="gray50", fill="gray50") + 
+  geom_point()
 ```
 
 
