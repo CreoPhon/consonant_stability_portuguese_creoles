@@ -23,7 +23,7 @@ Carlos Silva and Steven Moran
     substrates](#45-inventory-size-and-frequency-across-substrates)
 - [5 References](#5-references)
 
-<!-- FOr the anonymous PDF version, use:
+<!-- For the anonymous PDF version, use:
 &#10;  pdf_document:
     latex_engine: xelatex
     toc: true
@@ -35,11 +35,14 @@ Carlos Silva and Steven Moran
 <!-- Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress. -->
 
 Supplementary materials for, “Consonant Stability in Portuguese-based
-creoles”. In this report, we provide code in R (R Core Team 2023) and we
-use these R libraries (Wickham et al. 2019; Xie 2021; Slowikowski 2022;
-Kuznetsova, Brockhoff, and Christensen 2017; Wood 2004; Richard A.
-Becker, Ray Brownrigg. Enhancements by Thomas P Minka, and Deckmyn.
-2023):
+creoles”, available online:
+
+- <https://github.com/CreoPhon/consonant_stability_portuguese_creoles>
+
+In this report, we provide code in R (R Core Team 2023) and we use these
+R libraries (Wickham et al. 2019; Xie 2021; Slowikowski 2022;
+Kuznetsova, Brockhoff, and Christensen 2017; Wood 2004; Pohlert 2023;
+Kassambara 2023a, 2023b; Hennig and Hausdorf 2023; Becker et al. 2023):
 
 ``` r
 library(tidyverse)
@@ -179,10 +182,10 @@ We have the overall stability values. What are these in relation to the
 conditions of contact?
 
 The finding that “slavery has a negative impact on stability” was mainly
-observational and also literature-based (e.g. Faraclas et al. (2007);
-Carvalho and Lucchesi (2016); Upper Guinea light creoles = slavery but
-with lighter contact conditions versus Gulf of Guinea hard creole =
-slavery and harder contact conditions).
+observational (e.g. Faraclas et al. (2007); Carvalho and Lucchesi
+(2016)). Upper Guinea are considered “light” creoles, i.e., enslaved
+people with “lighter” contact conditions. Gulf of Guinea are considered
+“hard” creole, i.e., enslaved people under “harder” contact conditions.
 
 ``` r
 ggplot(creole_stability) +
@@ -195,10 +198,8 @@ ggplot(creole_stability) +
 
 ![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
-Test whether there’s a relation between type of contact situation and
-overall mean stability.
-
-Linear model.
+Test whether there is a relation between type of contact situation and
+overall mean stability with a linear model.
 
 ``` r
 m <- lm(MeanStability ~ ContactConditions, data = creole_stability)
@@ -223,6 +224,8 @@ summary(m)
     ## Residual standard error: 0.08191 on 17 degrees of freedom
     ## Multiple R-squared:  0.06279,    Adjusted R-squared:  0.007662 
     ## F-statistic: 1.139 on 1 and 17 DF,  p-value: 0.3008
+
+Visualize the results.
 
 ``` r
 ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, 
@@ -289,15 +292,6 @@ overall stability.
 ``` r
 ggplot(creole_stability, aes(x = duration, y = MeanStability)) +
   geom_point() +
-  xlab("Duration (years)") +
-  ylab("Mean stability")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
-
-``` r
-ggplot(creole_stability, aes(x = duration, y = MeanStability)) +
-  geom_point() +
   geom_text_repel(aes(label = creole_stability$Language)) +
   xlab("Duration of contact (years)") +
   ylab("Stability score")
@@ -305,7 +299,7 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability)) +
 
 ![](README_files/figure-gfm/duration_groups_scatter-1.png)<!-- -->
 
-Results from the simple regression.
+Results from a linear regression.
 
 ``` r
 msd <- lm(MeanStability ~ duration, data = creole_stability)
@@ -332,11 +326,11 @@ summary(msd)
     ## F-statistic: 2.139 on 1 and 17 DF,  p-value: 0.1618
 
 However, there does seem to be two groups of languages – ones that
-belong to “long duration” (\>= 400 years) and those that below to “short
-duration” (\<= 250 years).
+belong to “long duration” (\>= 400 years) and those that belong to
+“short duration” (\<= 250 years).
 
-We can try to split the data and rerun the models, but we note that
-there are very few data points.
+We split the data and rerun the models, but we note that there are very
+few data points.
 
 ``` r
 tmp_short <- creole_stability %>% filter(duration <= 250)
@@ -346,30 +340,12 @@ tmp_long <- creole_stability %>% filter(duration > 250)
 ``` r
 ggplot(tmp_short, aes(x = duration, y = MeanStability)) +
   geom_point() +
-  xlab("Duration (years)") +
-  ylab("Mean stability")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
-
-``` r
-ggplot(tmp_short, aes(x = duration, y = MeanStability)) +
-  geom_point() +
   geom_text_repel(aes(label = tmp_short$Language)) +
   xlab("Duration (years)") +
   ylab("Mean stability")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
-
-``` r
-ggplot(tmp_long, aes(x = duration, y = MeanStability)) +
-  geom_point() +
-  xlab("Duration (years)") +
-  ylab("Mean stability")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ``` r
 ggplot(tmp_long, aes(x = duration, y = MeanStability)) +
@@ -379,10 +355,10 @@ ggplot(tmp_long, aes(x = duration, y = MeanStability)) +
   ylab("Mean stability")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-19-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
-A single model with an interaction term MeanSim ~ duration, group \*
-duration.
+Here is a single model with an interaction term MeanSim ~ duration,
+group \* duration.
 
 ``` r
 msd <- lm(MeanStability ~ duration + duration_group * duration, data = creole_stability)
@@ -425,16 +401,12 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_g
 The variability in the two groups is very different. The direction of
 the effect is interesting: shorter durations yield more stability more
 consistently. Over time, the variability in mean stability increases.
-Time is “destabillizing the pattern of stability”.
-
-But it looks like you might have something tastier on your hands. The
-creoles appear to be bouncing back toward the lexifier over time (based
-on the duration findings; but perhaps I misunderstand).
+Time is “destabillizing the pattern of stability” (pc Nicholas Lester).
 
 And we can also increase the number of observations by running the
 analysis at the segment level, rather than on mean stability.
 
-Exploratory analysis with a generalized additive model (GAM).
+Here is an exploratory analysis with a generalized additive model (GAM).
 
 ``` r
 # Factorize duration_group
@@ -479,14 +451,14 @@ summary(msd.gam)
 plot(msd.gam, all.terms = T, shade = T, pages = 1)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ``` r
 qqnorm(resid(msd.gam))
 qqline(resid(msd.gam))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-21-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
 
 ``` r
 msd.gam.trimmed <- gam(MeanStability ~ duration_group + s(duration, k = 3) 
@@ -528,7 +500,7 @@ plot(msd.gam.trimmed, sel = 1, shade = T, ylab = "Effect on mean stability",
 abline(h = 0, lty = 2, col = "red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-21-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-3.png)<!-- -->
 
 ``` r
 plot(msd.gam.trimmed, sel = 2, shade = T, ylab = "Effect on mean stability", 
@@ -536,7 +508,7 @@ plot(msd.gam.trimmed, sel = 2, shade = T, ylab = "Effect on mean stability",
 abline(h = 0, lty = 2, col = "red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-21-4.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-4.png)<!-- -->
 
 ``` r
 plot(msd.gam.trimmed, sel = 3, shade = T, ylab = "Effect on mean stability", 
@@ -544,7 +516,7 @@ plot(msd.gam.trimmed, sel = 3, shade = T, ylab = "Effect on mean stability",
 abline(h = 0, lty = 2, col = "red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-21-5.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-5.png)<!-- -->
 
 ``` r
 # (dotted lines indicate error)
@@ -552,7 +524,7 @@ plot(msd.gam.trimmed, all.terms = T, sel = 4, ylab = "Effect on mean stability",
      xlab = "Duration group", main = "Main effect of duration group")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-21-6.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-6.png)<!-- -->
 
 ``` r
 # checking out the model performance
@@ -560,15 +532,15 @@ qqnorm(resid(msd.gam.trimmed))
 qqline(resid(msd.gam.trimmed)) # meh
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-21-7.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-7.png)<!-- -->
 
 Removing the two creoles with the lowest scores produces significant
-effects. This doesn’t seem very reliable though, especially given the
+effects. This does not seem very reliable though, especially given the
 small sample size. Also, the pattern is strange: a negative trend of
 duration for long-term influence and a positive one for short-term
 influence? Note that the model detected a mean difference between
 duration groups, with the short group having (slightly) lower mean
-stability. This appears to be the case – but again – we have so few
+stability. This appears to be the case – but again – there are very few
 observations.
 
 ## 3.3 Duration effects on the segment level
@@ -586,7 +558,7 @@ ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
@@ -598,7 +570,7 @@ ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, PlaceStability, colour = duration_group)) +
@@ -610,7 +582,7 @@ ggplot(database, aes(duration, PlaceStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
@@ -622,7 +594,7 @@ ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 ``` r
 ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
@@ -634,9 +606,11 @@ ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 ## 3.4 Jaccard distance between inventories
+
+Here we explore the Jaccard distance between phonological inventories.
 
 ``` r
 df_jac <- read_csv("Inventories.csv")
@@ -671,20 +645,18 @@ tmp <- df_wide %>%
 jac_dist <- jaccard(t(tmp))
 ```
 
-The Jaccard distance values were then manually extracted into a new
-table, so we could visualize those values according to the relevant
-language in contact (jaccard_results.csv). Then, we created a new table
+The Jaccard distance values were manually extracted into a new table, so
+we could visualize those values according to the relevant language in
+contact (see file `jaccard_results.csv`). Then, we created a new table
 which summaries those results for creoles and joins their stability
-values, so we can assess if there is or there is not a correlation
-between the jaccard distances and the overall stability os creoles.
+values, so we can assess if there is or if there is not a correlation
+between the Jaccard distances and the overall stability os creoles.
 
 ``` r
 df_cor <- read.csv("jaccard_summary.csv")
 ```
 
-Linear models
-
-Inventory distance creoles ~ Portuguese
+We create a linear model of inventory distance creoles ~ Portuguese.
 
 ``` r
 cl <- lm(stability ~ lex_crio, data=df_cor)
@@ -714,12 +686,14 @@ summary(cl)
 ggplot(df_cor, aes(x = stability, y = lex_crio, label = Language)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  geom_text_repel(aes(label = Language))
+  geom_text_repel(aes(label = Language)) +
+  xlab("Stability") +
+  ylab("Lex crio") # CS: FIX THIS
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
-Inventory distance substrates ~ Portuguese
+Next, inventory distance substrates ~ Portuguese.
 
 ``` r
 sl_mean <- lm(stability ~ lex_subs_mean, data=df_cor)
@@ -749,12 +723,14 @@ summary(sl_mean)
 ggplot(df_cor, aes(x = stability, y = lex_subs_mean, label = Language)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  geom_text_repel(aes(label = Language))
+  geom_text_repel(aes(label = Language)) +
+  xlab("Stability") +
+  ylab("Lex subs mean") # CS: FIX THIS
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
-Inventory distance substrates ~ creoles
+Next, inventory distance substrates ~ creoles.
 
 ``` r
 sc_mean <- lm(stability ~ crio_subs_mean, data=df_cor)
@@ -784,17 +760,17 @@ summary(sc_mean)
 ggplot(df_cor, aes(x = stability, y = crio_subs_mean, label = Language)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  geom_text_repel(aes(label = Language))
+  geom_text_repel(aes(label = Language)) +
+  xlab("Stability") +
+  ylab("Crio subs mean") # CS: FIX THIS
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
 # 4 Consonant stability
 
 Which segments are the most stable across creoles in the language
-sample?
-
-We calculate stability of place and manner for each phoneme.
+sample? We calculate stability of place and manner for each phoneme.
 
 ``` r
 place_results <- database %>%
@@ -824,8 +800,8 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
 
 ![](README_files/figure-gfm/stability_by_consonant-1.png)<!-- -->
 
-A linear model to assess the relationship between manner and place
-stability.
+We make a linear model to assess the relationship between manner and
+place stability.
 
 ``` r
 lm_manner_place <- lm(mplace~mmanner, data=consonant_stability)
@@ -892,10 +868,12 @@ ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
   geom_violin() +
    geom_dotplot(binaxis = "y",
                stackdir = "center",
-               dotsize = 0.5)
+               dotsize = 0.5) +
+  xlab("Segment calss") +
+  ylab("Mean global score") # CS: FIX THIS
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 Now, just plotting the relation manner to manner.
 
@@ -916,7 +894,7 @@ ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
 
 ## 4.2 Place stability
 
-Check place effects on the global stability of the consonants.
+We check place effects on the global stability of the consonants.
 
 ``` r
 place <- c("labial", "alveolar", "labiodental", "velar", "velar", "alveolar", "labial", "alveolar", "labial", "alveolar", "alveolar", "alveolar", "palatal", "labiodental", "alveolar", "palatal", "alveolar", "palatal", "palatal")
@@ -929,10 +907,12 @@ ggplot(consonant_stability_place, aes(x = place, y = mglobal, fill = place)) +
    geom_dotplot(binaxis = "y",
                stackdir = "center",
                dotsize = 0.5) +
-  theme(legend.position="none")
+  theme(legend.position="none") +
+  xlab("Place of articulation") +
+  ylab("Mean global score") # CS: FIX THIS
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- --> Now, just
+![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- --> Now, just
 with the mean for place stability.
 
 ``` r
@@ -948,18 +928,9 @@ ggplot(consonant_stability_place, aes(x = place, y = mplace, fill = place)) +
  stat_summary(fun.y=mean, geom="point", size=2, shape=16)
 ```
 
-![](README_files/figure-gfm/place_place-1.png)<!-- -->
-
-Calculate the stability of the segments.
-
-``` r
-# qplot(x = duration, y = MeanStability, data = consonant_global_stability, color = duration_group) +
-#  geom_smooth(method = "lm") 
-```
-
-And we can also increase the number of observations in duration
-regression by running the analysis at the segment level, rather than on
-mean stability.
+![](README_files/figure-gfm/place_place-1.png)<!-- --> We can also
+increase the number of observations in duration regression by running
+the analysis at the segment level, rather than on mean stability.
 
 ``` r
 # Factorizing
@@ -983,7 +954,7 @@ mod.db <- database %>%
 plot(mod.db$categorical_stability, mod.db$duration, notch = T)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 Hugely skewed in favor of no manner/place (10x as frequent as the next
 most frequent level; note this may cause problems for the models).
@@ -1129,8 +1100,8 @@ summary(cat.mod.group)
     ## optimizer (bobyqa) convergence code: 0 (OK)
     ## boundary (singular) fit: see help('isSingular')
 
-Some indication that place stability is more often associated with
-shorter periods of influence.
+There is some indication that place stability is more often associated
+with shorter periods of influence.
 
 Numerically, the manner/place category has 50% of its observations in
 the longest duration from the sample. At the same time, no manner/no
@@ -1181,7 +1152,7 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
   labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -1230,7 +1201,7 @@ ggplot(
   labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -1249,145 +1220,36 @@ ggplot(different_position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
 
 ## 4.4 Typological frequency and borrowability
 
-First, we turn the data into ordinal values.
+First, we turn the data into ordinal values. Ordinal data was generated
+by ranking the percentage values of stability, borrowability and
+typological frequency from 1 to 19. Duplicate values summed and averaged
+in the ranking.
 
-Ordinal data was generated by ranking the percentage values of
-stability, borrowability and typological frequency from 1 to 19.
-Duplicate values summed and averaged in the ranking.
-
-1)  Cross linguistic frequency
+Cross linguistic frequency
 
 ``` r
-Typology <- c(1,
-2   ,
-3   ,
-4   ,
-5   ,
-5   ,
-7   ,
-8   ,
-9   ,
-10  ,
-11.5    ,
-11.5    ,
-13  ,
-14  ,
-15  ,
-16  ,
-17  ,
-18  ,
-19)
-consonant <- c("m",
-             "k",
-             "p",
-             "n",
-             "t",
-             "l",
-             "s",
-             "b",
-             "g",
-             "d",
-             "f",
-             "r",
-             "ɲ",
-             "t̠ʃ",
-             "z",
-             "v",
-             "ɾ",
-             "ʒ",
-             "ʎ")
+Typology <- c(1, 2, 3, 4, 5, 5, 7, 8, 9, 10, 11.5, 11.5, 13, 14, 15, 16, 17, 18, 19)
+consonant <- c("m", "k", "p", "n", "t", "l", "s", "b", "g", "d", "f", "r", "ɲ", "t̠ʃ","z","v","ɾ","ʒ","ʎ")
 df_typ <- data.frame(Typology, consonant)
 ```
 
 2)  Borrowability
 
 ``` r
-Borrowability <- c(1    ,
-2   ,
-3   ,
-4   ,
-5   ,
-6   ,
-6   ,
-8   ,
-9   ,
-10  ,
-11  ,
-12  ,
-13  ,
-14.5    ,
-14.5    ,
-16  ,
-17  ,
-18  ,
-19)
-consonant <- c("f",
-              "g",
-              "t̠ʃ",
-              "b",
-              "z",
-              "v",
-              "d",
-              "r",
-              "p",
-              "l",
-              "s",
-              "ʒ",
-              "ɾ",
-              "ɲ",
-              "k",
-              "ʎ",
-              "t",
-              "n",
-              "m")
+Borrowability <- c(1, 2, 3, 4, 5, 6, 6, 8, 9, 10, 11, 12, 13, 14.5, 14.5, 16, 17, 18, 19)
+consonant <- c("f", "g", "t̠ʃ","b","z","v","d","r","p","l","s","ʒ","ɾ","ɲ","k","ʎ","t","n","m")
 df_bor <- data.frame(Borrowability, consonant)
 ```
 
 3)  Stability values
 
 ``` r
-Stability <- c(2,
-2   ,
-2   ,
-2   ,
-5   ,
-7 ,
-7   ,
-7   ,
-8   ,
-10  ,
-11  ,
-12  ,
-13  ,
-14  ,
-15  ,
-16  ,
-17  ,
-18  ,
-19)
-consonant <- c("t",
-               "p",
-               "n",
-               "m",
-               "f",
-               "b",
-               "k",
-               "g",
-               "d",
-               "z",
-               "s",
-               "l",
-               "r",
-               "t̠ʃ",
-               "ɾ",
-               "ɲ",
-               "ʒ",
-               "ʎ",
-               "v")
+Stability <- c(2, 2, 2, 2, 5, 7, 7, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19)
+consonant <- c("t", "p", "n", "m", "f", "b", "k", "g", "d", "z", "s", "l", "r", "t̠ʃ" ,"ɾ"  ,"ɲ" ,"ʒ" ,"ʎ" ,"v")
 df_sta <- data.frame(Stability, consonant)
 ```
 
@@ -1410,8 +1272,8 @@ head(order_df)
     ## 6         7         b             4      8.0
 
 ``` r
-df_long <- order_df %>% gather(key = "conditions", 
-                         value = "order", Borrowability, Stability, Typology)
+df_long <- order_df %>% 
+  gather(key = "conditions",value = "order", Borrowability, Stability, Typology)
 
 head(df_long)
 ```
@@ -1424,21 +1286,22 @@ head(df_long)
     ## 5         f Borrowability     1
     ## 6         b Borrowability     4
 
-In particular, for the Spearman’s rank correlation coefficient. Large
-format and separated groups.
+For the Spearman’s rank correlation coefficient, we use large format and
+separated groups.
 
 ``` r
 df_sta_bor <- left_join(df_sta, df_bor, by="consonant")
 df_sta_typ <- left_join(df_sta, df_typ, by="consonant")
 ```
 
-Converting to long format.
+Convert to long format.
 
 ``` r
-sta_bor_long <- df_sta_bor %>% gather(key = "conditions", 
-                                    value = "order", Borrowability, Stability)
-sta_typ_long <- df_sta_typ %>% gather(key = "conditions", 
-                                      value = "order", Typology, Stability)
+sta_bor_long <- df_sta_bor %>% 
+  gather(key = "conditions", value = "order", Borrowability, Stability)
+
+sta_typ_long <- df_sta_typ %>% 
+  gather(key = "conditions", value = "order", Typology, Stability)
 ```
 
 Finally, we perform the non-parametric tests. The statistical summary:
@@ -1461,12 +1324,14 @@ A first plot.
 ggplot(df_long, aes(x = consonant, y = order)) + 
   geom_boxplot(outlier.shape = NA) + 
   geom_jitter(width = 0.2) + 
-  theme(legend.position="top")
+  theme(legend.position="top") +
+  ylab("Order") +
+  xlab("Consonant") # @CS: FIX
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-51-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-49-1.png)<!-- -->
 
-1)  Friedman test.
+1.  Friedman test.
 
 ``` r
 friedman.test(y = df_long$order, groups = df_long$conditions, blocks = df_long$consonant)
@@ -1487,7 +1352,7 @@ df_long %>% friedman_effsize(order ~ conditions | consonant)
     ## * <chr> <int>   <dbl> <chr>     <ord>    
     ## 1 order    19  0.0661 Kendall W small
 
-2)  Conover’s all-pairs test.
+2.  Conover’s all-pairs test.
 
 ``` r
 frdAllPairsConoverTest(
@@ -1501,7 +1366,7 @@ frdAllPairsConoverTest(
     ## Stability 0.67          -        
     ## Typology  0.43          1.00
 
-3)  Durbin’s all-pairs test.
+3.  Durbin’s all-pairs test.
 
 ``` r
 durbinAllPairsTest(
@@ -1515,9 +1380,9 @@ durbinAllPairsTest(
     ## Stability 0.44          -        
     ## Typology  0.43          0.81
 
-4)  Spearman’s correlation coefficient.
+4.  Spearman’s correlation coefficient.
 
-4.1) Stability ~ Borrowability.
+4.1 Stability ~ Borrowability.
 
 ``` r
 cor.test(x=df_sta_bor$Borrowability, 
@@ -1535,7 +1400,7 @@ cor.test(x=df_sta_bor$Borrowability,
     ##         rho 
     ## -0.09894132
 
-4.2) Stability ~ Typological frequency.
+4.2 Stability ~ Typological frequency.
 
 ``` r
 cor.test(x=df_sta_typ$Typology, 
@@ -1559,19 +1424,23 @@ Stability vs typological frequency.
 
 ``` r
 ggplot(sta_typ_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape = NA) + 
-  geom_jitter(width = 0.2) + theme(legend.position="top")
+  geom_jitter(width = 0.2) + theme(legend.position="top") +
+  ylab("Order") +
+  xlab("Consonant") # @CS: FIX
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-57-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-55-1.png)<!-- -->
 
 Stability vs borrowability.
 
 ``` r
 ggplot(sta_bor_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape = NA) + 
-  geom_jitter(width = 0.2) + theme(legend.position="top")
+  geom_jitter(width = 0.2) + theme(legend.position="top") +
+  ylab("Order") +
+  xlab("Consonant") # @CS: FIX
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-58-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-56-1.png)<!-- -->
 
 Bump chart.
 
@@ -1672,14 +1541,16 @@ Which languages have bigger inventories?
 ``` r
 ggplot(inv_size) + 
   geom_bar(aes(x = Language,
-               y = count,
-              fill = Category), 
-           stat = "identity", 
-           show.legend = TRUE,
-           position = "dodge2") + coord_flip()
+  y = count,
+  fill = Category), 
+  stat = "identity", 
+  show.legend = TRUE,
+  position = "dodge2") + coord_flip() +
+  xlab("Language") +
+  ylab("Count") # @CS: FIX
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-62-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-60-1.png)<!-- -->
 
 Violin plot shows that the majority of creoles have larger consonant
 inventories than Portuguese.
@@ -1691,7 +1562,7 @@ ggplot(inv_size, aes(x = Category, y = count, fill = Category)) +
                stackdir = "center",
                dotsize = 0.5) +
   theme(legend.position = "none") +
-  ylab("No. of consonants")
+  ylab("Number of consonants")
 ```
 
 ![](README_files/figure-gfm/size_violin-1.png)<!-- -->
@@ -1713,8 +1584,7 @@ Is there a relationship between this frequency and the stability values?
 Portuguese consonants only.
 
 ``` r
-cons_freq_pt <- cons_freq %>% subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s',
-                                       't','v','z','ʒ', 'r'))
+cons_freq_pt <- cons_freq %>% subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s','t','v','z','ʒ', 'r'))
 ```
 
 First dataset: relative frequency values.
@@ -1735,7 +1605,7 @@ Merge the datasets.
 cor_freq_sta <- left_join(consonant_global_stability, cons_freq_rel, by='LexifierPhoneme')
 ```
 
-Results of a simple regression.
+Results of a regression analysis.
 
 ``` r
 fs <- lm(frequency ~ mglobal, data=cor_freq_sta)
@@ -1766,20 +1636,22 @@ Plot the results.
 ``` r
 fs_plot <- ggplot(cor_freq_sta, aes(x = frequency, y = mglobal, label = LexifierPhoneme)) +
   geom_smooth(method = "lm") +
-  geom_point() # +
+  geom_point() + 
+  ylab("Mean global score") +  # @CS: FIX
+  xlab("Frequency") # +
   #geom_text(aes(label=V1), hjust=3, vjust=0)
 
 fs_plot + geom_text_repel(aes(label=LexifierPhoneme))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-69-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-67-1.png)<!-- -->
 
-There relationship between stability and frequency across all languages
-involved. But does it make sense? We are measuring the consonants in all
-categories and the present of the lexifier and the creoles may influence
-the results. Perhaps, we should try to subset and measure the frequency
-across substrates only, but I think that this procedure would just
-increase the lack of correlation.
+There is a relationship between stability and frequency across all
+languages in the sample. But does it make sense? We are measuring the
+consonants in all categories and the present of the lexifier and the
+creoles may influence the results. Thus, we subset and measure the
+frequency across substrates only, but this procedure may just increase
+the lack of correlation.
 
 Is there a relationship between consonant stability and their presence
 in the inventories of the substrate languages?
@@ -1904,11 +1776,10 @@ Merge the datasets.
 
 ``` r
 #consonant_global_stability <- read.csv("consonant_global_stability.csv")
-
 typ_sta <- left_join(typ_freq, consonant_global_stability, by='LexifierPhoneme')
 ```
 
-Results of a simple regression.
+Results of a linear regression.
 
 ``` r
 typ_sta_lm <- lm(TypologicalFreq ~ mglobal, data=typ_sta)
@@ -1941,7 +1812,7 @@ Plot the results.
 typ_sta_cor <- ggplot(typ_sta, aes(x = TypologicalFreq, y = mglobal, label = LexifierPhoneme)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  xlab("Frequency across world's languages") + ylab("Stability across creoles") # +
+  xlab("Frequency across the world's languages") + ylab("Stability across creoles") # +
  # geom_text(aes(label=V1), hjust=3, vjust=0)
 
 
@@ -1954,6 +1825,14 @@ typ_sta_cor + geom_text_repel(aes(label=LexifierPhoneme))
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0">
+
+<div id="ref-maps" class="csl-entry">
+
+Becker, Richard A., Allan R. Wilks, Ray Brownrigg, Thomas P Minka, and
+Alex Deckmyn. 2023. *Maps: Draw Geographical Maps*.
+<https://CRAN.R-project.org/package=maps>.
+
+</div>
 
 <div id="ref-CarvalhoLucchesi16" class="csl-entry">
 
@@ -1974,6 +1853,28 @@ and L. Lim, 227–64. John Benjamins.
 
 </div>
 
+<div id="ref-prabclus" class="csl-entry">
+
+Hennig, Christian, and Bernhard Hausdorf. 2023. *Prabclus: Functions for
+Clustering and Testing of Presence-Absence, Abundance and Multilocus
+Genetic Data*. <https://CRAN.R-project.org/package=prabclus>.
+
+</div>
+
+<div id="ref-ggpubr" class="csl-entry">
+
+Kassambara, Alboukadel. 2023a. *Ggpubr: ’Ggplot2’ Based Publication
+Ready Plots*. <https://CRAN.R-project.org/package=ggpubr>.
+
+</div>
+
+<div id="ref-rstatix" class="csl-entry">
+
+———. 2023b. *Rstatix: Pipe-Friendly Framework for Basic Statistical
+Tests*. <https://CRAN.R-project.org/package=rstatix>.
+
+</div>
+
 <div id="ref-lmerTest" class="csl-entry">
 
 Kuznetsova, Alexandra, Per B. Brockhoff, and Rune H. B. Christensen.
@@ -1983,20 +1884,19 @@ Mixed Effects Models.” *Journal of Statistical Software* 82 (13): 1–26.
 
 </div>
 
+<div id="ref-PMCMRplus" class="csl-entry">
+
+Pohlert, Thorsten. 2023. *PMCMRplus: Calculate Pairwise Multiple
+Comparisons of Mean Rank Sums Extended*.
+<https://CRAN.R-project.org/package=PMCMRplus>.
+
+</div>
+
 <div id="ref-R" class="csl-entry">
 
 R Core Team. 2023. *R: A Language and Environment for Statistical
 Computing*. Vienna, Austria: R Foundation for Statistical Computing.
 <https://www.R-project.org/>.
-
-</div>
-
-<div id="ref-maps" class="csl-entry">
-
-Richard A. Becker, Original S code by, Allan R. Wilks. R version by Ray
-Brownrigg. Enhancements by Thomas P Minka, and Alex Deckmyn. 2023.
-*Maps: Draw Geographical Maps*.
-<https://CRAN.R-project.org/package=maps>.
 
 </div>
 
