@@ -1,8 +1,8 @@
 Supplementary materials for: Consonant stability in Portuguese-based
 creoles
 ================
-Carlos Silva and Steven Moran
-(19 April, 2024)
+Steven Moran and Carlos Silva
+(14 June, 2024)
 
 - [1 Overview](#1-overview)
 - [2 Language sample](#2-language-sample)
@@ -35,7 +35,10 @@ Carlos Silva and Steven Moran
 <!-- Supplementary materials for [Consonant Stability in Portuguese-based creoles](https://www.overleaf.com/project/60cdac0dd5871295e0f608fc). Silva, Carlos and Steven Moran. Work in progress. -->
 
 Supplementary materials for, “Consonant Stability in Portuguese-based
-creoles”, available online:
+creoles”, by Carlos Silva and Steven Moran, to appear in
+[Diachronica](https://benjamins.com/catalog/dia).
+
+These supplementary materials are available online at:
 
 - <https://github.com/CreoPhon/consonant_stability_portuguese_creoles>
 
@@ -67,22 +70,24 @@ Load the data set.
 database <- read_csv("database.csv")
 ```
 
+<!-- Doesn't appear nicely in PDF
 The data look like this:
-
-``` r
+&#10;
+```r
 database %>%
   head() %>%
   kable()
 ```
-
-| Language    | Macroarea | Area           | Lexifier   | FirstMajorSettlement | EndOfInfluence | ContactConditions | LanguageContact | Class | Position     | LexifierPhoneme | CreolePhoneme | PlaceStability | MannerStability | Word        | Gloss      | Source            |
-|:------------|:----------|:---------------|:-----------|---------------------:|---------------:|:------------------|:----------------|:------|:-------------|:----------------|:--------------|---------------:|----------------:|:------------|:-----------|:------------------|
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | p               | p             |              1 |               1 | $$ˈpɛnɛ$$   | feather    | Maurer2009$$232$$ |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | p               | p             |              1 |               1 | $$t̠ʃipa$$   | guts       | Maurer2009$$238$$ |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | b               | b             |              1 |               1 | $$bwɛga$$   | belly      | Maurer2009$$216$$ |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | b               | b             |              1 |               1 | $$kaˈbɛlu$$ | hair       | Maurer2009$$221$$ |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-initial | t               | t             |              1 |               1 | $$ˈtudu$$   | everything | Maurer2009$$237$$ |
-| Principense | Africa    | Gulf of Guinea | Portuguese |                 1499 |           1975 | Slavery           | Edo             | Stops | word-medial  | t               | t             |              1 |               1 | $$mata$$    | to kill    | Maurer2009$$227$$ |
+&#10;
+&#10;|Language    |Macroarea |Area           |Lexifier   | FirstMajorSettlement| EndOfInfluence|ContactConditions |LanguageContact |Class |Position     |LexifierPhoneme |CreolePhoneme | PlaceStability| MannerStability|Word      |Gloss      |Source          |
+|:-----------|:---------|:--------------|:----------|--------------------:|--------------:|:-----------------|:---------------|:-----|:------------|:---------------|:-------------|--------------:|---------------:|:---------|:----------|:---------------|
+|Principense |Africa    |Gulf of Guinea |Portuguese |                 1499|           1975|Slavery           |Edo             |Stops |word-initial |p               |p             |              1|               1|[ˈpɛnɛ]   |feather    |Maurer2009[232] |
+|Principense |Africa    |Gulf of Guinea |Portuguese |                 1499|           1975|Slavery           |Edo             |Stops |word-medial  |p               |p             |              1|               1|[t̠ʃipa]   |guts       |Maurer2009[238] |
+|Principense |Africa    |Gulf of Guinea |Portuguese |                 1499|           1975|Slavery           |Edo             |Stops |word-initial |b               |b             |              1|               1|[bwɛga]   |belly      |Maurer2009[216] |
+|Principense |Africa    |Gulf of Guinea |Portuguese |                 1499|           1975|Slavery           |Edo             |Stops |word-medial  |b               |b             |              1|               1|[kaˈbɛlu] |hair       |Maurer2009[221] |
+|Principense |Africa    |Gulf of Guinea |Portuguese |                 1499|           1975|Slavery           |Edo             |Stops |word-initial |t               |t             |              1|               1|[ˈtudu]   |everything |Maurer2009[237] |
+|Principense |Africa    |Gulf of Guinea |Portuguese |                 1499|           1975|Slavery           |Edo             |Stops |word-medial  |t               |t             |              1|               1|[mata]    |to kill    |Maurer2009[227] |
+&#10;-->
 
 We extend the database with some additional variables. First, duration
 of contact.
@@ -161,12 +166,32 @@ Plot it by area.
 
 ``` r
 ggplot(creole_stability) +
-  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), fill = Area), stat = "identity", show.legend = TRUE)  +
+  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), 
+               fill = Area), stat = "identity", show.legend = TRUE)  +
   theme(axis.title.y = element_blank()) +
   labs(x = "Stability score")
 ```
 
 ![](README_files/figure-gfm/creole_stability_by_area-1.png)<!-- -->
+
+Plot it by area with a color-blind friendly palette.
+
+``` r
+# cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbPalette <- c("#56B4E9", "#F0E442", "#999999", "#E69F00", "#009E73", "#0072B2", "#D55E00", "#CC79A7")
+# cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+```
+
+``` r
+ggplot(creole_stability) +
+  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), 
+               fill = Area), stat = "identity", show.legend = TRUE)  +
+  theme(axis.title.y = element_blank()) +
+  labs(x = "Stability score") + 
+  scale_fill_manual(values=cbPalette)
+```
+
+![](README_files/figure-gfm/creole_stability_by_area_cbf-1.png)<!-- -->
 
 ``` r
 table(creole_stability$Area)
@@ -196,7 +221,19 @@ ggplot(creole_stability) +
   labs(x = "Stability score", fill = "Conditions of contact")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+``` r
+ggplot(creole_stability) +
+  geom_bar(aes(x = MeanStability, y = reorder(Language, MeanStability), 
+               fill = ContactConditions), stat = "identity", show.legend = TRUE
+  ) +
+  theme(axis.title.y = element_blank()) +
+  labs(x = "Stability score", fill = "Conditions of contact") + 
+  scale_fill_manual(values=cbPalette)
+```
+
+![](README_files/figure-gfm/creole_stability_cbf-1.png)<!-- -->
 
 Test whether there is a relation between type of contact situation and
 overall mean stability with a linear model.
@@ -230,7 +267,7 @@ Visualize the results.
 ``` r
 ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, 
                              fill = ContactConditions)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_violin() +
   geom_dotplot(binaxis = "y",
                stackdir = "center",
@@ -240,6 +277,27 @@ ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability,
 ```
 
 ![](README_files/figure-gfm/conditions_violin-1.png)<!-- -->
+
+``` r
+ggplot(creole_stability, aes(x = ContactConditions, y = MeanStability, 
+                             fill = ContactConditions)) +
+  geom_smooth(method = "lm", colour="black") +
+  geom_violin() +
+  geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               dotsize = 0.5)  +
+  theme(legend.position="none") +
+  labs(y = "Stability score", x = "Conditions of contact") +
+  scale_fill_manual(values=cbPalette)
+```
+
+    ## `geom_smooth()` using formula = 'y ~ x'
+    ## Bin width defaults to 1/30 of the range of the data. Pick better value with
+    ## `binwidth`.
+
+![](README_files/figure-gfm/conditions_violin_cbf-1.png)<!-- -->
+
+Statistical summary.
 
 ``` r
 m <- lm(MeanStability ~ duration + ContactConditions * duration, 
@@ -270,9 +328,8 @@ summary(m)
     ## F-statistic: 2.067 on 3 and 15 DF,  p-value: 0.1477
 
 ``` r
-ggplot(creole_stability, aes(x = duration, y = MeanStability, 
-                             color = ContactConditions)) +
-  geom_smooth(method = "lm") +
+ggplot(creole_stability, aes(x = duration, y = MeanStability, color = ContactConditions)) +
+  geom_smooth(method = "lm", colour="black") +
   geom_point() +
   xlab("Duration (years)") +
   ylab("Mean stability") +
@@ -280,6 +337,20 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability,
 ```
 
 ![](README_files/figure-gfm/duration_groups_geom-1.png)<!-- -->
+
+``` r
+ggplot(creole_stability, aes(x = duration, y = MeanStability, fill = ContactConditions)) +
+  geom_smooth(method = "lm", colour="black") +
+  geom_point() +
+  xlab("Duration (years)") +
+  ylab("Mean stability") +
+  labs(fill = "Contact conditions") +
+  scale_fill_manual(values=cbPalette)
+```
+
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+![](README_files/figure-gfm/duration_groups_geom_cbf-1.png)<!-- -->
 
 ## 3.2 Duration of contact
 
@@ -345,7 +416,7 @@ ggplot(tmp_short, aes(x = duration, y = MeanStability)) +
   ylab("Mean stability")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ``` r
 ggplot(tmp_long, aes(x = duration, y = MeanStability)) +
@@ -355,7 +426,7 @@ ggplot(tmp_long, aes(x = duration, y = MeanStability)) +
   ylab("Mean stability")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 Here is a single model with an interaction term MeanSim ~ duration,
 group \* duration.
@@ -389,7 +460,7 @@ summary(msd)
 
 ``` r
 ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_point() +
   xlab("Duration of contact (years)") +
   ylab("Stability score") +
@@ -397,6 +468,20 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_g
 ```
 
 ![](README_files/figure-gfm/duration_groups-1.png)<!-- -->
+
+``` r
+ggplot(creole_stability, aes(x = duration, y = MeanStability, fill = duration_group)) +
+  geom_smooth(method = "lm", colour="black") +
+  geom_point() +
+  xlab("Duration of contact (years)") +
+  ylab("Stability score") +
+  labs(color = "Group") +
+  scale_fill_manual(values=cbPalette)
+```
+
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+![](README_files/figure-gfm/duration_groups_cbf-1.png)<!-- -->
 
 The variability in the two groups is very different. The direction of
 the effect is interesting: shorter durations yield more stability more
@@ -451,14 +536,14 @@ summary(msd.gam)
 plot(msd.gam, all.terms = T, shade = T, pages = 1)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ``` r
 qqnorm(resid(msd.gam))
 qqline(resid(msd.gam))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-2.png)<!-- -->
 
 ``` r
 msd.gam.trimmed <- gam(MeanStability ~ duration_group + s(duration, k = 3) 
@@ -500,7 +585,7 @@ plot(msd.gam.trimmed, sel = 1, shade = T, ylab = "Effect on mean stability",
 abline(h = 0, lty = 2, col = "red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-20-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-3.png)<!-- -->
 
 ``` r
 plot(msd.gam.trimmed, sel = 2, shade = T, ylab = "Effect on mean stability", 
@@ -508,7 +593,7 @@ plot(msd.gam.trimmed, sel = 2, shade = T, ylab = "Effect on mean stability",
 abline(h = 0, lty = 2, col = "red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-20-4.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-4.png)<!-- -->
 
 ``` r
 plot(msd.gam.trimmed, sel = 3, shade = T, ylab = "Effect on mean stability", 
@@ -516,7 +601,7 @@ plot(msd.gam.trimmed, sel = 3, shade = T, ylab = "Effect on mean stability",
 abline(h = 0, lty = 2, col = "red")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-20-5.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-5.png)<!-- -->
 
 ``` r
 # (dotted lines indicate error)
@@ -524,7 +609,7 @@ plot(msd.gam.trimmed, all.terms = T, sel = 4, ylab = "Effect on mean stability",
      xlab = "Duration group", main = "Main effect of duration group")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-20-6.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-6.png)<!-- -->
 
 ``` r
 # checking out the model performance
@@ -532,7 +617,7 @@ qqnorm(resid(msd.gam.trimmed))
 qqline(resid(msd.gam.trimmed)) # meh
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-20-7.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-7.png)<!-- -->
 
 Removing the two creoles with the lowest scores produces significant
 effects. This does not seem very reliable though, especially given the
@@ -549,7 +634,7 @@ Does duration affect the stability values of specific segments or
 segment classes?
 
 ``` r
-ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
+ggplot(database, aes(duration, MannerStability, colour = duration_group, shape = duration_group)) +
   geom_point() +
   geom_smooth(method = "lm") +
   facet_wrap(~Class) +
@@ -558,10 +643,10 @@ ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 ``` r
-ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
+ggplot(database, aes(duration, GlobalStability, colour = duration_group, shape = duration_group)) +
   geom_point() +
   geom_smooth() +
   facet_wrap(~Class) +
@@ -570,10 +655,10 @@ ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 ``` r
-ggplot(database, aes(duration, PlaceStability, colour = duration_group)) +
+ggplot(database, aes(duration, PlaceStability, colour = duration_group, shape = duration_group)) +
   geom_point() +
   geom_smooth(method = "lm") +
   facet_wrap(~LexifierPhoneme) +
@@ -582,10 +667,10 @@ ggplot(database, aes(duration, PlaceStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 ``` r
-ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
+ggplot(database, aes(duration, MannerStability, colour = duration_group, shape = duration_group)) +
   geom_point() +
   geom_smooth() +
   facet_wrap(~LexifierPhoneme) +
@@ -594,10 +679,10 @@ ggplot(database, aes(duration, MannerStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 ``` r
-ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
+ggplot(database, aes(duration, GlobalStability, colour = duration_group, shape = duration_group)) +
   geom_point() +
   geom_smooth() +
   facet_wrap(~LexifierPhoneme) +
@@ -606,7 +691,7 @@ ggplot(database, aes(duration, GlobalStability, colour = duration_group)) +
   labs(color = "Duration")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 ## 3.4 Jaccard distance between inventories
 
@@ -684,14 +769,14 @@ summary(cl)
 
 ``` r
 ggplot(df_cor, aes(x = stability, y = lex_crio, label = Language)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_point() +
   geom_text_repel(aes(label = Language)) +
   xlab("Stability") +
   ylab("Lex crio") # CS: FIX THIS
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 Next, inventory distance substrates ~ Portuguese.
 
@@ -721,14 +806,14 @@ summary(sl_mean)
 
 ``` r
 ggplot(df_cor, aes(x = stability, y = lex_subs_mean, label = Language)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_point() +
   geom_text_repel(aes(label = Language)) +
   xlab("Stability") +
   ylab("Lex subs mean") # CS: FIX THIS
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 Next, inventory distance substrates ~ creoles.
 
@@ -758,14 +843,14 @@ summary(sc_mean)
 
 ``` r
 ggplot(df_cor, aes(x = stability, y = crio_subs_mean, label = Language)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_point() +
   geom_text_repel(aes(label = Language)) +
   xlab("Stability") +
   ylab("Crio subs mean") # CS: FIX THIS
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 # 4 Consonant stability
 
@@ -782,7 +867,10 @@ manner_results <- database %>%
 
 consonant_stability <- left_join(place_results, manner_results, by = "LexifierPhoneme")
 
-class <- c("stop", "stop", "fricative", "stop", "stop", "lateral","nasal", "nasal", "stop", "rhotic","fricative", "stop","affricate", "fricative", "fricative","nasal", "rhotic", "lateral", "fricative")
+class <- c("stop", "stop", "fricative", "stop", "stop", "lateral",
+           "nasal", "nasal", "stop", "rhotic","fricative", "stop",
+           "affricate", "fricative", "fricative","nasal", "rhotic", 
+           "lateral", "fricative")
 
 consonant_stability_class <- cbind(consonant_stability, class)
 ```
@@ -829,12 +917,15 @@ summary(lm_manner_place)
     ## F-statistic:  79.9 on 1 and 17 DF,  p-value: 7.811e-08
 
 ``` r
-manner_place_lmplot <- ggplot(consonant_stability, aes(y = mmanner, x = mplace, label = LexifierPhoneme)) +
+manner_place_lmplot <- ggplot(consonant_stability, 
+                              aes(y = mmanner, x = mplace, 
+                                  label = LexifierPhoneme)) +
   geom_point(position= "dodge") + 
   geom_smooth(method = lm) #+
   #geom_text(aes(label=LexifierPhoneme), hjust=3, vjust=0)
 
-print(manner_place_lmplot + labs(y = "Manner stability", x = "Place stability")) + geom_text_repel(aes(label=LexifierPhoneme), hjust=3, vjust=1)
+print(manner_place_lmplot + labs(y = "Manner stability", x = "Place stability")) + 
+  geom_text_repel(aes(label=LexifierPhoneme), hjust=3, vjust=1)
 ```
 
 ![](README_files/figure-gfm/manner_place_cor-1.png)<!-- -->![](README_files/figure-gfm/manner_place_cor-2.png)<!-- -->
@@ -858,13 +949,26 @@ ggplot(consonant_global_stability) +
 
 ![](README_files/figure-gfm/consonant_stability-1.png)<!-- -->
 
+``` r
+ggplot(consonant_global_stability) +
+  geom_bar(aes(
+    x = mglobal,
+    y = reorder(LexifierPhoneme, mglobal),
+    fill = class
+  ), stat = "identity", show.legend = TRUE) +
+  labs(x = "Stability score", y="", fill = "Class") +
+  scale_fill_manual(values=cbPalette)
+```
+
+![](README_files/figure-gfm/consonant_stability_cbf-1.png)<!-- -->
+
 ## 4.1 Manner stability
 
 Check for class effects on the global stability of consonants.
 
 ``` r
 ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_violin() +
    geom_dotplot(binaxis = "y",
                stackdir = "center",
@@ -873,13 +977,13 @@ ggplot(consonant_global_stability, aes(x = class, y = mglobal, fill = class)) +
   ylab("Mean global score") # CS: FIX THIS
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 Now, just plotting the relation manner to manner.
 
 ``` r
 ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_violin() +
    geom_dotplot(binaxis = "y",
                stackdir = "center",
@@ -897,12 +1001,15 @@ ggplot(consonant_global_stability, aes(x = class, y = mmanner, fill = class)) +
 We check place effects on the global stability of the consonants.
 
 ``` r
-place <- c("labial", "alveolar", "labiodental", "velar", "velar", "alveolar", "labial", "alveolar", "labial", "alveolar", "alveolar", "alveolar", "palatal", "labiodental", "alveolar", "palatal", "alveolar", "palatal", "palatal")
+place <- c("labial", "alveolar", "labiodental", "velar", "velar", 
+           "alveolar", "labial", "alveolar", "labial", "alveolar", 
+           "alveolar", "alveolar", "palatal", "labiodental", "alveolar", 
+           "palatal", "alveolar", "palatal", "palatal")
 
 consonant_stability_place <- cbind(consonant_global_stability, place)
 
 ggplot(consonant_stability_place, aes(x = place, y = mglobal, fill = place)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_violin() +
    geom_dotplot(binaxis = "y",
                stackdir = "center",
@@ -912,12 +1019,12 @@ ggplot(consonant_stability_place, aes(x = place, y = mglobal, fill = place)) +
   ylab("Mean global score") # CS: FIX THIS
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- --> Now, just
+![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- --> Now, just
 with the mean for place stability.
 
 ``` r
 ggplot(consonant_stability_place, aes(x = place, y = mplace, fill = place)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_violin()  +
    geom_dotplot(binaxis = "y",
                stackdir = "center",
@@ -954,7 +1061,7 @@ mod.db <- database %>%
 plot(mod.db$categorical_stability, mod.db$duration, notch = T)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
 
 Hugely skewed in favor of no manner/place (10x as frequent as the next
 most frequent level; note this may cause problems for the models).
@@ -1141,9 +1248,10 @@ And plot the results for all segments.
 position_results$Position <- factor(position_results$Position, 
                                     levels = c("word-initial", 
                                                "word-medial", 
-                                               "word-final"))
+                                               "word-final"),
+                                    ordered = TRUE)
 
-ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
+ggplot(position_results, aes(x = reorder(LexifierPhoneme, -m), y = m, fill = Position)) +
   geom_col(position = position_dodge2(width = 0.9, preserve = "single")) +
   theme(
     axis.title.x = element_blank(),
@@ -1152,9 +1260,27 @@ ggplot(position_results, aes(x = LexifierPhoneme, y = m, fill = Position)) +
   labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
+![](README_files/figure-gfm/position_stability_cbf-1.png)<!-- -->
 
 Flip horizontally.
+
+``` r
+ggplot(position_results) +
+  geom_bar(
+    aes(
+      x = m,
+      y = reorder(LexifierPhoneme, -m),
+      # y = LexifierPhoneme,
+      fill = Position
+    ),
+    stat = "identity",
+    show.legend = TRUE,
+    position = "dodge2"
+  ) +
+  labs(x = "Stability score", y = "", fill = "Position")
+```
+
+![](README_files/figure-gfm/position_stability-1.png)<!-- -->
 
 ``` r
 ggplot(position_results) +
@@ -1168,10 +1294,11 @@ ggplot(position_results) +
     show.legend = TRUE,
     position = "dodge2"
   ) +
-  labs(x = "Stability score", y = "", fill = "Position")
+  labs(x = "Stability score", y = "", fill = "Position") +
+  scale_fill_grey(start = 0.8, end = 0.2) 
 ```
 
-![](README_files/figure-gfm/position_stability-1.png)<!-- -->
+![](README_files/figure-gfm/position_stability_gray-1.png)<!-- -->
 
 Plot the results for segments that show differences.
 
@@ -1201,7 +1328,7 @@ ggplot(
   labs(x = "Lexifier phoneme", y = "Mean stability", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
 
 Flip horizontally.
 
@@ -1220,7 +1347,7 @@ ggplot(different_position_results) +
   labs(x = "Stability score", y = "Phoneme", fill = "Word position")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
 
 ## 4.4 Typological frequency and borrowability
 
@@ -1233,7 +1360,8 @@ Cross linguistic frequency
 
 ``` r
 Typology <- c(1, 2, 3, 4, 5, 5, 7, 8, 9, 10, 11.5, 11.5, 13, 14, 15, 16, 17, 18, 19)
-consonant <- c("m", "k", "p", "n", "t", "l", "s", "b", "g", "d", "f", "r", "ɲ", "t̠ʃ","z","v","ɾ","ʒ","ʎ")
+consonant <- c("m", "k", "p", "n", "t", "l", "s", "b", "g", "d", "f", "r", "ɲ", 
+               "t̠ʃ","z","v","ɾ","ʒ","ʎ")
 df_typ <- data.frame(Typology, consonant)
 ```
 
@@ -1241,7 +1369,8 @@ df_typ <- data.frame(Typology, consonant)
 
 ``` r
 Borrowability <- c(1, 2, 3, 4, 5, 6, 6, 8, 9, 10, 11, 12, 13, 14.5, 14.5, 16, 17, 18, 19)
-consonant <- c("f", "g", "t̠ʃ","b","z","v","d","r","p","l","s","ʒ","ɾ","ɲ","k","ʎ","t","n","m")
+consonant <- c("f", "g", "t̠ʃ","b","z","v","d","r","p","l","s","ʒ","ɾ","ɲ","k"
+               ,"ʎ","t","n","m")
 df_bor <- data.frame(Borrowability, consonant)
 ```
 
@@ -1249,7 +1378,8 @@ df_bor <- data.frame(Borrowability, consonant)
 
 ``` r
 Stability <- c(2, 2, 2, 2, 5, 7, 7, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19)
-consonant <- c("t", "p", "n", "m", "f", "b", "k", "g", "d", "z", "s", "l", "r", "t̠ʃ" ,"ɾ"  ,"ɲ" ,"ʒ" ,"ʎ" ,"v")
+consonant <- c("t", "p", "n", "m", "f", "b", "k", "g", "d", "z", "s", "l", "r", 
+               "t̠ʃ" ,"ɾ"  ,"ɲ" ,"ʒ" ,"ʎ" ,"v")
 df_sta <- data.frame(Stability, consonant)
 ```
 
@@ -1329,7 +1459,7 @@ ggplot(df_long, aes(x = consonant, y = order)) +
   xlab("Consonant") # @CS: FIX
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-49-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-51-1.png)<!-- -->
 
 1.  Friedman test.
 
@@ -1429,7 +1559,7 @@ ggplot(sta_typ_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape
   xlab("Consonant") # @CS: FIX
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-55-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-57-1.png)<!-- -->
 
 Stability vs borrowability.
 
@@ -1440,7 +1570,7 @@ ggplot(sta_bor_long, aes(x = consonant, y = order)) + geom_boxplot(outlier.shape
   xlab("Consonant") # @CS: FIX
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-56-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-58-1.png)<!-- -->
 
 Bump chart.
 
@@ -1481,7 +1611,8 @@ Prepare the data.
 ``` r
 df_inv_long <- inv %>% dplyr::select(Language, Phoneme) %>%  mutate(newcol = 1)
 
-df_inv <- df_inv_long %>% pivot_wider(names_from = Language, values_from = newcol, values_fill = 0)
+df_inv <- df_inv_long %>% pivot_wider(names_from = Language, 
+                                      values_from = newcol, values_fill = 0)
 
 df_total_inv <- df_inv %>% mutate_at(c(2:38), as.numeric)
 
@@ -1550,7 +1681,7 @@ ggplot(inv_size) +
   ylab("Count") # @CS: FIX
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-60-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-62-1.png)<!-- -->
 
 Violin plot shows that the majority of creoles have larger consonant
 inventories than Portuguese.
@@ -1584,7 +1715,9 @@ Is there a relationship between this frequency and the stability values?
 Portuguese consonants only.
 
 ``` r
-cons_freq_pt <- cons_freq %>% subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s','t','v','z','ʒ', 'r'))
+cons_freq_pt <- cons_freq %>% subset(LexifierPhoneme %in% 
+                                       c('b','d','f','g','k','l','ʎ','m','n',
+                                         'ɲ','p','t̠ʃ','ɾ','s','t','v','z','ʒ', 'r'))
 ```
 
 First dataset: relative frequency values.
@@ -1635,7 +1768,7 @@ Plot the results.
 
 ``` r
 fs_plot <- ggplot(cor_freq_sta, aes(x = frequency, y = mglobal, label = LexifierPhoneme)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_point() + 
   ylab("Mean global score") +  # @CS: FIX
   xlab("Frequency") # +
@@ -1644,7 +1777,7 @@ fs_plot <- ggplot(cor_freq_sta, aes(x = frequency, y = mglobal, label = Lexifier
 fs_plot + geom_text_repel(aes(label=LexifierPhoneme))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-67-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-69-1.png)<!-- -->
 
 There is a relationship between stability and frequency across all
 languages in the sample. But does it make sense? We are measuring the
@@ -1701,7 +1834,8 @@ subs_freq <- transform(subs_freq, total_subs = as.numeric(total_subs))
 colnames(subs_freq)[1] <- "LexifierPhoneme"
 
 subs_freq <- subs_freq %>% 
-  subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p','t̠ʃ','ɾ','s', 't','v','z','ʒ', 'r'))
+  subset(LexifierPhoneme %in% c('b','d','f','g','k','l','ʎ','m','n','ɲ','p',
+                                't̠ʃ','ɾ','s', 't','v','z','ʒ', 'r'))
 ```
 
 Get relative values.
@@ -1747,7 +1881,7 @@ Plot the results.
 
 ``` r
 subsfreq_sta_cor <- ggplot(subs_sta, aes(x = frequency, y = mglobal, label = LexifierPhoneme)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_point() +
   xlab("Frequency across substrates") + ylab("Stability across creoles") # +
  # geom_text(aes(label=V1), hjust=3, vjust=0)
@@ -1810,11 +1944,10 @@ Plot the results.
 
 ``` r
 typ_sta_cor <- ggplot(typ_sta, aes(x = TypologicalFreq, y = mglobal, label = LexifierPhoneme)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", colour="black") +
   geom_point() +
   xlab("Frequency across the world's languages") + ylab("Stability across creoles") # +
  # geom_text(aes(label=V1), hjust=3, vjust=0)
-
 
 typ_sta_cor + geom_text_repel(aes(label=LexifierPhoneme))
 ```
