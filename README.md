@@ -459,12 +459,12 @@ summary(msd)
     ## F-statistic: 0.783 on 3 and 15 DF,  p-value: 0.5218
 
 ``` r
-ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
+ggplot(creole_stability, aes(x = duration, y = MeanStability, fill = duration_group)) +
   geom_smooth(method = "lm", colour="black") +
   geom_point() +
   xlab("Duration of contact (years)") +
   ylab("Stability score") +
-  labs(color = "Group")
+  labs(fill = "Group")
 ```
 
 ![](README_files/figure-gfm/duration_groups-1.png)<!-- -->
@@ -475,7 +475,7 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, fill = duration_gr
   geom_point() +
   xlab("Duration of contact (years)") +
   ylab("Stability score") +
-  labs(color = "Group") +
+  labs(fill = "Group") +
   scale_fill_manual(values=cbPalette)
 ```
 
@@ -887,6 +887,18 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
 ```
 
 ![](README_files/figure-gfm/stability_by_consonant-1.png)<!-- -->
+
+``` r
+ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
+  geom_point(position = "dodge", aes(color = class)) +
+  geom_text_repel(aes(label = LexifierPhoneme), size = 4) +
+  xlab("Mean stability (place of articulation)") +
+  ylab("Mean stability (manner of articulation)") +
+  labs(color = "Segment class") +
+  scale_fill_manual(values=cbPalette)
+```
+
+![](README_files/figure-gfm/stability_by_consonant_cbf-1.png)<!-- -->
 
 We make a linear model to assess the relationship between manner and
 place stability.

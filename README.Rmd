@@ -9,8 +9,7 @@ output:
 bibliography: 'bibliography.bib'
 ---
 
-<!-- For the anonymous PDF version, use:
-
+<!-- For the PDF version, use:
   pdf_document:
     latex_engine: xelatex
     toc: true
@@ -342,12 +341,12 @@ summary(msd)
 ```
 
 ```{r, duration_groups, warning=FALSE, message=FALSE}
-ggplot(creole_stability, aes(x = duration, y = MeanStability, color = duration_group)) +
+ggplot(creole_stability, aes(x = duration, y = MeanStability, fill = duration_group)) +
   geom_smooth(method = "lm", colour="black") +
   geom_point() +
   xlab("Duration of contact (years)") +
   ylab("Stability score") +
-  labs(color = "Group")
+  labs(fill = "Group")
 ```
 
 ```{r, duration_groups_cbf}
@@ -356,7 +355,7 @@ ggplot(creole_stability, aes(x = duration, y = MeanStability, fill = duration_gr
   geom_point() +
   xlab("Duration of contact (years)") +
   ylab("Stability score") +
-  labs(color = "Group") +
+  labs(fill = "Group") +
   scale_fill_manual(values=cbPalette)
 ```
 
@@ -572,6 +571,16 @@ ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
   xlab("Mean stability (place of articulation)") +
   ylab("Mean stability (manner of articulation)") +
   labs(color = "Segment class")
+```
+
+```{r, stability_by_consonant_cbf, warning=FALSE, message=FALSE}
+ggplot(consonant_stability, aes(y = mmanner, x = mplace)) +
+  geom_point(position = "dodge", aes(color = class)) +
+  geom_text_repel(aes(label = LexifierPhoneme), size = 4) +
+  xlab("Mean stability (place of articulation)") +
+  ylab("Mean stability (manner of articulation)") +
+  labs(color = "Segment class") +
+  scale_fill_manual(values=cbPalette)
 ```
 
 We make a linear model to assess the relationship between manner and place stability.
